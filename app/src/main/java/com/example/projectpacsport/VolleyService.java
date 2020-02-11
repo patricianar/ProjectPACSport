@@ -3,6 +3,7 @@ package com.example.projectpacsport;
 import android.content.Context;
 import android.util.Base64;
 import android.util.Log;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -10,6 +11,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,8 +20,7 @@ public class VolleyService {
     Context context;
     RequestQueue requestQueue;
 
-    VolleyService(Context context)
-    {
+    VolleyService(Context context) {
         this.context = context;
         requestQueue = Volley.newRequestQueue(context);
     }
@@ -55,10 +56,10 @@ public class VolleyService {
             Log.e("Volley: ", e.getMessage());
         }
     }
-        public interface VolleyCallback
-        {
-            void getResponse(String response);
-        }
+
+    public interface VolleyCallback {
+        void getResponse(String response);
+    }
 }
 
 

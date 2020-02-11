@@ -44,15 +44,21 @@ public class LeaguesFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_leagues, container, false);
         final ImageView imgNBA = view.findViewById(R.id.imgNBA);
-        ImageView imgNFL = view.findViewById(R.id.imgNFL);
-        ImageView imgNHL = view.findViewById(R.id.imgNHL);
-        ImageView imgMLB = view.findViewById(R.id.imgMLB);
+        final ImageView imgNFL = view.findViewById(R.id.imgNFL);
+        final ImageView imgNHL = view.findViewById(R.id.imgNHL);
+        final ImageView imgMLB = view.findViewById(R.id.imgMLB);
+        imgNFL.setAlpha(0.5f);
+        imgNHL.setAlpha(0.5f);
+        imgMLB.setAlpha(0.5f);
         imgNBA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 listResults.clear();
                 getResults("https://api.mysportsfeeds.com/v2.1/pull/nba/current/date/20200208/games.json");
-                //imgNBA.setImageResource(R.drawable.logo);
+                imgNBA.setAlpha(1f);
+                imgNFL.setAlpha(0.5f);
+                imgNHL.setAlpha(0.5f);
+                imgMLB.setAlpha(0.5f);
             }
         });
         imgNFL.setOnClickListener(new View.OnClickListener() {
@@ -60,7 +66,10 @@ public class LeaguesFragment extends Fragment {
             public void onClick(View view) {
                 listResults.clear();
                 getResults("https://api.mysportsfeeds.com/v2.1/pull/nfl/latest/date/20200202/games.json");
-                //imgNBA.setImageResource(R.drawable.logo);
+                imgNBA.setAlpha(0.5f);
+                imgNFL.setAlpha(1f);
+                imgNHL.setAlpha(0.5f);
+                imgMLB.setAlpha(0.5f);
             }
         });
         imgNHL.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +77,10 @@ public class LeaguesFragment extends Fragment {
             public void onClick(View view) {
                 listResults.clear();
                 getResults("http://api.mysportsfeeds.com/v2.1/pull/nhl/current/date/20200208/games.json");
-                // imgNBA.setImageResource(R.drawable.logo);
+                imgNBA.setAlpha(0.5f);
+                imgNFL.setAlpha(0.5f);
+                imgNHL.setAlpha(1f);
+                imgMLB.setAlpha(0.5f);
             }
         });
 
