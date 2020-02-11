@@ -32,4 +32,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.github.corouteam:GlideToVectorYou:v2.0.0'
+
+    // Google Material resources
+    implementation 'com.google.android.material:material:1.2.0-alpha01'
 }
