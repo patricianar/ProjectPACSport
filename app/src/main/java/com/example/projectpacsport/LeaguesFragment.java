@@ -1,19 +1,18 @@
 package com.example.projectpacsport;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
+import android.content.Context;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
 import android.util.Base64;
 import android.util.Log;
-import android.widget.TextView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -27,33 +26,84 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements LeaguesFragment.OnFragmentInteractionListener {
-    ArrayList<Result> listResults = new ArrayList<>();
-    LeaguesFragment leaguesFragment;
-    ResultsFragment resultsFragment;
 
+public class LeaguesFragment extends Fragment {
+    private ArrayList<Result> listResults = new ArrayList<>();
+    private OnFragmentInteractionListener mListener;
+
+    public LeaguesFragment() {
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_leagues, container, false);
+        final ImageView imgNBA = view.findViewById(R.id.imgNBA);
+        ImageView imgNFL = view.findViewById(R.id.imgNFL);
+        ImageView imgNHL = view.findViewById(R.id.imgNHL);
+        ImageView imgMLB = view.findViewById(R.id.imgMLB);
+        imgNBA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listResults.clear();
+                getResults("https://api.mysportsfeeds.com/v2.1/pull/nba/current/date/20200208/games.json");
+                //imgNBA.setImageResource(R.drawable.logo);
+            }
+        });
+        imgNFL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listResults.clear();
+                getResults("https://api.mysportsfeeds.com/v2.1/pull/nfl/latest/date/20200202/games.json");
+                //imgNBA.setImageResource(R.drawable.logo);
+            }
+        });
+        imgNHL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listResults.clear();
+                getResults("http://api.mysportsfeeds.com/v2.1/pull/nhl/current/date/20200208/games.json");
+                // imgNBA.setImageResource(R.drawable.logo);
+            }
+        });
 
-        leaguesFragment = new LeaguesFragment();
-        resultsFragment = new ResultsFragment();
+        return view;
+    }
 
-//        Bundle bundle = getIntent().getExtras();
-//        listResults = (ArrayList<Result>) bundle.getSerializable("teamResults");
+//    public void onButtonPressed(Uri uri) {
+//        if (mListener != null) {
+//            mListener.onFragmentInteraction(uri);
+//        }
+//    }
 
-        VolleyService request = new VolleyService(this);
-        String url = "https://api.mysportsfeeds.com/v2.1/pull/nba/current/date/20200208/games.json";
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    public interface OnFragmentInteractionListener {
+        void dataFromFragment(Bundle bundle);
+    }
+
+    public void getResults(String url) {
+        VolleyService request = new VolleyService(getContext());
         request.executeRequest(url, new VolleyService.VolleyCallback() {
             @Override
             public void getResponse(String response) {
@@ -96,28 +146,12 @@ public class MainActivity extends AppCompatActivity implements LeaguesFragment.O
                     }
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("teamResults", listResults);
-                    resultsFragment.dataToDisplay(bundle);
+                    mListener.dataFromFragment(bundle);
                     // catch for the JSON parsing error
                 } catch (JSONException ex) {
                     Log.e("JSON: ", ex.getMessage());
                 }
             }
         });
-
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-
-        transaction.add(R.id.fragmentLeagues, leaguesFragment, "LeaguesFragment");
-        transaction.add(R.id.fragmentResults, resultsFragment, "ResultsFragment");
-        transaction.commit();
-    }
-
-    @Override
-    public void dataFromFragment(Bundle bundle) {
-        resultsFragment.dataToDisplay(bundle);
     }
 }
-
-
-
-

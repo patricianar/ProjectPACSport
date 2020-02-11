@@ -3,6 +3,7 @@ package com.example.projectpacsport;
 import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +11,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -40,14 +39,18 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
-        Context context = holder.tvAwayTName.getContext();
-        final Result result = listResults.get(position);
-        GlideToVectorYou.justLoadImage(mActivity, Uri.parse(result.getAwayTeam().getLogo()), holder.imgAwayTLogo);
-        holder.tvAwayTName.setText(result.getAwayTeam().getName());
-        holder.tvAwayTScore.setText(result.getAwayTeam().getScore() + "");
-        GlideToVectorYou.justLoadImage(mActivity, Uri.parse(result.getHomeTeam().getLogo()), holder.imgHomeTLogo);
-        holder.tvHomeTName.setText(result.getHomeTeam().getName());
-        holder.tvHomeTScore.setText(result.getHomeTeam().getScore() + "");
+        try {
+            Context context = holder.tvAwayTName.getContext();
+            final Result result = listResults.get(position);
+            GlideToVectorYou.justLoadImage(mActivity, Uri.parse(result.getAwayTeam().getLogo()), holder.imgAwayTLogo);
+            holder.tvAwayTName.setText(result.getAwayTeam().getName());
+            holder.tvAwayTScore.setText(String.valueOf(result.getAwayTeam().getScore()));
+            GlideToVectorYou.justLoadImage(mActivity, Uri.parse(result.getHomeTeam().getLogo()), holder.imgHomeTLogo);
+            holder.tvHomeTName.setText(result.getHomeTeam().getName());
+            holder.tvHomeTScore.setText(String.valueOf(result.getHomeTeam().getScore()));
+        }catch (Exception e){
+            Log.e("Adapter:", e.getMessage());
+        }
     }
 
     @Override
