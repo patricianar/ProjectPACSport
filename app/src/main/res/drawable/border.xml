@@ -2,7 +2,7 @@
     android:insetBottom="-5dp">
 <shape
     android:id="@+id/rectangle">
-    <stroke android:width="5dp" android:color="#850416" />
-    <solid android:color="@color/primaryColor"/>
+    <stroke android:width="5dp" android:color="#2196F3" />
+    <solid android:color="#201F1F"/>
 </shape>
 </inset>
