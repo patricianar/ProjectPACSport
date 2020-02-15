@@ -2,14 +2,15 @@ package com.example.projectpacsport;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,11 +20,11 @@ import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou;
 
 import java.util.ArrayList;
 
-public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder> {
+public class MyListResultsAdapter extends RecyclerView.Adapter<MyListResultsAdapter.ViewHolder> {
     private Activity mActivity;
     private ArrayList<Result> listResults;
 
-    public MyListAdapter(Activity mActivity, ArrayList<Result> listResults) {
+    public MyListResultsAdapter(Activity mActivity, ArrayList<Result> listResults) {
         this.mActivity = mActivity;
         this.listResults = listResults;
     }
@@ -32,7 +33,7 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View listItem = layoutInflater.inflate(R.layout.list_item, parent, false);
+        View listItem = layoutInflater.inflate(R.layout.result_item, parent, false);
         ViewHolder viewHolder = new ViewHolder(listItem);
         return viewHolder;
     }
@@ -40,7 +41,7 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         try {
-            Context context = holder.tvAwayTName.getContext();
+            final Context context = holder.tvAwayTName.getContext();
             final Result result = listResults.get(position);
             GlideToVectorYou.justLoadImage(mActivity, Uri.parse(result.getAwayTeam().getLogo()), holder.imgAwayTLogo);
             holder.tvAwayTName.setText(result.getAwayTeam().getName());
@@ -48,6 +49,16 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
             GlideToVectorYou.justLoadImage(mActivity, Uri.parse(result.getHomeTeam().getLogo()), holder.imgHomeTLogo);
             holder.tvHomeTName.setText(result.getHomeTeam().getName());
             holder.tvHomeTScore.setText(String.valueOf(result.getHomeTeam().getScore()));
+            holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, GameActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("Result", result);
+                    intent.putExtras(bundle);
+                    context.startActivity(intent);
+                }
+            });
         }catch (Exception e){
             Log.e("Adapter:", e.getMessage());
         }
@@ -86,8 +97,7 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
             this.tvHomeTName = itemView.findViewById(R.id.tvHomeTeamName);
             this.tvAwayTScore = itemView.findViewById(R.id.tvAwayTeamScore);
             this.tvHomeTScore = itemView.findViewById(R.id.tvHomeTeamScore);
-            relativeLayout =  itemView.findViewById(R.id.relativeLayout);
-
+            relativeLayout =  itemView.findViewById(R.id.linearLayout);
         }
     }
 

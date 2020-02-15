@@ -6,4 +6,7 @@
     <string name="txt_link_no_account">No account? Create a new one.</string>
     <string name="txt_title_register">BECOME OUR MEMBER TODAY!</string>
     <string name="btn_register">Sign up</string>
+    <string name="title_activity_game">GameActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
 </resources>

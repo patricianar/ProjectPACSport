@@ -1,6 +1,7 @@
 package com.example.projectpacsport;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -50,9 +52,13 @@ public class LeaguesFragment extends Fragment {
         imgNFL.setAlpha(0.5f);
         imgNHL.setAlpha(0.5f);
         imgMLB.setAlpha(0.5f);
+        SharedPreferences sharedPref = view.getContext().getSharedPreferences("User", 0);
+        final SharedPreferences.Editor editor = sharedPref.edit();
         imgNBA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                editor.putString("League", "nba");
+                editor.commit();
                 listResults.clear();
                 getResults("https://api.mysportsfeeds.com/v2.1/pull/nba/current/date/20200208/games.json");
                 imgNBA.setAlpha(1f);
@@ -64,6 +70,8 @@ public class LeaguesFragment extends Fragment {
         imgNFL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                editor.putString("League", "nfl");
+                editor.commit();
                 listResults.clear();
                 getResults("https://api.mysportsfeeds.com/v2.1/pull/nfl/latest/date/20200202/games.json");
                 imgNBA.setAlpha(0.5f);
@@ -75,6 +83,8 @@ public class LeaguesFragment extends Fragment {
         imgNHL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                editor.putString("League", "nhl");
+                editor.commit();
                 listResults.clear();
                 getResults("http://api.mysportsfeeds.com/v2.1/pull/nhl/current/date/20200208/games.json");
                 imgNBA.setAlpha(0.5f);
@@ -83,7 +93,7 @@ public class LeaguesFragment extends Fragment {
                 imgMLB.setAlpha(0.5f);
             }
         });
-
+        editor.commit();
         return view;
     }
 
@@ -98,6 +108,7 @@ public class LeaguesFragment extends Fragment {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
+            getResults("https://api.mysportsfeeds.com/v2.1/pull/nba/current/date/20200208/games.json");
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -130,8 +141,10 @@ public class LeaguesFragment extends Fragment {
                         JSONObject schedule = games.getJSONObject("schedule");
                         JSONObject awayTeamObj = schedule.getJSONObject("awayTeam");
                         awayTeam.setId(awayTeamObj.getInt("id"));
+                        awayTeam.setAbbreviation(awayTeamObj.getString("abbreviation"));
                         JSONObject homeTeamObj = schedule.getJSONObject("homeTeam");
                         homeTeam.setId(homeTeamObj.getInt("id"));
+                        homeTeam.setAbbreviation(homeTeamObj.getString("abbreviation"));
                         JSONObject score = games.getJSONObject("score");
                         awayTeam.setScore(score.getInt("awayScoreTotal"));
                         homeTeam.setScore(score.getInt("homeScoreTotal"));
