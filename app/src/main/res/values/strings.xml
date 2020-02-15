@@ -14,4 +14,7 @@
     <string name="txtview_player_weight">Weight:</string>
     <string name="txtview_player_team">Team:</string>
     <string name="txtview_player_name">Kevin Love</string>
+    <string name="title_activity_game">GameActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
 </resources>
