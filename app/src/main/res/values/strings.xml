@@ -6,4 +6,12 @@
     <string name="txt_link_no_account">No account? Create a new one.</string>
     <string name="txt_title_register">BECOME OUR MEMBER TODAY!</string>
     <string name="btn_register">Sign up</string>
+    <string name="img_player_description">Player Image</string>
+    <string name="txtview_player_info">INFORMATION</string>
+    <string name="txtview_birthday">Birthday:</string>
+    <string name="txtview_birth_place">Birth Place:</string>
+    <string name="txtview_player_height">Height:</string>
+    <string name="txtview_player_weight">Weight:</string>
+    <string name="txtview_player_team">Team:</string>
+    <string name="txtview_player_name">Kevin Love</string>
 </resources>

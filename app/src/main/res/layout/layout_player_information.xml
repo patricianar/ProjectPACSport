@@ -1,0 +1,144 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/relLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_margin="4dp"
+            android:paddingLeft="20dp">
+
+            <TextView
+                android:id="@+id/txtViewBirthday"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/txtview_birthday"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/txtViewDisplayBirthday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/txtViewBirthday"
+                android:gravity="start"
+                android:paddingLeft="20dp"
+                android:text="2020 Feb 15"
+                android:textSize="20sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/relLayout1"
+            android:layout_margin="4dp"
+            android:paddingLeft="20dp">
+
+            <TextView
+                android:id="@+id/txtViewBirthPlace"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/txtview_birth_place"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/txtViewDisplayBirthPlace"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/txtViewBirthPlace"
+                android:gravity="start"
+                android:paddingLeft="20dp"
+                android:text="Vancouver, BC"
+                android:textSize="20sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/relLayout2"
+            android:layout_margin="4dp"
+            android:paddingLeft="20dp">
+
+            <TextView
+                android:id="@+id/txtViewHeight"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/txtview_player_height"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/txtViewDisplayHeight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/txtViewHeight"
+                android:gravity="start"
+                android:paddingLeft="20dp"
+                android:text="6'8''"
+                android:textSize="20sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relLayout4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/relLayout3"
+            android:layout_margin="4dp"
+            android:paddingLeft="20dp">
+
+            <TextView
+                android:id="@+id/txtViewWeight"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/txtview_player_weight"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/txtViewDisplayWeight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/txtViewWeight"
+                android:gravity="start"
+                android:paddingLeft="20dp"
+                android:text="251 lbs"
+                android:textSize="20sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relLayout5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/relLayout4"
+            android:layout_margin="4dp"
+            android:paddingLeft="20dp">
+
+            <TextView
+                android:id="@+id/txtViewTeam"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/txtview_player_team"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/txtViewDisplayTeam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/txtViewTeam"
+                android:gravity="start"
+                android:paddingLeft="20dp"
+                android:text="Cleverland Cavaliers"
+                android:textSize="20sp" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</merge>

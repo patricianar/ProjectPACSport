@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".LeaguesFragment">
 
     <LinearLayout
@@ -12,30 +12,27 @@
 
         <ImageView
             android:id="@+id/imgNBA"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:src="@drawable/nba_logo" />
 
         <ImageView
             android:id="@+id/imgNFL"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:src="@drawable/nfl_logo" />
 
         <ImageView
             android:id="@+id/imgNHL"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:src="@drawable/nhl_logo" />
 
         <ImageView
             android:id="@+id/imgMLB"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:padding="10dp"
             android:src="@drawable/mlb_logo" />
     </LinearLayout>
 </FrameLayout>
