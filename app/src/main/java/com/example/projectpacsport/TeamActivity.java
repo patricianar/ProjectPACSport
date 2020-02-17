@@ -78,6 +78,8 @@ public class TeamActivity extends AppCompatActivity {
 
                     txtWins.setText(win);
                     txtLosses.setText(losses);
+
+
                    // txtWinPorcentage.setText(winPorcentage);
 
                     //call more
