@@ -1,11 +1,14 @@
 package com.example.projectpacsport;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -36,7 +39,7 @@ public class GameActivity extends AppCompatActivity {
         Result result = (Result) bundle.getSerializable("Result");
 
         SharedPreferences sharedPref = getSharedPreferences("User", Context.MODE_PRIVATE);
-        String league = sharedPref.getString("League", "nba");
+        final String league = sharedPref.getString("League", "nba");
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.clear();
         editor.commit();
@@ -59,6 +62,61 @@ Log.e("url", url);
         GlideToVectorYou.justLoadImage(this, Uri.parse(result.getHomeTeam().getLogo()), imgHomeTLogo);
         tvHomeTName.setText(result.getHomeTeam().getName());
         tvHomeTScore.setText(String.valueOf(result.getHomeTeam().getScore()));
+
+        //Alfredo Code, preparation of all the data to be send to TeamActivity
+        LinearLayout linearAway = findViewById(R.id.LineAwayResult);
+        LinearLayout linearHome = findViewById(R.id.LineHomeResult);
+
+        final String teamNameAway = result.getAwayTeam().getName();
+        final String teamAwayLogo = result.getAwayTeam().getLogo();
+        final String teamAbbreviationAway = result.getAwayTeam().getAbbreviation();
+
+        final String teamNameHome = result.getHomeTeam().getName();
+        final String teamHomeLogo = result.getHomeTeam().getLogo();
+        final String teamAbbreviationHome = result.getHomeTeam().getAbbreviation();
+
+        linearAway.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(GameActivity.this, TeamActivity.class);
+                Bundle bundleTeam = new Bundle();
+                bundleTeam.putString("team", teamNameAway);
+                intent.putExtra("team", teamNameAway);
+
+                bundleTeam.putString("logo", teamAwayLogo);
+                intent.putExtra("logo", teamAwayLogo);
+
+                bundleTeam.putString("abre", teamAbbreviationAway);
+                intent.putExtra("abre", teamAbbreviationAway);
+
+                bundleTeam.putString("league", league);
+                intent.putExtra("league", league);
+
+                startActivity(intent);
+            }
+        });
+
+        linearHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GameActivity.this, TeamActivity.class);
+                Bundle bundleTeam = new Bundle();
+                bundleTeam.putString("team", teamNameHome);
+                intent.putExtra("team", teamNameHome);
+
+                bundleTeam.putString("logo", teamHomeLogo);
+                intent.putExtra("logo", teamHomeLogo);
+
+                bundleTeam.putString("abre", teamAbbreviationHome);
+                intent.putExtra("abre", teamAbbreviationHome);
+
+                bundleTeam.putString("league", league);
+                intent.putExtra("league", league);
+
+                startActivity(intent);
+            }
+        });
     }
 
 //    private void setupViewPager(ViewPager viewPager){
