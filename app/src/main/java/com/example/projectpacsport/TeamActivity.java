@@ -33,7 +33,9 @@ public class TeamActivity extends AppCompatActivity {
 
         String url = "https://api.mysportsfeeds.com/v2.1/pull/" + league + "/2019-2020-regular/team_stats_totals.json?team="
                 + myAbrebiation;
-Log.e("url", url);
+
+        Log.e("Stadium: ", url);
+
         getTeamMoreInfo(url); //we call more info about team such as City and stadium name
 
         GlideToVectorYou.justLoadImage(this, Uri.parse(myLogo), imageTeam);
@@ -63,20 +65,22 @@ Log.e("url", url);
 
                     String win = standing.getString("wins");
                     String losses = standing.getString("losses");
-                    String winPorcentage = standing.getString("winPct");
+                    //String winPorcentage = standing.getString("winPct");
 
                     Log.e("WINS: ", win);
                     Log.e("losses: ", losses);
-                    Log.e("winPorcentage: ", winPorcentage);
+                   // Log.e("winPorcentage: ", winPorcentage);
                    // Toast.makeText(TeamActivity.this, "Wins: " + win + " losses: " + losses + " W%: " + winPorcentage, Toast.LENGTH_SHORT).show();
 
                     TextView txtWins = findViewById(R.id.txtWinNumber);
                     TextView txtLosses = findViewById(R.id.txtLossesNumber);
-                    TextView txtWinPorcentage = findViewById(R.id.txtWinPorcentageNumber);
+                    //TextView txtWinPorcentage = findViewById(R.id.txtWinPorcentageNumber);
 
                     txtWins.setText(win);
                     txtLosses.setText(losses);
-                    txtWinPorcentage.setText(winPorcentage);
+
+
+                   // txtWinPorcentage.setText(winPorcentage);
 
                     //call more
                     JSONObject homeVenue = teamInformation.getJSONObject("homeVenue");
