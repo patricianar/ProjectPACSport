@@ -13,21 +13,6 @@ public class Player implements Serializable {
     private String height;
     private int weight;
 
-    public Player() {
-    }
-
-    public Player(int id, String imgSrc, String firstName, String lastName, String birthday, String birthPlace, String team, String height, int weight) {
-        this.id = id;
-        this.imgSrc = imgSrc;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.birthday = birthday;
-        this.birthPlace = birthPlace;
-        this.team = team;
-        this.height = height;
-        this.weight = weight;
-    }
-
     public int getId() {
         return id;
     }
@@ -35,7 +20,6 @@ public class Player implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
-
 
     public String getImgSrc() {
         return imgSrc;

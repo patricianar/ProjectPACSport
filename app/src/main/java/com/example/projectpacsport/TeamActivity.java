@@ -25,10 +25,10 @@ public class TeamActivity extends AppCompatActivity {
         ImageView imageTeam = findViewById(R.id.imgTeam);
 
         Bundle bundle = getIntent().getExtras();
-        String myTeam = (String) bundle.getSerializable("team");
-        String myLogo = (String) bundle.getSerializable("logo");
-        String myAbrebiation = (String) bundle.getSerializable("abre");
-        String league = (String) bundle.getSerializable("league");
+        String myTeam =  bundle.getString("team");
+        String myLogo = bundle.getString("logo");
+        String myAbrebiation = bundle.getString("abre");
+        String league = bundle.getString("league");
 
         String url = "https://api.mysportsfeeds.com/v2.1/pull/" + league + "/2019-2020-regular/team_stats_totals.json?team="
                 + myAbrebiation;
@@ -66,8 +66,6 @@ public class TeamActivity extends AppCompatActivity {
                     String losses = standing.getString("losses");
                     //String winPorcentage = standing.getString("winPct");
 
-                    Log.e("WINS: ", win);
-                    Log.e("losses: ", losses);
                    // Log.e("winPorcentage: ", winPorcentage);
                    // Toast.makeText(TeamActivity.this, "Wins: " + win + " losses: " + losses + " W%: " + winPorcentage, Toast.LENGTH_SHORT).show();
 
@@ -91,10 +89,6 @@ public class TeamActivity extends AppCompatActivity {
 
                     JSONObject valueSocialMedia = socialMedia.getJSONObject(0);
                     String ValuemediaT = valueSocialMedia.getString("value");
-
-                    Log.e("Stadium: ", stadium);
-                    Log.e("Social Media: ", mediaT);
-                    Log.e("Value Social Media: ", ValuemediaT);
 
                     TextView txtCity = findViewById(R.id.txtCityValue);
                     TextView txtStadium = findViewById(R.id.txtStadiumValue);

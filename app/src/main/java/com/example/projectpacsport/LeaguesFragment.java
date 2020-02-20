@@ -28,7 +28,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,7 +39,7 @@ import java.util.Map;
 public class LeaguesFragment extends Fragment {
     private ArrayList<Result> listResults = new ArrayList<>();
     private OnFragmentInteractionListener mListener;
-
+    String dateString;
     public LeaguesFragment() {
     }
 
@@ -54,13 +57,21 @@ public class LeaguesFragment extends Fragment {
         imgMLB.setAlpha(0.5f);
         SharedPreferences sharedPref = view.getContext().getSharedPreferences("User", 0);
         final SharedPreferences.Editor editor = sharedPref.edit();
+
+        //Getting yesterday's date for API requests
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, -9);
+        dateString = dateFormat.format(cal.getTime());
+
         imgNBA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 editor.putString("League", "nba");
                 editor.commit();
                 listResults.clear();
-                getResults("https://api.mysportsfeeds.com/v2.1/pull/nba/current/date/20200208/games.json");
+                getResults("https://api.mysportsfeeds.com/v2.1/pull/nba/current/date/" + dateString + "/games.json");
+                Log.e("test","https://api.mysportsfeeds.com/v2.1/pull/nba/current/date/" + dateString + "/games.json" );
                 imgNBA.setAlpha(1f);
                 imgNFL.setAlpha(0.5f);
                 imgNHL.setAlpha(0.5f);
@@ -86,7 +97,8 @@ public class LeaguesFragment extends Fragment {
                 editor.putString("League", "nhl");
                 editor.commit();
                 listResults.clear();
-                getResults("http://api.mysportsfeeds.com/v2.1/pull/nhl/current/date/20200208/games.json");
+                getResults("http://api.mysportsfeeds.com/v2.1/pull/nhl/current/date/"+ dateString + "/games.json");
+                Log.e("tessss", "http://api.mysportsfeeds.com/v2.1/pull/nhl/current/date/"+ dateString + "/games.json");
                 imgNBA.setAlpha(0.5f);
                 imgNFL.setAlpha(0.5f);
                 imgNHL.setAlpha(1f);
@@ -108,7 +120,11 @@ public class LeaguesFragment extends Fragment {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
-            getResults("https://api.mysportsfeeds.com/v2.1/pull/nba/current/date/20200208/games.json");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+            Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.DATE, -8);
+            dateString = dateFormat.format(cal.getTime());
+            getResults("https://api.mysportsfeeds.com/v2.1/pull/nba/current/date/" + dateString + "/games.json");
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");

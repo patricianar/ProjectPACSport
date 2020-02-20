@@ -22,7 +22,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class GameActivity extends AppCompatActivity {
     private SectionsPageAdapter mSectionPageAdapter;
@@ -30,21 +32,26 @@ public class GameActivity extends AppCompatActivity {
     private ArrayList<Player> listPlayersAwayTeam = new ArrayList<>();
     private ArrayList<Player> listPlayersHomeTeam = new ArrayList<>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        //Getting yesterday's date for API requests
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, -9);
+        String dateString = dateFormat.format(cal.getTime());
 
         Bundle bundle = getIntent().getExtras();
         Result result = (Result) bundle.getSerializable("Result");
 
         SharedPreferences sharedPref = getSharedPreferences("User", Context.MODE_PRIVATE);
         final String league = sharedPref.getString("League", "nba");
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.clear();
-        editor.commit();
 
-        String url = "http://api.mysportsfeeds.com/v2.1/pull/" + league + "/current/games/20200208-"
+
+        String url = "http://api.mysportsfeeds.com/v2.1/pull/" + league + "/current/games/" + dateString + "-"
                 + result.getAwayTeam().getAbbreviation() + "-" + result.getHomeTeam().getAbbreviation() + "/lineup.json";
         Log.e("url", url);
         getPlayers(url);
@@ -82,17 +89,10 @@ public class GameActivity extends AppCompatActivity {
                 Intent intent = new Intent(GameActivity.this, TeamActivity.class);
                 Bundle bundleTeam = new Bundle();
                 bundleTeam.putString("team", teamNameAway);
-                intent.putExtra("team", teamNameAway);
-
                 bundleTeam.putString("logo", teamAwayLogo);
-                intent.putExtra("logo", teamAwayLogo);
-
                 bundleTeam.putString("abre", teamAbbreviationAway);
-                intent.putExtra("abre", teamAbbreviationAway);
-
                 bundleTeam.putString("league", league);
-                intent.putExtra("league", league);
-
+                intent.putExtras(bundleTeam);
                 startActivity(intent);
             }
         });
@@ -103,17 +103,10 @@ public class GameActivity extends AppCompatActivity {
                 Intent intent = new Intent(GameActivity.this, TeamActivity.class);
                 Bundle bundleTeam = new Bundle();
                 bundleTeam.putString("team", teamNameHome);
-                intent.putExtra("team", teamNameHome);
-
                 bundleTeam.putString("logo", teamHomeLogo);
-                intent.putExtra("logo", teamHomeLogo);
-
                 bundleTeam.putString("abre", teamAbbreviationHome);
-                intent.putExtra("abre", teamAbbreviationHome);
-
                 bundleTeam.putString("league", league);
-                intent.putExtra("league", league);
-
+                intent.putExtras(bundleTeam);
                 startActivity(intent);
             }
         });

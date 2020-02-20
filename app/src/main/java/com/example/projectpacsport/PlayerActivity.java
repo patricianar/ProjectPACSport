@@ -35,12 +35,14 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
         playerName = playerName.replace(' ', '-');
 
         // String league by sharedPref: now is the dummy league, Feb 18th, 2020
-        SharedPreferences sharedPref = getSharedPreferences("User", Context.MODE_PRIVATE);
-        String league = sharedPref.getString("League", "nhl");
-
+        SharedPreferences sharedPref = getSharedPreferences("User", 0);
+        String league = sharedPref.getString("League", "nba");
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.clear();
+        editor.commit();
         // The string url for connecting to the api
         String url = "https://api.mysportsfeeds.com/v2.1/pull/" + league + "/players.json?player=" + playerName;
-
+Log.e("aaaaaa", url);
         // Get information of the selected player
         getPlayer(url);
     }
