@@ -175,6 +175,8 @@ public class LeaguesFragment extends Fragment {
                     // catch for the JSON parsing error
                 } catch (JSONException ex) {
                     Log.e("JSON: ", ex.getMessage());
+                } catch (Exception ex){
+                    Log.e("Request: ", ex.getMessage());
                 }
             }
         });
