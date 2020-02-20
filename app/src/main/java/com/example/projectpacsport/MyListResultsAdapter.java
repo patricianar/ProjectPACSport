@@ -43,9 +43,11 @@ public class MyListResultsAdapter extends RecyclerView.Adapter<MyListResultsAdap
         try {
             final Context context = holder.tvAwayTName.getContext();
             final Result result = listResults.get(position);
+
             GlideToVectorYou.justLoadImage(mActivity, Uri.parse(result.getAwayTeam().getLogo()), holder.imgAwayTLogo);
             holder.tvAwayTName.setText(result.getAwayTeam().getName());
             holder.tvAwayTScore.setText(String.valueOf(result.getAwayTeam().getScore()));
+
             GlideToVectorYou.justLoadImage(mActivity, Uri.parse(result.getHomeTeam().getLogo()), holder.imgHomeTLogo);
             holder.tvHomeTName.setText(result.getHomeTeam().getName());
             holder.tvHomeTScore.setText(String.valueOf(result.getHomeTeam().getScore()));

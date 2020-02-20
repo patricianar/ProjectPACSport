@@ -45,8 +45,8 @@ public class GameActivity extends AppCompatActivity {
         editor.commit();
 
         String url = "http://api.mysportsfeeds.com/v2.1/pull/" + league + "/current/games/20200208-"
-                    + result.getAwayTeam().getAbbreviation() + "-" + result.getHomeTeam().getAbbreviation() + "/lineup.json";
-Log.e("url", url);
+                + result.getAwayTeam().getAbbreviation() + "-" + result.getHomeTeam().getAbbreviation() + "/lineup.json";
+        Log.e("url", url);
         getPlayers(url);
 
         ImageView imgAwayTLogo = findViewById(R.id.imgAwayTeamLogo);
@@ -144,11 +144,13 @@ Log.e("url", url);
                         JSONObject playerObj = awayTeamLineupsArray.getJSONObject(i);
                         JSONObject player = playerObj.optJSONObject("player");
                         if (player != null) {
+                            awayTeamPlayer.setId(player.getInt("id"));
                             awayTeamPlayer.setFirstName(player.getString("firstName"));
                             awayTeamPlayer.setLastName(player.getString("lastName"));
                             listPlayersAwayTeam.add(awayTeamPlayer);
                         }
                     }
+
                     JSONObject homeTeam = teamLineups.getJSONObject(1);
                     JSONObject homeTeamLineups = homeTeam.getJSONObject("actual");
                     JSONArray homeTeamLineupsArray = homeTeamLineups.getJSONArray("lineupPositions");
@@ -157,6 +159,7 @@ Log.e("url", url);
                         JSONObject playerObj = homeTeamLineupsArray.getJSONObject(i);
                         JSONObject player = playerObj.optJSONObject("player");
                         if (player != null) {
+                            homeTeamPlayer.setId(player.getInt("id"));
                             homeTeamPlayer.setFirstName(player.getString("firstName"));
                             homeTeamPlayer.setLastName(player.getString("lastName"));
                             listPlayersHomeTeam.add(homeTeamPlayer);

@@ -3,14 +3,48 @@ package com.example.projectpacsport;
 import java.io.Serializable;
 
 public class Player implements Serializable {
+    private int id;
+    private String imgSrc;
     private String firstName;
     private String lastName;
     private String birthday;
     private String birthPlace;
     private String team;
+    private String height;
+    private int weight;
 
-    private double height;
-    private double weight;
+    public Player() {
+    }
+
+    public Player(int id, String imgSrc, String firstName, String lastName, String birthday, String birthPlace, String team, String height, int weight) {
+        this.id = id;
+        this.imgSrc = imgSrc;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthday = birthday;
+        this.birthPlace = birthPlace;
+        this.team = team;
+        this.height = height;
+        this.weight = weight;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+
+    public String getImgSrc() {
+        return imgSrc;
+    }
+
+    public void setImgSrc(String imgSrc) {
+        this.imgSrc = imgSrc;
+    }
+
 
     public String getFirstName() {
         return firstName;
@@ -52,19 +86,19 @@ public class Player implements Serializable {
         this.team = team;
     }
 
-    public double getHeight() {
+    public String getHeight() {
         return height;
     }
 
-    public void setHeight(double height) {
+    public void setHeight(String height) {
         this.height = height;
     }
 
-    public double getWeight() {
+    public int getWeight() {
         return weight;
     }
 
-    public void setWeight(double weight) {
+    public void setWeight(int weight) {
         this.weight = weight;
     }
 }
