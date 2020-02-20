@@ -17,7 +17,6 @@ import org.json.JSONObject;
 
 public class TeamActivity extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

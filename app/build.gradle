@@ -31,10 +31,14 @@ dependencies {
 
     implementation 'com.android.volley:volley:1.1.1'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
-    implementation 'com.squareup.picasso:picasso:2.71828'
-    implementation 'com.github.corouteam:GlideToVectorYou:v2.0.0'
-    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
 
     // Google Material resources
     implementation 'com.google.android.material:material:1.2.0-alpha01'
+
+    // Image Loaders
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.github.corouteam:GlideToVectorYou:v2.0.0'
+
+    // Video Player
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
 }

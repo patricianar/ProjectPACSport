@@ -30,7 +30,6 @@ public class GameLineupFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_game_lineup, container, false);
         Bundle bundle = getArguments();
 
-
         listPlayersAwayTeam = (ArrayList<Player>) bundle.getSerializable("PlayersAway");
         listPlayersHomeTeam = (ArrayList<Player>) bundle.getSerializable("PlayersHome");
 

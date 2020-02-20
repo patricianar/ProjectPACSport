@@ -67,13 +67,14 @@ public class MyListPlayersAdapter extends RecyclerView.Adapter<MyListPlayersAdap
             this.tvAwayTPlayer = itemView.findViewById(R.id.tvAwayTeamPlayer);
             this.tvHomeTPlayer = itemView.findViewById(R.id.tvHomeTeamPlayer);
             linearLayout = itemView.findViewById(R.id.linearLayout);
-            final Intent intent = new Intent(itemView.getContext(), MainActivity.class);
+            final Intent intent = new Intent(itemView.getContext(), PlayerActivity.class);
             final Bundle bundle = new Bundle();
 
             this.tvAwayTPlayer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     bundle.putString("Player", tvAwayTPlayer.getText().toString());
+                    // bundle.putString("League", );
                     intent.putExtras(bundle);
                     itemView.getContext().startActivity(intent);
                 }

@@ -61,5 +61,3 @@ public class VolleyService {
         void getResponse(String response);
     }
 }
-
-
