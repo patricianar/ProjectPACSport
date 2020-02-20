@@ -143,17 +143,6 @@
                     android:text="Description"
                     android:textColor="@android:color/white" />
 
-                <Spinner
-                    android:id="@+id/spinnerTeam1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:entries="Select a team" />
-
-                <Spinner
-                    android:id="@+id/spinnerTeam2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
                 <Button
                     android:id="@+id/btnSubmit"
                     android:layout_width="match_parent"

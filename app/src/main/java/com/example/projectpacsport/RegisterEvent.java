@@ -30,8 +30,8 @@ public class RegisterEvent extends AppCompatActivity {
         EditText duration = findViewById(R.id.editTextDuration);
         EditText capacity = findViewById(R.id.editTextCapacity);
         MultiAutoCompleteTextView description = findViewById(R.id.multiLineDescription);
-        Spinner team1 = findViewById(R.id.spinnerTeam1);
-        Spinner team2 = findViewById(R.id.spinnerTeam2);
+        //Spinner team1 = findViewById(R.id.spinnerTeam1);
+        //Spinner team2 = findViewById(R.id.spinnerTeam2);
         Button submit = findViewById(R.id.btnSubmit);
     }
 }
