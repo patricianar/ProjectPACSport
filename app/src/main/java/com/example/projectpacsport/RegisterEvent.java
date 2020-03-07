@@ -18,13 +18,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class RegisterEvent extends AppCompatActivity {
-    Calendar today = Calendar.getInstance();
-    Calendar chosenDate = Calendar.getInstance();
-    DateFormat dateFormat = DateFormat.getDateInstance();
     DatePickerDialog.OnDateSetListener dListener;
-    String dateSelected;
-    int numOfDays;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +37,12 @@ public class RegisterEvent extends AppCompatActivity {
         final MultiAutoCompleteTextView description = findViewById(R.id.multiLineDescription);
         //Spinner team1 = findViewById(R.id.spinnerTeam1);
         //Spinner team2 = findViewById(R.id.spinnerTeam2);
-        Button submit = findViewById(R.id.btnSubmit);
+       final Button submit = findViewById(R.id.btnSubmit);
+      final   Calendar today = Calendar.getInstance();
+       final Calendar chosenDate = Calendar.getInstance();
+       final  DateFormat dateFormat = DateFormat.getDateInstance();
+
+       final int numOfDays;
 
 
         submit.setOnClickListener(new View.OnClickListener() {
@@ -118,35 +117,36 @@ public class RegisterEvent extends AppCompatActivity {
                         Toast.makeText(RegisterEvent.this, "Please insert the description", Toast.LENGTH_SHORT).show();
                     }
 
-                    btnDate.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                            dListener = new DatePickerDialog.OnDateSetListener() {
-                                @Override
-                                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                    chosenDate.set(Calendar.YEAR, year);
-                                    chosenDate.set(Calendar.MONTH, month);
-                                    chosenDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                                    if (chosenDate.compareTo(today) <= 0) {
-                                        Toast.makeText(RegisterEvent.this, "Reservation has to be a future date", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        dateSelected = dateFormat.format(chosenDate.getTime());
-
-                                    }
-                                }
-                            };
-                            DatePickerDialog datePickerDialog = new DatePickerDialog(RegisterEvent.this, dListener, today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH));
-                            datePickerDialog.show();
-                        }
-                    });
 
 
-            //    }while(!nameF.isEmpty() || !locationF.isEmpty() || !addressF.isEmpty() || !postalCodeF.isEmpty() || !cityF.isEmpty()
+                //    }while(!nameF.isEmpty() || !locationF.isEmpty() || !addressF.isEmpty() || !postalCodeF.isEmpty() || !cityF.isEmpty()
             //    || !provinceF.isEmpty() || !countryF.isEmpty() || !timeF.isEmpty() || !durationF.isEmpty() || !capacityF.isEmpty()
            //     || !descriptionF.isEmpty());
 
+            }
+        });
 
+        btnDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dListener = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        String dateSelected;
+                        chosenDate.set(Calendar.YEAR, year);
+                        chosenDate.set(Calendar.MONTH, month);
+                        chosenDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        if (chosenDate.compareTo(today) <= 0) {
+                            Toast.makeText(RegisterEvent.this, "Reservation has to be a future date", Toast.LENGTH_SHORT).show();
+                        } else {
+                            dateSelected = dateFormat.format(chosenDate.getTime());
+
+                        }
+                    }
+                };
+                DatePickerDialog datePickerDialog = new DatePickerDialog(RegisterEvent.this, dListener, today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog.show();
             }
         });
 
