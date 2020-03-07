@@ -42,8 +42,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:hint="Event Name"
                     android:inputType="textPersonName"
-                    android:text="Event Name"
                     android:textColor="@android:color/white" />
 
                 <EditText
@@ -51,8 +51,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:hint="Location Name"
                     android:inputType="textPersonName"
-                    android:text="Location"
                     android:textColor="@android:color/white" />
 
                 <EditText
@@ -60,8 +60,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:hint="Address"
                     android:inputType="textPersonName"
-                    android:text="Address"
                     android:textColor="@android:color/white" />
 
                 <EditText
@@ -69,8 +69,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:hint="Postal Code"
                     android:inputType="textPersonName"
-                    android:text="PostalCode"
                     android:textColor="@android:color/white" />
 
                 <EditText
@@ -78,8 +78,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:hint="city"
                     android:inputType="textPersonName"
-                    android:text="City"
                     android:textColor="@android:color/white" />
 
                 <EditText
@@ -87,8 +87,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:hint="Province"
                     android:inputType="textPersonName"
-                    android:text="Province"
                     android:textColor="@android:color/white" />
 
                 <EditText
@@ -96,26 +96,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:hint="Country"
                     android:inputType="textPersonName"
-                    android:text="Country"
                     android:textColor="@android:color/white" />
 
-                <EditText
-                    android:id="@+id/editTextDate"
+                <Button
+                    android:id="@+id/btnDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="date"
-                    android:text="Date"
-                    android:textColor="@android:color/white" />
+                    android:background="@color/secondaryColor"
+                    android:text="Select Date" />
 
                 <EditText
                     android:id="@+id/editTextTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:hint="Time"
                     android:inputType="time"
-                    android:text="Time"
                     android:textColor="@android:color/white" />
 
                 <EditText
@@ -123,8 +121,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:hint="Duration"
                     android:inputType="textPersonName"
-                    android:text="Duration"
                     android:textColor="@android:color/white" />
 
                 <EditText
@@ -132,15 +130,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:hint="Capacity"
                     android:inputType="number"
-                    android:text="Capacity"
                     android:textColor="@android:color/white" />
 
                 <MultiAutoCompleteTextView
                     android:id="@+id/multiLineDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Description"
+                    android:hint="Description "
                     android:textColor="@android:color/white" />
 
                 <Button
