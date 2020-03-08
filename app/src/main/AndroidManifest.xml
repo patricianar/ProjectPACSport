@@ -31,12 +31,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".landingActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity android:name=".LandingActivity">
         </activity>
         <activity android:name=".TeamActivity" />
         <activity
@@ -47,7 +42,13 @@
         <activity android:name=".login.RegisterActivity" />
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".RegisterEvent"></activity>
-        <activity android:name=".login.LoginActivity" />
+        <activity android:name=".login.LoginActivity" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
     </application>
 
 </manifest>

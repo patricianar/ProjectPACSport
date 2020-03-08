@@ -9,8 +9,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.projectpacsport.DatabaseHelper;
+import com.example.projectpacsport.LandingActivity;
 import com.example.projectpacsport.R;
+import com.example.projectpacsport.User;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -18,21 +22,26 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     // For the layout
     private Context mContext;
-    private EditText mEmail, mPassword;
+    private EditText editTextUsername, editTextPassword;
     private TextView mTextLinkSignUp;
     private AppCompatButton mLoginButton;
+
+    DatabaseHelper myDatabaseHelper;
+    User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        currentUser = new User();
+
         // Context
         mContext = LoginActivity.this;
 
         // Login UI
-        mEmail = (EditText) findViewById(R.id.login_email);
-        mPassword = (EditText) findViewById(R.id.login_password);
+        editTextUsername = (EditText) findViewById(R.id.login_email);
+        editTextPassword = (EditText) findViewById(R.id.login_password);
         mTextLinkSignUp = (TextView) findViewById(R.id.textlink_signup);
         mLoginButton = findViewById(R.id.btn_login);
 
@@ -45,6 +54,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         if (v == mTextLinkSignUp) {
             startActivity(new Intent(mContext, RegisterActivity.class));
+        } else {
+                    myDatabaseHelper = new DatabaseHelper(LoginActivity.this);
+                    String uname = editTextUsername.getText().toString();
+                    String pword = editTextPassword.getText().toString();
+
+                    boolean login = myDatabaseHelper.validation(uname,pword,currentUser);
+
+                    if(login == true){
+                        Intent mainActivity = new Intent(LoginActivity.this, LandingActivity.class);
+                        startActivity(mainActivity);
+                    }
+                    else{
+                        Toast.makeText(LoginActivity.this, "Wrong email or password!", Toast.LENGTH_SHORT).show();
+                    }
+                }
         }
     }
-}
+

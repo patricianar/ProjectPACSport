@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class landingActivity extends AppCompatActivity
+public class LandingActivity extends AppCompatActivity
 {
 
     @Override
@@ -21,7 +21,7 @@ public class landingActivity extends AppCompatActivity
         btnGames.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(landingActivity.this, MainActivity.class);
+                Intent intent = new Intent(LandingActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -29,7 +29,7 @@ public class landingActivity extends AppCompatActivity
         btnEvents.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(landingActivity.this, RegisterEvent.class);
+                Intent intent = new Intent(LandingActivity.this, RegisterEvent.class);
                 startActivity(intent);
             }
         });

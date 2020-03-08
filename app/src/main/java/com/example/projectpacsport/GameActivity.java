@@ -41,7 +41,7 @@ public class GameActivity extends AppCompatActivity {
         //Getting yesterday's date for API requests
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
         Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, -9);
+        cal.add(Calendar.DATE, -1);
         String dateString = dateFormat.format(cal.getTime());
 
         Bundle bundle = getIntent().getExtras();
@@ -111,14 +111,6 @@ public class GameActivity extends AppCompatActivity {
             }
         });
     }
-
-//    private void setupViewPager(ViewPager viewPager){
-//        SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
-//        adapter.addFragment(new GameLineupFragment(), "TAB1");
-//        adapter.addFragment(new GameHighLightsFragment(), "TAB2");
-//        viewPager.setAdapter(adapter);
-//    }
-
 
     public void getPlayers(String url) {
         VolleyService request = new VolleyService(this);

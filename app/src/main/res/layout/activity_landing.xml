@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primaryColor"
-    tools:context=".landingActivity">
+    tools:context=".LandingActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,22 +20,22 @@
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="238dp"
+            android:layout_margin="30dp"
             app:srcCompat="@mipmap/ic_launcher" />
 
         <Button
             android:id="@+id/btnGames"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:layout_marginLeft="35dp"
+            android:layout_margin="30dp"
             android:background="@color/secondaryColor"
             android:text="Game's Results" />
 
         <Button
             android:id="@+id/btnEvents"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:layout_marginLeft="35dp"
-            android:layout_marginTop="30dp"
+            android:layout_margin="30dp"
             android:background="@color/secondaryColor"
             android:text="Sport's events" />
     </LinearLayout>
