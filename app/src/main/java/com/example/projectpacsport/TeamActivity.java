@@ -1,10 +1,15 @@
 package com.example.projectpacsport;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,32 +21,67 @@ import org.json.JSONObject;
 
 
 public class TeamActivity extends AppCompatActivity {
+    private static final String TAG = "TeamActivity";
+
+    // SharedPreferences for the app widget
+    private static final String sharedPrefFile = "com.example.projectpacsport";
+    private SharedPreferences mPreferences;
+    private SharedPreferences.Editor preferencesEditor;
+    private Context mContext = TeamActivity.this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_team);
 
+        // UI Components
         ImageView imageTeam = findViewById(R.id.imgTeam);
+        ToggleButton favoriteButton = findViewById(R.id.btn_favorite);
 
+        // Data from bundle
         Bundle bundle = getIntent().getExtras();
-        String myTeam =  bundle.getString("team");
+        String myTeam = bundle.getString("team");
         String myLogo = bundle.getString("logo");
-        String myAbrebiation = bundle.getString("abre");
-        String league = bundle.getString("league");
+        final String myAbrebiation = bundle.getString("abre");
+        final String league = bundle.getString("league");
 
         String url = "https://api.mysportsfeeds.com/v2.1/pull/" + league + "/2019-2020-regular/team_stats_totals.json?team="
                 + myAbrebiation;
 
         Log.e("Stadium: ", url);
 
-        getTeamMoreInfo(url); //we call more info about team such as City and stadium name
-
+        // We call more info about team such as City and stadium name
+        getTeamMoreInfo(url);
         GlideToVectorYou.justLoadImage(this, Uri.parse(myLogo), imageTeam);
 
+        // Add and remove favorite team to SharedPreferences
+        mPreferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
+        preferencesEditor = mPreferences.edit();
+
+        // Set onCheckedChangeListener for the toggle button
+        favoriteButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    Log.d(TAG, "onCheckedChanged: Added to Favorite");
+                    preferencesEditor.putString("favoriteTeam", myAbrebiation);
+                    preferencesEditor.putString("favoriteLeague", league);
+                    preferencesEditor.apply();
+
+                    Toast.makeText(mContext, "Your favorite team is added!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.d(TAG, "onCheckedChanged: Removed from Favorite");
+                    preferencesEditor.remove("favoriteTeam");
+                    preferencesEditor.remove("favoriteLeague");
+                    preferencesEditor.apply();
+
+                    Toast.makeText(mContext, "Your favorite team is removed!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
-    public void getTeamMoreInfo(String url){
+    public void getTeamMoreInfo(String url) {
         VolleyService request = new VolleyService(this);
         request.executeRequest(url, new VolleyService.VolleyCallback() {
             @Override
@@ -66,8 +106,8 @@ public class TeamActivity extends AppCompatActivity {
                     String losses = standing.getString("losses");
                     //String winPorcentage = standing.getString("winPct");
 
-                   // Log.e("winPorcentage: ", winPorcentage);
-                   // Toast.makeText(TeamActivity.this, "Wins: " + win + " losses: " + losses + " W%: " + winPorcentage, Toast.LENGTH_SHORT).show();
+                    // Log.e("winPorcentage: ", winPorcentage);
+                    // Toast.makeText(TeamActivity.this, "Wins: " + win + " losses: " + losses + " W%: " + winPorcentage, Toast.LENGTH_SHORT).show();
 
                     TextView txtWins = findViewById(R.id.txtWinNumber);
                     TextView txtLosses = findViewById(R.id.txtLossesNumber);
@@ -77,7 +117,7 @@ public class TeamActivity extends AppCompatActivity {
                     txtLosses.setText(losses);
 
 
-                   // txtWinPorcentage.setText(winPorcentage);
+                    // txtWinPorcentage.setText(winPorcentage);
 
                     //call more
                     JSONObject homeVenue = teamInformation.getJSONObject("homeVenue");
@@ -99,8 +139,7 @@ public class TeamActivity extends AppCompatActivity {
                     txtStadium.setText(stadium);
                     txtSocialMedia.setText(mediaT);
                     txtSocialMediaAccount.setText("@" + ValuemediaT);
-                }
-                catch (JSONException ex) {
+                } catch (JSONException ex) {
                     Log.e("JSON: ", ex.getMessage());
                 }
 

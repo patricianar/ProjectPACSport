@@ -18,6 +18,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <receiver android:name=".PACSportWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/pacsport_widget_info" />
+        </receiver>
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -32,6 +41,11 @@
             android:value="@string/google_maps_key" />
 
         <activity android:name=".LandingActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".TeamActivity" />
         <activity
@@ -40,15 +54,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".PlayerActivity" />
         <activity android:name=".login.RegisterActivity" />
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".RegisterEvent"></activity>
-        <activity android:name=".login.LoginActivity" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-        </activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".RegisterEvent" />
+        <activity android:name=".login.LoginActivity"></activity>
     </application>
 
 </manifest>

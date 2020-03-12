@@ -18,6 +18,19 @@
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
     <string name="title_activity_maps">Map</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="default_score">0</string>
+    <string name="default_team">Team Name</string>
+    <string name="nba_league">NBA</string>
+    <string name="nhl_league">NHL</string>
+    <string name="mlb_league">MLB</string>
+    <string name="lastUpdatedOn">Last update on:</string>
 
+    <string-array name="leagues_array">
+        <item>NBA</item>
+        <item>NHL</item>
+        <item>MLB</item>
+    </string-array>
 
 </resources>

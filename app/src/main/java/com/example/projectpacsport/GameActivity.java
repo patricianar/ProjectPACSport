@@ -110,6 +110,9 @@ public class GameActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        // bundle pass string players
+        bundle.putString("League", league);
     }
 
     public void getPlayers(String url) {

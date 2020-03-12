@@ -29,7 +29,6 @@ public class Player implements Serializable {
         this.imgSrc = imgSrc;
     }
 
-
     public String getFirstName() {
         return firstName;
     }

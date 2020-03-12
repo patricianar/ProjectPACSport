@@ -40,9 +40,10 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.clear();
         editor.commit();
+
         // The string url for connecting to the api
         String url = "https://api.mysportsfeeds.com/v2.1/pull/" + league + "/players.json?player=" + playerName;
-Log.e("aaaaaa", url);
+
         // Get information of the selected player
         getPlayer(url);
     }
