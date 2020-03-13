@@ -1,45 +1,30 @@
 package com.example.projectpacsport;
 
-import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Bundle;
+import android.graphics.Canvas;
 import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.RemoteViews;
-import android.widget.Spinner;
-import android.widget.Switch;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou;
-import com.squareup.picasso.Picasso;
+import com.caverock.androidsvg.SVG;
+import com.caverock.androidsvg.SVGParseException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Collection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.Map;
 
-import static android.content.ContentValues.TAG;
 import static android.content.Context.MODE_PRIVATE;
 
 /**
@@ -48,8 +33,9 @@ import static android.content.Context.MODE_PRIVATE;
 public class PACSportWidget extends AppWidgetProvider {
     private static final String TAG = "PACSportWidget";
     private static final String sharedPrefFile = "com.example.projectpacsport";
-    static void updateAppWidget(final Context context, final AppWidgetManager appWidgetManager,
-                                final int appWidgetId) {
+
+    private void updateAppWidget(final Context context, final AppWidgetManager appWidgetManager,
+                                 final int appWidgetId) {
 
         // Extract favorite from SharedPreferences
         SharedPreferences mPreferences = context.getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
@@ -110,7 +96,6 @@ public class PACSportWidget extends AppWidgetProvider {
                     int indexHome = 0;
                     JSONObject references = jsonObj.getJSONObject("references");
                     JSONArray teamReferencesArr = references.getJSONArray("teamReferences");
-
                     while (teamReferencesArr.getJSONObject(indexAway).getString("abbreviation").compareToIgnoreCase(awayTeam[0]) != 0) {
                         indexAway++;
                     }
@@ -121,19 +106,20 @@ public class PACSportWidget extends AppWidgetProvider {
 
                     JSONObject refAwayObj = teamReferencesArr.getJSONObject(indexAway);
                     JSONObject refHomeObj = teamReferencesArr.getJSONObject(indexHome);
-
                     String logoAwayUrl = refAwayObj.getString("officialLogoImageSrc");
                     String logoHomeUrl = refHomeObj.getString("officialLogoImageSrc");
                     String awayTeamName = refAwayObj.getString("name");
                     String homeTeamName = refHomeObj.getString("name");
 
-                    System.out.println(logoAwayUrl);
-                    System.out.println(logoHomeUrl);
+                    // Create a new thread to download image and load to view
+                    Map<Integer, String> downloadItems = new HashMap<>();
+                    downloadItems.put(R.id.widget_away_logo, logoAwayUrl);
+                    downloadItems.put(R.id.widget_home_logo, logoHomeUrl);
+                    ImageDownloader downloader = new ImageDownloader(views, appWidgetManager, appWidgetId, downloadItems);
+                    new Thread(downloader).start();
 
                     views.setTextViewText(R.id.widget_away_team, awayTeamName + " " + awayTeam[0]);
                     views.setTextViewText(R.id.widget_home_team, homeTeamName + " " + homeTeam[0]);
-
-                    // Todo: Add code here to display logos
 
                     // Instruct the widget manager to update the widget
                     appWidgetManager.updateAppWidget(appWidgetId, views);
@@ -150,6 +136,77 @@ public class PACSportWidget extends AppWidgetProvider {
         // There may be multiple widgets active, so update all of them
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);
+        }
+    }
+
+    public class ImageDownloader implements Runnable {
+        final RemoteViews views;
+        final AppWidgetManager appWidgetManager;
+        final int appWidgetId;
+        Map<Integer, String> downloadImages;
+
+        public ImageDownloader(RemoteViews views, AppWidgetManager appWidgetManager, int appWidgetId, Map<Integer, String> downloadImages) {
+            this.views = views;
+            this.appWidgetManager = appWidgetManager;
+            this.appWidgetId = appWidgetId;
+            this.downloadImages = downloadImages;
+        }
+
+        @Override
+        public void run() {
+            try {
+                for (Map.Entry<Integer, String> entry : downloadImages.entrySet()) {
+                    Log.d(TAG, "run: download image " + entry.getValue());
+                    URL imageUrl = new URL(entry.getValue());
+
+                    // Download SVG String from the url
+                    HttpURLConnection conn = (HttpURLConnection) imageUrl.openConnection();
+                    conn.setDoInput(true);
+                    conn.connect();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+                    // A SVG file : a Scalable Vector Graphics file.
+                    // Files in this format use an XML-based text format to describe how the image should appear.
+                    // Read more: https://www.lifewire.com/svg-file-4120603
+                    String inputLine;
+                    StringBuilder sb = new StringBuilder();
+                    inputLine = bufferedReader.readLine();
+                    while (inputLine != null) {
+                        sb.append(inputLine);
+                        inputLine = bufferedReader.readLine();
+                    }
+
+                    // Convert from string in string builder to svg format
+                    Log.d(TAG, "run: " + sb.toString());
+                    SVG svg = SVG.getFromString(sb.toString());
+
+                    // Convert svg to bitmap
+                    // Step 1: create a bitmap
+                    int svgWidth = 400;
+                    int svgHeight = 400;
+                    Bitmap bitmap = Bitmap.createBitmap(svgWidth, svgHeight, Bitmap.Config.ARGB_8888);
+
+                    // Step 2: create a canvas
+                    Canvas bmCanvas = new Canvas(bitmap);
+                    bmCanvas.drawRGB(255, 255, 255); // clear background to white
+
+                    // Step 3: render svg file to the canvas
+                    svg.renderToCanvas(bmCanvas);
+
+                    // Set Bitmap with view Id
+                    views.setImageViewBitmap(entry.getKey(), bitmap);
+
+                    // Instruct the widget manager to update the widget
+                    appWidgetManager.updateAppWidget(appWidgetId, views);
+                    Log.d(TAG, "run: end " + entry.getValue());
+                }
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (SVGParseException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
