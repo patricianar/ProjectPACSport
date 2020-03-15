@@ -141,6 +141,24 @@ public class DatabaseHelper {
         return true;
     }
 
+    public ArrayList<String> getDataForSpinner(String teamLeague) {
+        ArrayList<String> allTeams = new ArrayList<>();
+            conn = DatabaseConnection.connectionclass();
+
+        String query = "SELECT * from [dbo].[Team] WHERE Team_league  = '" + teamLeague + "';";
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet result = statement.executeQuery(query);
+
+            while (result.next()) {
+                allTeams.add(result.getString("Team_name"));
+            }
+            conn.close();
+        } catch (Exception ex) {
+            Log.e("DB", ex.getMessage());
+        }
+        return allTeams;
+    }
 
 }
 

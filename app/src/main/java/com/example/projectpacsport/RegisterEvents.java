@@ -7,8 +7,12 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +32,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class RegisterEvents extends FragmentActivity implements OnMapReadyCallback {
@@ -41,6 +44,9 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
     private Boolean mLocationPermissionsGranted = false;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     GoogleMap map;
+    private Spinner spinnerLeague, spinnerTeam1, spinnerTeam2;
+    private ArrayList<String> spinnerData;
+    DatabaseHelper myDatabaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +54,32 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
         setContentView(R.layout.activity_register_events);
 
         mSearchText = findViewById(R.id.input_search);
+        spinnerLeague = findViewById(R.id.spinnerLeague);
+        spinnerTeam1 = findViewById(R.id.spinnerTeam1);
+        spinnerTeam2 = findViewById(R.id.spinnerTeam2);
+        myDatabaseHelper = new DatabaseHelper(RegisterEvents.this);
+
+
+        spinnerData = myDatabaseHelper.getDataForSpinner(spinnerLeague.getSelectedItem().toString());
+        final ArrayAdapter spinnerAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, spinnerData);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerTeam1.setAdapter(spinnerAdapter);
+        spinnerTeam2.setAdapter(spinnerAdapter);
+
+        spinnerLeague.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                spinnerData = myDatabaseHelper.getDataForSpinner(spinnerLeague.getSelectedItem().toString());
+                spinnerAdapter.clear();
+                spinnerAdapter.addAll(spinnerData);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         getLocationPermission();
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -118,8 +150,6 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
             Log.d(TAG,"!!!!!!!!!!!! Find location: !!!!!!!!!!" + address.toString());
         }
     }
-
-
 
     private void getLocationPermission(){
         Log.d(TAG, "getLocationPermission: getting location permissions");
