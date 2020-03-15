@@ -29,7 +29,7 @@ public class LandingActivity extends AppCompatActivity
         btnEvents.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LandingActivity.this, EventsActivity.class);
+                Intent intent = new Intent(LandingActivity.this, RegisterEvents.class);
                 startActivity(intent);
             }
         });

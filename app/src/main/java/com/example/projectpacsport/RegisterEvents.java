@@ -147,7 +147,6 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
     private void initMap(){
         Log.d(TAG, "initMap: initializing map");
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-
         mapFragment.getMapAsync(RegisterEvents.this);
     }
 
