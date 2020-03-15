@@ -1,6 +1,8 @@
 package com.example.projectpacsport;
 
-public class Lineup {
+import java.io.Serializable;
+
+public class Lineup implements Serializable {
     private Player away;
     private Player home;
 

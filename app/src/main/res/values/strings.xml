@@ -27,6 +27,7 @@
     <string name="nhl_league">NHL</string>
     <string name="mlb_league">MLB</string>
     <string name="lastUpdatedOn">Last update on:</string>
+    <string name="txtTitleEvents">Events</string>
 
     <string-array name="leagues_array">
         <item>NBA</item>

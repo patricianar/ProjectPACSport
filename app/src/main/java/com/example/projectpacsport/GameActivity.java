@@ -178,7 +178,6 @@ public class GameActivity extends AppCompatActivity {
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("Lineups", lineups);
 
-
                     Fragment lineupFragment = GameLineupFragment.newInstance();
                     lineupFragment.setArguments(bundle);
                     mSectionPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
