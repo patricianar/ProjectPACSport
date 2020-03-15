@@ -70,8 +70,8 @@ public class LeaguesFragment extends Fragment {
                 editor.putString("League", "nba");
                 editor.commit();
                 listResults.clear();
-                getResults("https://api.mysportsfeeds.com/v2.1/pull/nba/current/date/" + dateString + "/games.json");
-                Log.e("test","https://api.mysportsfeeds.com/v2.1/pull/nba/current/date/" + dateString + "/games.json" );
+                getResults("https://api.mysportsfeeds.com/v2.1/pull/nba/current/date/" + "20200308" + "/games.json");
+                Log.e("test","https://api.mysportsfeeds.com/v2.1/pull/nba/current/date/" + "20200308" + "/games.json" );
                 imgNBA.setAlpha(1f);
                 imgNHL.setAlpha(0.5f);
                 imgMLB.setAlpha(0.5f);
@@ -83,8 +83,8 @@ public class LeaguesFragment extends Fragment {
                 editor.putString("League", "nhl");
                 editor.commit();
                 listResults.clear();
-                getResults("http://api.mysportsfeeds.com/v2.1/pull/nhl/current/date/"+ dateString + "/games.json");
-                Log.e("test", "http://api.mysportsfeeds.com/v2.1/pull/nhl/current/date/"+ dateString + "/games.json");
+                getResults("http://api.mysportsfeeds.com/v2.1/pull/nhl/current/date/"+ "20200308" + "/games.json");
+                Log.e("test", "http://api.mysportsfeeds.com/v2.1/pull/nhl/current/date/"+ "20200308" + "/games.json");
                 imgNBA.setAlpha(0.5f);
                 imgNHL.setAlpha(1f);
                 imgMLB.setAlpha(0.5f);
@@ -114,7 +114,7 @@ public class LeaguesFragment extends Fragment {
             Calendar cal = Calendar.getInstance();
             cal.add(Calendar.DATE, -1);
             dateString = dateFormat.format(cal.getTime());
-            getResults("https://api.mysportsfeeds.com/v2.1/pull/nba/current/date/" + dateString + "/games.json");
+            getResults("https://api.mysportsfeeds.com/v2.1/pull/nba/current/date/" + "20200308" + "/games.json");
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");

@@ -27,8 +27,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-//import com.google.android.gms.location.FusedLocationProviderClient; those librery does not work
-//import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 public class RegisterEvents extends FragmentActivity implements OnMapReadyCallback {
 
@@ -38,7 +39,7 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
     private static final float DEFAULT_ZOOM = 15f;
     private Boolean mLocationPermissionsGranted = false;
-    //private FusedLocationProviderClient mFusedLocationProviderClient;
+    private FusedLocationProviderClient mFusedLocationProviderClient;
     GoogleMap map;
 
     @Override
@@ -48,8 +49,8 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
 
         mSearchText = findViewById(R.id.input_search);
         getLocationPermission();
-        // SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        //mapFragment.getMapAsync(this);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
     @Override
@@ -70,15 +71,15 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
             map.getUiSettings().setMyLocationButtonEnabled(false);
 
             init();
-            // LatLng place = new LatLng(49.2035716,-122.9148781);
-            //map.addMarker(new MarkerOptions().position(place).title("Douglas College"));
-            //map.moveCamera(CameraUpdateFactory.newLatLng(place));
+            LatLng place = new LatLng(49.2035716,-122.9148781);
+            map.addMarker(new MarkerOptions().position(place).title("Douglas College"));
+            map.moveCamera(CameraUpdateFactory.newLatLng(place));
         }
     }
 
     //Widget Section
     private EditText mSearchText;
-   // private FusedLocationProviderClient mFusedLocationProviderClient; // Obejct or the library
+    //private FusedLocationProviderClient mFusedLocationProviderClient; // Object or the library
 
     public void init()
     {

@@ -29,9 +29,8 @@ import java.util.Calendar;
 public class GameActivity extends AppCompatActivity {
     private SectionsPageAdapter mSectionPageAdapter;
     private ViewPager mViewPager;
-    private ArrayList<Player> listPlayersAwayTeam = new ArrayList<>();
-    private ArrayList<Player> listPlayersHomeTeam = new ArrayList<>();
-
+    private ArrayList<Lineup> lineups = new ArrayList<>();
+    private ArrayList<Player> homeTeamPlayers = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +50,7 @@ public class GameActivity extends AppCompatActivity {
         final String league = sharedPref.getString("League", "nba");
 
 
-        String url = "http://api.mysportsfeeds.com/v2.1/pull/" + league + "/current/games/" + dateString + "-"
+        String url = "http://api.mysportsfeeds.com/v2.1/pull/" + league + "/current/games/" + "20200308" + "-"
                 + result.getAwayTeam().getAbbreviation() + "-" + result.getHomeTeam().getAbbreviation() + "/lineup.json";
         Log.e("url", url);
         getPlayers(url);
@@ -121,7 +120,7 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void getResponse(String response) {
                 try {
-
+                    Lineup lineup;
                     JSONObject jsonObj = new JSONObject(response);
                     JSONArray teamLineups = jsonObj.getJSONArray("teamLineups");
                     JSONObject awayTeam = teamLineups.getJSONObject(0);
@@ -132,10 +131,12 @@ public class GameActivity extends AppCompatActivity {
                         JSONObject playerObj = awayTeamLineupsArray.getJSONObject(i);
                         JSONObject player = playerObj.optJSONObject("player");
                         if (player != null) {
+                            lineup = new Lineup();
                             awayTeamPlayer.setId(player.getInt("id"));
                             awayTeamPlayer.setFirstName(player.getString("firstName"));
                             awayTeamPlayer.setLastName(player.getString("lastName"));
-                            listPlayersAwayTeam.add(awayTeamPlayer);
+                            lineup.setAway(awayTeamPlayer);
+                            lineups.add(lineup);
                         }
                     }
 
@@ -150,12 +151,33 @@ public class GameActivity extends AppCompatActivity {
                             homeTeamPlayer.setId(player.getInt("id"));
                             homeTeamPlayer.setFirstName(player.getString("firstName"));
                             homeTeamPlayer.setLastName(player.getString("lastName"));
-                            listPlayersHomeTeam.add(homeTeamPlayer);
+                            homeTeamPlayers.add(homeTeamPlayer);
                         }
                     }
+
+                    int lineupsSize = lineups.size();
+                    if (homeTeamPlayers.size() >= lineups.size()) {
+                        for (int i = 0; i < lineups.size(); i++) {
+                            lineups.get(i).setHome(homeTeamPlayers.get(i));
+                        }
+                        for (int i = lineupsSize; i < homeTeamPlayers.size(); i++) {
+                            lineup = new Lineup();
+                            lineup.setAway(new Player("",""));//avoid null object reference
+                            lineup.setHome(homeTeamPlayers.get(i));
+                            lineups.add(lineup);
+                        }
+                    } else {
+                        for (int i = 0; i < homeTeamPlayers.size(); i++) {
+                            lineups.get(i).setHome(homeTeamPlayers.get(i));
+                        }
+                        for(int i = homeTeamPlayers.size(); i < lineupsSize; i++){
+                            lineups.get(i).setHome(new Player("", "")); //avoid null object reference
+                        }
+                    }
+
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("PlayersAway", listPlayersAwayTeam);
-                    bundle.putSerializable("PlayersHome", listPlayersHomeTeam);
+                    bundle.putSerializable("Lineups", lineups);
+
 
                     Fragment lineupFragment = GameLineupFragment.newInstance();
                     lineupFragment.setArguments(bundle);
@@ -171,9 +193,9 @@ public class GameActivity extends AppCompatActivity {
                     // catch for the JSON parsing error
                 } catch (JSONException ex) {
                     Log.e("JSON: ", ex.getMessage());
-                } catch (Exception ex){
+                } catch (Exception ex) {
                     Log.e("Request: ", ex.getMessage());
-            }
+                }
             }
         });
     }

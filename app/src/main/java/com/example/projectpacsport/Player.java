@@ -13,6 +13,14 @@ public class Player implements Serializable {
     private String height;
     private int weight;
 
+    public Player() {
+    }
+
+    public Player(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     public int getId() {
         return id;
     }

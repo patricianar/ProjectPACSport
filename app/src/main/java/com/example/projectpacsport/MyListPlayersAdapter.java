@@ -18,13 +18,11 @@ import java.util.ArrayList;
 
 public class MyListPlayersAdapter extends RecyclerView.Adapter<MyListPlayersAdapter.ViewHolder> {
     private Activity mActivity;
-    private ArrayList<Player> listAwayTeamPlayers;
-    private ArrayList<Player> listHomeTeamPlayers;
+    private ArrayList<Lineup> lineups;
 
-    public MyListPlayersAdapter(Activity mActivity, ArrayList<Player> listAwayTeamPlayers, ArrayList<Player> listHomeTeamPlayers) {
+    public MyListPlayersAdapter(Activity mActivity, ArrayList<Lineup> lineups) {
         this.mActivity = mActivity;
-        this.listAwayTeamPlayers = listAwayTeamPlayers;
-        this.listHomeTeamPlayers = listHomeTeamPlayers;
+        this.lineups = lineups;
     }
 
     @NonNull
@@ -40,8 +38,8 @@ public class MyListPlayersAdapter extends RecyclerView.Adapter<MyListPlayersAdap
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         try {
             final Context context = holder.tvAwayTPlayer.getContext();
-            final Player awayTeamPlayer = listAwayTeamPlayers.get(position);
-            final Player homeTeamPlayer = listHomeTeamPlayers.get(position);
+            final Player awayTeamPlayer = lineups.get(position).getAway();
+            final Player homeTeamPlayer = lineups.get(position).getHome();
             holder.tvAwayTPlayer.setText(awayTeamPlayer.getFirstName() + " " + awayTeamPlayer.getLastName());
             holder.tvHomeTPlayer.setText(homeTeamPlayer.getFirstName() + " " + homeTeamPlayer.getLastName());
 
@@ -52,10 +50,7 @@ public class MyListPlayersAdapter extends RecyclerView.Adapter<MyListPlayersAdap
 
     @Override
     public int getItemCount() {
-        if (listAwayTeamPlayers.size() > listHomeTeamPlayers.size())
-            return listAwayTeamPlayers.size();
-        else
-            return listHomeTeamPlayers.size();
+        return lineups.size();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

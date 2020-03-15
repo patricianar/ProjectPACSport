@@ -3,6 +3,7 @@ package com.example.projectpacsport;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class GameLineupFragment extends Fragment {
-    private ArrayList<Player> listPlayersAwayTeam = new ArrayList<>();
-    private ArrayList<Player> listPlayersHomeTeam = new ArrayList<>();
+    private ArrayList<Lineup> lineups = new ArrayList<>();
 
     public static GameLineupFragment newInstance() {
         return new GameLineupFragment();
@@ -30,10 +30,11 @@ public class GameLineupFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_game_lineup, container, false);
         Bundle bundle = getArguments();
 
-        listPlayersAwayTeam = (ArrayList<Player>) bundle.getSerializable("PlayersAway");
-        listPlayersHomeTeam = (ArrayList<Player>) bundle.getSerializable("PlayersHome");
+        lineups = (ArrayList<Lineup>) bundle.getSerializable("Lineups");
 
-        MyListPlayersAdapter myAdapter = new MyListPlayersAdapter(getActivity(), listPlayersAwayTeam, listPlayersHomeTeam);
+
+
+        MyListPlayersAdapter myAdapter = new MyListPlayersAdapter(getActivity(), lineups);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
 
         recyclerView.setHasFixedSize(true);
