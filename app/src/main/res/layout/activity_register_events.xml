@@ -11,25 +11,14 @@
         android:id="@+id/txtViewRegisterEventTitle2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/secondaryColor"
         android:text="Event Registration"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="30dp"
-        android:background="@color/secondaryColor"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgLogo"
-        app:layout_constraintVertical_bias="0.024"
-        tools:layout_editor_absoluteX="0dp" />
-
-    <ImageView
-        android:id="@+id/imgLogo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editTextName"
@@ -131,22 +120,8 @@
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnDate" />
-
-    <EditText
-        android:id="@+id/editTextDuration"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Duration of the event"
-        android:inputType="textPersonName"
-        android:textColor="#ffffff"
-        android:textColorHint="#ffffff"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTime" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextCapacity" />
 
     <EditText
         android:id="@+id/editTextCapacity"
@@ -159,7 +134,7 @@
         android:textColorHint="#ffffff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextDuration" />
+        app:layout_constraintTop_toBottomOf="@+id/btnDate" />
 
     <Button
         android:id="@+id/btnSubmit"
@@ -167,8 +142,8 @@
         android:layout_height="wrap_content"
         android:text="Submit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextCapacity" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextTime" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

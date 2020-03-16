@@ -2,11 +2,13 @@ package com.example.projectpacsport;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -19,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -55,6 +58,7 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
 
     DatePickerDialog.OnDateSetListener dListener;
     DatabaseHelper myDatabaseHelper;
+    TimePickerDialog picker;
     private Boolean mLocationPermissionsGranted = false;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     //Widget Section
@@ -74,10 +78,8 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_events);
 
-        final ImageView imageLogo = findViewById(R.id.imgLogo);
         final EditText name = findViewById(R.id.editTextName);
         final EditText time = findViewById(R.id.editTextTime);
-        final EditText duration = findViewById(R.id.editTextDuration);
         final EditText capacity = findViewById(R.id.editTextCapacity);
         final Button date = findViewById(R.id.btnDate);
         final Button submit = findViewById(R.id.btnSubmit);
@@ -127,7 +129,6 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
             public void onClick(View v) {
                 String nameF = name.getText().toString();
                 String timeF = time.getText().toString();
-                String durationF = duration.getText().toString();
                 String capacityF = capacity.getText().toString();
                 String locationName = mSearchText.getText().toString();
 
@@ -135,8 +136,6 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
                     Toast.makeText(RegisterEvents.this, "Please insert the name", Toast.LENGTH_SHORT).show();
                 } else if (timeF.isEmpty()) {
                     Toast.makeText(RegisterEvents.this, "Please insert the time", Toast.LENGTH_SHORT).show();
-                } else if (durationF.isEmpty()) {
-                    Toast.makeText(RegisterEvents.this, "Please insert the duration", Toast.LENGTH_SHORT).show();
                 } else if (capacityF.isEmpty()) {
                     Toast.makeText(RegisterEvents.this, "Please insert the capacity", Toast.LENGTH_SHORT).show();
                 } else if (locationName.isEmpty()) {
@@ -166,6 +165,26 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
                 };
                 DatePickerDialog datePickerDialog = new DatePickerDialog(RegisterEvents.this, dListener, today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.show();
+            }
+        });
+
+        time.setInputType(InputType.TYPE_NULL);
+        time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar calendar = Calendar.getInstance();
+                int hour = calendar.get(Calendar.HOUR_OF_DAY);
+                int minutes = calendar.get(Calendar.MINUTE);
+                // time picker dialog
+                picker = new TimePickerDialog(RegisterEvents.this, android.R.style.Theme_Holo_Light_Dialog,
+                        new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
+                                time.setText(sHour + ":" + sMinute);
+                            }
+                        }, hour, minutes, true);
+                picker.setTitle("Please select time");
+                picker.show();
             }
         });
 
