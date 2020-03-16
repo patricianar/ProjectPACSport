@@ -3,6 +3,7 @@ package com.example.projectpacsport;
 import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -37,15 +38,20 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.io.IOException;
+import java.sql.Time;
 import java.text.DateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+
+import static okhttp3.internal.http.HttpDate.parse;
 
 public class RegisterEvents extends FragmentActivity implements OnMapReadyCallback {
 
@@ -54,6 +60,7 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
     private static final float DEFAULT_ZOOM = 15f;
+    Event newEvent = new Event();
     GoogleMap map;
 
     DatePickerDialog.OnDateSetListener dListener;
@@ -70,6 +77,7 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
     private double latitude;
     private double longitude;
     private String country;
+    private String dateSelected;
     private Spinner spinnerLeague, spinnerTeam1, spinnerTeam2;
     private ArrayList<String> spinnerData;
 
@@ -141,6 +149,25 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
                 } else if (locationName.isEmpty()) {
                     Toast.makeText(RegisterEvents.this, "Please select a location using the map search bar", Toast.LENGTH_SHORT).show();
                 }
+
+                if(!nameF.isEmpty() && !timeF.isEmpty() && !capacityF.isEmpty() && !locationName.isEmpty()
+                && dateSelected != null &&  !locationName.isEmpty())
+                {
+                    Log.d(TAG, "-------------SAFE INTO DB: --------------");
+                   //Create the event object
+                    //LocalTime T = LocalTime.parse(timeF);
+                    newEvent.setName(nameF);
+                    newEvent.setCapacity(Integer.parseInt(capacityF));
+                    newEvent.setLocation(longitude+","+latitude);
+                    newEvent.setAddress(locationName+", "+addressMap);
+                    newEvent.setCity(city);
+                    newEvent.setProvince(province);
+                    newEvent.setCountry(country);
+                    newEvent.setPostalCode(zipCode);
+                    newEvent.setDate(parse(dateSelected));
+                    newEvent.setTime(Time.valueOf(timeF));
+                    //Add spinner's info
+                }
             }
         });
 
@@ -151,7 +178,6 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
                 dListener = new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        String dateSelected;
                         chosenDate.set(Calendar.YEAR, year);
                         chosenDate.set(Calendar.MONTH, month);
                         chosenDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -187,6 +213,7 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
                 picker.show();
             }
         });
+
 
     }
 

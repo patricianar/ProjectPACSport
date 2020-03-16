@@ -18,6 +18,17 @@ public class Event implements Serializable {
     private int capacity;
     private int team1Id;
     private int team2Id;
+    private String name;
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public void setName(String n)
+    {
+        name = n;
+    }
 
     public int getId() {
         return id;
