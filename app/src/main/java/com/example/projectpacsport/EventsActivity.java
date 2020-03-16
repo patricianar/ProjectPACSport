@@ -19,8 +19,8 @@ public class EventsActivity extends AppCompatActivity {
         Event a = new Event();
         a.setCapacity(5);
         a.setLocation("hoise");
-        a.setTeam1("boston");
-        a.setTeam2("arizona");
+        a.setTeam1Id(1);
+        a.setTeam2Id(2);
         events.add(a);
         events.add(a);
         events.add(a);

@@ -1,12 +1,23 @@
 package com.example.projectpacsport;
 
 import java.io.Serializable;
+import java.sql.Time;
 import java.util.Date;
 
 public class Event implements Serializable {
     private int id;
     private int plannerId;
     private String location;
+    private String address;
+    private String postalCode;
+    private String city;
+    private String province;
+    private String country;
+    private Date date;
+    private Time time;
+    private int capacity;
+    private int team1Id;
+    private int team2Id;
 
     public int getId() {
         return id;
@@ -80,12 +91,12 @@ public class Event implements Serializable {
         this.date = date;
     }
 
-    public int getDuration() {
-        return duration;
+    public Time getTime() {
+        return time;
     }
 
-    public void setDuration(int duration) {
-        this.duration = duration;
+    public void setTime(Time time) {
+        this.time = time;
     }
 
     public int getCapacity() {
@@ -96,31 +107,19 @@ public class Event implements Serializable {
         this.capacity = capacity;
     }
 
-    public String getTeam1() {
-        return team1;
+    public int getTeam1Id() {
+        return team1Id;
     }
 
-    public void setTeam1(String team1) {
-        this.team1 = team1;
+    public void setTeam1Id(int team1Id) {
+        this.team1Id = team1Id;
     }
 
-    public String getTeam2() {
-        return team2;
+    public int getTeam2Id() {
+        return team2Id;
     }
 
-    public void setTeam2(String team2) {
-        this.team2 = team2;
+    public void setTeam2Id(int team2Id) {
+        this.team2Id = team2Id;
     }
-
-    private String address;
-    private String postalCode;
-    private String city;
-    private String province;
-    private String country;
-    private Date date;
-
-    private int duration;
-    private int capacity;
-    private String team1;
-    private String team2;
 }

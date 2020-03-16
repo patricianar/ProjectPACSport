@@ -41,7 +41,7 @@ public class MyListEventsAdapter extends RecyclerView.Adapter<MyListEventsAdapte
             final Event event = listEvents.get(position);
 
             //GlideToVectorYou.justLoadImage(mActivity, Uri.parse(result.getAwayTeam().getLogo()), holder.imgAwayTLogo);
-            holder.tvEventName.setText(event.getTeam1() + " - " + event.getTeam2());
+            holder.tvEventName.setText(event.getTeam1Id() + " - " + event.getTeam2Id());
             holder.tvEventLocation.setText(event.getLocation());
             holder.tvEventCapacity.setText(event.getCapacity());
 
