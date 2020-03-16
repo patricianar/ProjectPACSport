@@ -160,5 +160,47 @@ public class DatabaseHelper {
         return allTeams;
     }
 
+    public int getTeamId(String teamName){
+        int teamId = 0;
+        conn = DatabaseConnection.connectionclass();
+
+        String query = "SELECT Team_id from [dbo].[Team] WHERE Team_name  LIKE '%" + teamName + "%';";
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet result = statement.executeQuery(query);
+            if(result.next()){
+                teamId = result.getInt(1);
+            }
+            conn.close();
+        } catch (Exception ex) {
+            Log.e("DB", ex.getMessage());
+        }
+        return teamId;
+    }
+
+    public long addEvent(Event event) {
+        long result = -1;
+        conn = DatabaseConnection.connectionclass();
+
+        String query = "INSERT INTO dbo.[Event](Event_name, Event_planner_id, Event_location, Event_address, Event_postal_code, Event_city, " +
+                        "Event_province, Event_country, Event_date, Event_time, Event_capacity, Event_team1_id, Event_team2_id) " +
+                        "VALUES ('" + event.getName() + "'," + event.getPlannerId() + ",geography::Point(" + event.getLocation() + ",4326),'" +
+                        event.getAddress() + "','" + event.getPostalCode() + "','" + event.getCity() + "','" + event.getProvince() + "','" + event.getCountry() + "','" +
+                        event.getDate() + "','" + event.getTime() + "'," + event.getCapacity() + "," + event.getTeam1Id() + "," + event.getTeam2Id() + ");";
+        try {
+            Statement statement = conn.createStatement();
+            result = statement.executeUpdate(query);
+
+            if (result != -1) {
+                Log.e("DB: ", "Added event " + event.getId() + ": " + event.getName());
+            } else {
+                Log.e("DB: ", "Error adding user " + event.getId() + ": " + event.getName());
+            }
+            conn.close();
+        } catch (Exception ex) {
+            Log.e("DB INSERT:", ex.getMessage() + query);
+        }
+        return result;
+    }
 }
 

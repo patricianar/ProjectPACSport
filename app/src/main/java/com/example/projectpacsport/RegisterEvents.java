@@ -60,7 +60,7 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
     private static final float DEFAULT_ZOOM = 15f;
-    Event newEvent = new Event();
+    Event newEvent;
     GoogleMap map;
 
     DatePickerDialog.OnDateSetListener dListener;
@@ -149,26 +149,36 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
                 } else if (locationName.isEmpty()) {
                     Toast.makeText(RegisterEvents.this, "Please select a location using the map search bar", Toast.LENGTH_SHORT).show();
                 }
-
+try{
                 if(!nameF.isEmpty() && !timeF.isEmpty() && !capacityF.isEmpty() && !locationName.isEmpty()
                 && dateSelected != null &&  !locationName.isEmpty())
                 {
                     Log.d(TAG, "-------------SAFE INTO DB: --------------");
                    //Create the event object
                     //LocalTime T = LocalTime.parse(timeF);
+                    newEvent = new Event();
                     newEvent.setName(nameF);
                     newEvent.setCapacity(Integer.parseInt(capacityF));
                     newEvent.setLocation(longitude+","+latitude);
-                    newEvent.setAddress(locationName+", "+addressMap);
+                    newEvent.setAddress(addressMap);
                     newEvent.setCity(city);
                     newEvent.setProvince(province);
                     newEvent.setCountry(country);
                     newEvent.setPostalCode(zipCode);
                     newEvent.setDate(parse(dateSelected));
-                    newEvent.setTime(Time.valueOf(timeF));
+                    newEvent.setTime(Time.valueOf(timeF + ":00"));
                     //Add spinner's info
+                    String team1Name = spinnerTeam1.getSelectedItem().toString();
+                    String team2Name = spinnerTeam2.getSelectedItem().toString();
+                    newEvent.setTeam1Id(myDatabaseHelper.getTeamId(team1Name));
+                    newEvent.setTeam2Id(myDatabaseHelper.getTeamId(team2Name));
+
+                    myDatabaseHelper.addEvent(newEvent);
+                    Log.e("team1" ,  parse(dateSelected) + " " + Time.valueOf(timeF + ":00") + " " + longitude+","+latitude + "" + spinnerTeam1.getSelectedItem().toString());
                 }
-            }
+            }catch (Exception e){
+    Log.e("team1" ,  parse(dateSelected) + " " + Time.valueOf(timeF + ":00") + " " + longitude+","+latitude + "" + spinnerTeam1.getSelectedItem().toString());
+            }}
         });
 
         date.setOnClickListener(new View.OnClickListener() {
