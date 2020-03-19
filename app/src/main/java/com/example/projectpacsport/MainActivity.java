@@ -42,7 +42,6 @@ public class  MainActivity extends AppCompatActivity implements LeaguesFragment.
     LeaguesFragment leaguesFragment;
     ResultsFragment resultsFragment;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

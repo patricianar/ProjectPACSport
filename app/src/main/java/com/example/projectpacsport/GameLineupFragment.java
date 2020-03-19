@@ -32,8 +32,6 @@ public class GameLineupFragment extends Fragment {
 
         lineups = (ArrayList<Lineup>) bundle.getSerializable("Lineups");
 
-
-
         MyListPlayersAdapter myAdapter = new MyListPlayersAdapter(getActivity(), lineups);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
 

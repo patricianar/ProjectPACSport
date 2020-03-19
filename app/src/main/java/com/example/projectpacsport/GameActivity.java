@@ -162,7 +162,7 @@ public class GameActivity extends AppCompatActivity {
                         }
                         for (int i = lineupsSize; i < homeTeamPlayers.size(); i++) {
                             lineup = new Lineup();
-                            lineup.setAway(new Player("",""));//avoid null object reference
+                            lineup.setAway(new Player("", ""));//avoid null object reference
                             lineup.setHome(homeTeamPlayers.get(i));
                             lineups.add(lineup);
                         }
@@ -170,27 +170,39 @@ public class GameActivity extends AppCompatActivity {
                         for (int i = 0; i < homeTeamPlayers.size(); i++) {
                             lineups.get(i).setHome(homeTeamPlayers.get(i));
                         }
-                        for(int i = homeTeamPlayers.size(); i < lineupsSize; i++){
+                        for (int i = homeTeamPlayers.size(); i < lineupsSize; i++) {
                             lineups.get(i).setHome(new Player("", "")); //avoid null object reference
                         }
                     }
 
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("Lineups", lineups);
-
+                    // Create newInstance of Fragment
                     Fragment lineupFragment = GameLineupFragment.newInstance();
-                    lineupFragment.setArguments(bundle);
+                    Fragment highlightsFragment = GameHighLightsFragment.newInstance();
+
+                    // Create bundles for passing data from the Activity to Fragments
+                    Bundle bundleLineups = new Bundle();
+                    Bundle bundleHighlight = getIntent().getExtras();
+
+                    bundleLineups.putSerializable("Lineups", lineups);
+
+                    // Pass bundles to the fragments
+                    lineupFragment.setArguments(bundleLineups);
+                    highlightsFragment.setArguments(bundleHighlight);
+
+                    // SectionPageAdapter
                     mSectionPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
-                    mViewPager = findViewById(R.id.view_pager);
                     mSectionPageAdapter.addFragment(lineupFragment, "LineUps");
-                    mSectionPageAdapter.addFragment(new GameHighLightsFragment(), "HighLights");
+                    mSectionPageAdapter.addFragment(highlightsFragment, "HighLights");
+
+                    // ViewPager init
+                    mViewPager = findViewById(R.id.view_pager);
                     mViewPager.setAdapter(mSectionPageAdapter);
 
+                    // TabLayout init
                     TabLayout tabLayout = findViewById(R.id.tabs);
                     tabLayout.setupWithViewPager(mViewPager);
 
-                    // catch for the JSON parsing error
-                } catch (JSONException ex) {
+                } catch (JSONException ex) { // catch for the JSON parsing error
                     Log.e("JSON: ", ex.getMessage());
                 } catch (Exception ex) {
                     Log.e("Request: ", ex.getMessage());
