@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/results"
+        android:title="Results"
+        android:icon="@drawable/ic_format_list_bulleted_black_24dp"/>
+
+    <item
+        android:id="@+id/create_event"
+        android:title="Create Event"
+        android:icon="@drawable/ic_add_green_24dp"/>
+
+    <item
+        android:id="@+id/search_event"
+        android:title="Search Event"
+        android:icon="@drawable/ic_search_black_24dp"
+        />
+
+    <item
+        android:id="@+id/profile_menu"
+        android:title="Profile"
+        android:icon="@drawable/ic_account_circle_black_24dp"/>
+
+</menu>
