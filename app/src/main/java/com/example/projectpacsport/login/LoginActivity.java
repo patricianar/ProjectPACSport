@@ -12,7 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.projectpacsport.DatabaseHelper;
-import com.example.projectpacsport.LandingActivity;
+import com.example.projectpacsport.MainActivity;
 import com.example.projectpacsport.R;
 import com.example.projectpacsport.User;
 
@@ -55,20 +55,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (v == mTextLinkSignUp) {
             startActivity(new Intent(mContext, RegisterActivity.class));
         } else {
-                    myDatabaseHelper = new DatabaseHelper(LoginActivity.this);
-                    String uname = editTextUsername.getText().toString();
-                    String pword = editTextPassword.getText().toString();
+            myDatabaseHelper = new DatabaseHelper(LoginActivity.this);
+            String uname = editTextUsername.getText().toString();
+            String pword = editTextPassword.getText().toString();
 
-                    boolean login = myDatabaseHelper.validation(uname,pword,currentUser);
+            boolean login = myDatabaseHelper.validation(uname, pword, currentUser);
 
-                    if(login == true){
-                        Intent mainActivity = new Intent(LoginActivity.this, LandingActivity.class);
-                        startActivity(mainActivity);
-                    }
-                    else{
-                        Toast.makeText(LoginActivity.this, "Wrong email or password!", Toast.LENGTH_SHORT).show();
-                    }
-                }
+            if (login == true) {
+                Intent mainActivity = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(mainActivity);
+                finish();
+            } else {
+                Toast.makeText(LoginActivity.this, "Wrong email or password!", Toast.LENGTH_SHORT).show();
+            }
         }
     }
+}
 

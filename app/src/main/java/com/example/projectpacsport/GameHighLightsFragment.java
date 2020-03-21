@@ -26,9 +26,9 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 import java.io.IOException;
 
 public class GameHighLightsFragment extends Fragment {
-    private static final String YOUTUBE_API_KEY = "AIzaSyD49oDi4hnqLgGBdeW8f1NYX4jPdceDJIg"; // Please don't change
     private static final String DEFAULT_VIDEO_ID = "wlxDVJVk2qc"; // This one can be changed
     private static final long NUMBER_OF_VIDEOS_RETURNED = 1; // Take only 1 video
+    private String youtubeAPIKey;
     private String videoId;
 
     public static GameHighLightsFragment newInstance() {
@@ -54,6 +54,7 @@ public class GameHighLightsFragment extends Fragment {
         // Create a service from com.google.api.services.youtube.YouTube
         // Duplicate code from the link below, file name Search.java
         // https://github.com/youtube/api-samples
+        youtubeAPIKey = view.getContext().getString(R.string.youtube_api_key);
         YouTube mService = null;
         HttpTransport transport = new NetHttpTransport();
         JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
@@ -66,7 +67,7 @@ public class GameHighLightsFragment extends Fragment {
             YouTube.Search.List search = mService.search().list("id");
 
             // Set key, query and max result from the API
-            search.setKey(YOUTUBE_API_KEY);
+            search.setKey(youtubeAPIKey);
             search.setQ(searchQuery);
             search.setMaxResults(NUMBER_OF_VIDEOS_RETURNED);
 
@@ -105,5 +106,10 @@ public class GameHighLightsFragment extends Fragment {
         }
 
         return view;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

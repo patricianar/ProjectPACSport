@@ -88,32 +88,8 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_events);
 
-        //Initialize and Assign variable
-        BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);
-
-        //Set Result Selector
-        bottomNavigationView.setSelectedItemId(R.id.create_event);
-
-        //Perform ItemSelectedListener
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-                switch (item.getItemId()){
-                    case R.id.results:
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.create_event:
-                        startActivity(new Intent(getApplicationContext(), RegisterEvents.class));
-                        overridePendingTransition(0,0);
-                        return true;
-
-
-                }
-                return false;
-            }
-        });
+        // Initialize BottomNavigationView
+        initBottomNavigationView();
 
         final EditText name = findViewById(R.id.editTextName);
         final EditText time = findViewById(R.id.editTextTime);
@@ -140,21 +116,16 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
         spinnerTeam2.setAdapter(spinnerAdapter);
 
         spinnerLeague.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 spinnerData = myDatabaseHelper.getDataForSpinner(spinnerLeague.getSelectedItem().toString());
                 spinnerAdapter.clear();
                 spinnerAdapter.addAll(spinnerData);
 
-
             }
-
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
 
             }
         });
@@ -178,36 +149,36 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
                 } else if (locationName.isEmpty()) {
                     Toast.makeText(RegisterEvents.this, "Please select a location using the map search bar", Toast.LENGTH_SHORT).show();
                 }
-try{
-                if(!nameF.isEmpty() && !timeF.isEmpty() && !capacityF.isEmpty() && !locationName.isEmpty()
-                && dateSelected != null &&  !locationName.isEmpty())
-                {
-                    Log.d(TAG, "-------------SAFE INTO DB: --------------");
-                   //Create the event object
-                    //LocalTime T = LocalTime.parse(timeF);
-                    newEvent = new Event();
-                    newEvent.setName(nameF);
-                    newEvent.setCapacity(Integer.parseInt(capacityF));
-                    newEvent.setLocation(longitude+","+latitude);
-                    newEvent.setAddress(addressMap);
-                    newEvent.setCity(city);
-                    newEvent.setProvince(province);
-                    newEvent.setCountry(country);
-                    newEvent.setPostalCode(zipCode);
-                    newEvent.setDate(parse(dateSelected));
-                    newEvent.setTime(Time.valueOf(timeF + ":00"));
-                    //Add spinner's info
-                    String team1Name = spinnerTeam1.getSelectedItem().toString();
-                    String team2Name = spinnerTeam2.getSelectedItem().toString();
-                    newEvent.setTeam1Id(myDatabaseHelper.getTeamId(team1Name));
-                    newEvent.setTeam2Id(myDatabaseHelper.getTeamId(team2Name));
+                try {
+                    if (!nameF.isEmpty() && !timeF.isEmpty() && !capacityF.isEmpty() && !locationName.isEmpty()
+                            && dateSelected != null && !locationName.isEmpty()) {
+                        Log.d(TAG, "-------------SAFE INTO DB: --------------");
+                        //Create the event object
+                        //LocalTime T = LocalTime.parse(timeF);
+                        newEvent = new Event();
+                        newEvent.setName(nameF);
+                        newEvent.setCapacity(Integer.parseInt(capacityF));
+                        newEvent.setLocation(longitude + "," + latitude);
+                        newEvent.setAddress(addressMap);
+                        newEvent.setCity(city);
+                        newEvent.setProvince(province);
+                        newEvent.setCountry(country);
+                        newEvent.setPostalCode(zipCode);
+                        newEvent.setDate(parse(dateSelected));
+                        newEvent.setTime(Time.valueOf(timeF + ":00"));
+                        //Add spinner's info
+                        String team1Name = spinnerTeam1.getSelectedItem().toString();
+                        String team2Name = spinnerTeam2.getSelectedItem().toString();
+                        newEvent.setTeam1Id(myDatabaseHelper.getTeamId(team1Name));
+                        newEvent.setTeam2Id(myDatabaseHelper.getTeamId(team2Name));
 
-                    myDatabaseHelper.addEvent(newEvent);
-                    Log.e("team1" ,  parse(dateSelected) + " " + Time.valueOf(timeF + ":00") + " " + longitude+","+latitude + "" + spinnerTeam1.getSelectedItem().toString());
+                        myDatabaseHelper.addEvent(newEvent);
+                        Log.e("team1", parse(dateSelected) + " " + Time.valueOf(timeF + ":00") + " " + longitude + "," + latitude + "" + spinnerTeam1.getSelectedItem().toString());
+                    }
+                } catch (Exception e) {
+                    Log.e("team1", parse(dateSelected) + " " + Time.valueOf(timeF + ":00") + " " + longitude + "," + latitude + "" + spinnerTeam1.getSelectedItem().toString());
                 }
-            }catch (Exception e){
-    Log.e("team1" ,  parse(dateSelected) + " " + Time.valueOf(timeF + ":00") + " " + longitude+","+latitude + "" + spinnerTeam1.getSelectedItem().toString());
-            }}
+            }
         });
 
         date.setOnClickListener(new View.OnClickListener() {
@@ -252,8 +223,6 @@ try{
                 picker.show();
             }
         });
-
-
     }
 
     @Override
@@ -451,6 +420,45 @@ try{
                 }
             }
         }
+    }
+
+    /**
+     * Init BottomNavigationView with 4 items:
+     * results, create event, search event, profile menu
+     */
+    private void initBottomNavigationView() {
+        //Initialize and Assign variable
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        //Set Result Selector
+        bottomNavigationView.setSelectedItemId(R.id.results);
+
+        //Perform ItemSelectedListener
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                switch (item.getItemId()) {
+                    case R.id.results:
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        finish(); // avoid going back to the same selected tab many times - save memory
+                        return true;
+                    case R.id.create_event:
+                        startActivity(new Intent(getApplicationContext(), RegisterEvents.class));
+                        finish();
+                        return true;
+                    case R.id.search_event:
+                        startActivity(new Intent(getApplicationContext(), EventsActivity.class));
+                        finish();
+                        return true;
+                    case R.id.profile_menu:
+                        startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                        finish();
+                        return true;
+                }
+                return false;
+            }
+        });
     }
 }
 
