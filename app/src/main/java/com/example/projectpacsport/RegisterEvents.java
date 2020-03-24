@@ -162,10 +162,9 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
                         Log.d(TAG, "-------------SAFE INTO DB: --------------");
                         //Create the event object
                         //LocalTime T = LocalTime.parse(timeF);
+                        newEvent = new Event();
                         SharedPreferences pref = getApplicationContext().getSharedPreferences("SessionUser", MODE_PRIVATE);
                         newEvent.setPlannerId(pref.getInt("UserId", 0));
-
-                        newEvent = new Event();
                         newEvent.setName(nameF);
                         newEvent.setCapacity(Integer.parseInt(capacityF));
                         newEvent.setLocation(longitude + "," + latitude);
@@ -194,7 +193,7 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
                         Log.e("team1", date1 + " " + Time.valueOf(timeF + ":00") + " " + longitude + "," + latitude + "" + spinnerTeam1.getSelectedItem().toString());
                     }
                 } catch (Exception e) {
-                    Log.e("team1", date1 + " " + Time.valueOf(timeF + ":00") + " " + longitude + "," + latitude + "" + spinnerTeam1.getSelectedItem().toString());
+                    Log.e("team1", date1 + " " + Time.valueOf(timeF + ":00") + " " + longitude + "," + latitude + "" + spinnerTeam1.getSelectedItem().toString() + e.getMessage());
                 }
             }
         });
