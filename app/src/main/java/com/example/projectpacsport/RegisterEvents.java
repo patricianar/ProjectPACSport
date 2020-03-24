@@ -41,11 +41,13 @@ import com.google.android.gms.maps.model.LatLng;
 import java.io.IOException;
 import java.sql.Time;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -80,8 +82,11 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
     private double longitude;
     private String country;
     private String dateSelected;
+    private Date datee;
     private Spinner spinnerLeague, spinnerTeam1, spinnerTeam2;
     private ArrayList<String> spinnerData;
+    private Date date1 = new Date();
+    final SimpleDateFormat formatter1=new SimpleDateFormat("yyyy-MM-dd");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +103,7 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
         final Button submit = findViewById(R.id.btnSubmit);
         final Calendar today = Calendar.getInstance();
         final Calendar chosenDate = Calendar.getInstance();
-        final DateFormat dateFormat = DateFormat.getDateInstance();
+        //final DateFormat dateFormat = DateFormat.getDateInstance();
         final int numOfDays;
 
 
@@ -139,7 +144,7 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
                 String timeF = time.getText().toString();
                 String capacityF = capacity.getText().toString();
                 String locationName = mSearchText.getText().toString();
-
+               // Log.e("Date:", "%%%%%%%%%%%%%%%%%% AENTROOOOOOOOOOOOOOO 1: ");
                 if (nameF.isEmpty()) {
                     Toast.makeText(RegisterEvents.this, "Please insert the name", Toast.LENGTH_SHORT).show();
                 } else if (timeF.isEmpty()) {
@@ -150,6 +155,7 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
                     Toast.makeText(RegisterEvents.this, "Please select a location using the map search bar", Toast.LENGTH_SHORT).show();
                 }
                 try {
+                    //Log.e("Date:", "%%%%%%%%%%%%%%%%%% AENTROOOOOOOOOOOOOOO 2: ");
                     if (!nameF.isEmpty() && !timeF.isEmpty() && !capacityF.isEmpty() && !locationName.isEmpty()
                             && dateSelected != null && !locationName.isEmpty()) {
                         Log.d(TAG, "-------------SAFE INTO DB: --------------");
@@ -163,8 +169,11 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
                         newEvent.setCity(city);
                         newEvent.setProvince(province);
                         newEvent.setCountry(country);
-                        newEvent.setPostalCode(zipCode);
-                        newEvent.setDate(parse(dateSelected));
+                        newEvent.setPostalCode(zipCode.replaceAll(" ", ""));
+                       // SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                        //String a = dateFormat.format(dateSelected);
+                       // newEvent.setDate(parse(dateFormat.format(dateSelected)));
+                        newEvent.setDate(dateSelected);
                         newEvent.setTime(Time.valueOf(timeF + ":00"));
                         //Add spinner's info
                         String team1Name = spinnerTeam1.getSelectedItem().toString();
@@ -172,11 +181,16 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
                         newEvent.setTeam1Id(myDatabaseHelper.getTeamId(team1Name));
                         newEvent.setTeam2Id(myDatabaseHelper.getTeamId(team2Name));
 
+                        newEvent.setLatitude(latitude);
+                        newEvent.setLongitude(longitude);
+                        //GEOGRAPHY::Point(latitude, longitude, 4326);
+                        Log.e("Date:", "%%%%%%%%%%%%%%%%%% DATE VALUE:" + dateSelected);
+
                         myDatabaseHelper.addEvent(newEvent);
-                        Log.e("team1", parse(dateSelected) + " " + Time.valueOf(timeF + ":00") + " " + longitude + "," + latitude + "" + spinnerTeam1.getSelectedItem().toString());
+                        Log.e("team1", date1 + " " + Time.valueOf(timeF + ":00") + " " + longitude + "," + latitude + "" + spinnerTeam1.getSelectedItem().toString());
                     }
                 } catch (Exception e) {
-                    Log.e("team1", parse(dateSelected) + " " + Time.valueOf(timeF + ":00") + " " + longitude + "," + latitude + "" + spinnerTeam1.getSelectedItem().toString());
+                    Log.e("team1", date1 + " " + Time.valueOf(timeF + ":00") + " " + longitude + "," + latitude + "" + spinnerTeam1.getSelectedItem().toString());
                 }
             }
         });
@@ -194,7 +208,17 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
                         if (chosenDate.compareTo(today) <= 0) {
                             Toast.makeText(RegisterEvents.this, "Reservation has to be a future date", Toast.LENGTH_SHORT).show();
                         } else {
-                            dateSelected = dateFormat.format(chosenDate.getTime());
+                            try {
+                               SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                                dateSelected = dateFormat.format(chosenDate.getTime());
+
+                                //date1 = formatter1.parse(formatter1.format(chosenDate.getTime()));
+                                //Log.e("Date:", "%%%%%%%%%%%%%%%%%% DATE VALUE: " + date1);
+                               // Log.e("Date:", "%%%%%%%%%%%%%%%%%% TYPE DATE VALUE: " + datee);
+                            }catch(Exception e)
+                            {
+                                e.printStackTrace();
+                            }
 
                         }
                     }

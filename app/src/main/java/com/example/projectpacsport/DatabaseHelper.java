@@ -184,7 +184,7 @@ public class DatabaseHelper {
 
         String query = "INSERT INTO dbo.[Event](Event_name, Event_planner_id, Event_location, Event_address, Event_postal_code, Event_city, " +
                         "Event_province, Event_country, Event_date, Event_time, Event_capacity, Event_team1_id, Event_team2_id) " +
-                        "VALUES ('" + event.getName() + "'," + event.getPlannerId() + ",geography::Point(" + event.getLocation() + ",4326),'" +
+                        "VALUES ('" + event.getName() + "'," + event.getPlannerId() + ",GEOGRAPHY::Point(" + event.getLatitude() + "," + event.getLongitude() + ",4326),'" +
                         event.getAddress() + "','" + event.getPostalCode() + "','" + event.getCity() + "','" + event.getProvince() + "','" + event.getCountry() + "','" +
                         event.getDate() + "','" + event.getTime() + "'," + event.getCapacity() + "," + event.getTeam1Id() + "," + event.getTeam2Id() + ");";
         try {

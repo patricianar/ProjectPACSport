@@ -2,7 +2,9 @@ package com.example.projectpacsport;
 
 import java.io.Serializable;
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class Event implements Serializable {
     private int id;
@@ -13,12 +15,34 @@ public class Event implements Serializable {
     private String city;
     private String province;
     private String country;
-    private Date date;
+    private String date;
     private Time time;
     private int capacity;
     private int team1Id;
     private int team2Id;
     private String name;
+    private double longitude;
+    private double latitude;
+
+    public double getLongitude()
+    {
+        return longitude;
+    }
+
+    public void setLongitude(double longi)
+    {
+        longitude = longi;
+    }
+
+    public double getLatitude()
+    {
+        return latitude;
+    }
+
+    public void setLatitude(double lati)
+    {
+        latitude = lati;
+    }
 
     public String getName()
     {
@@ -94,12 +118,12 @@ public class Event implements Serializable {
         this.country = country;
     }
 
-    public Date getDate() {
-        return date;
+    public String getDate() {
+        return  date;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDate(String dae) {
+        this.date = dae;
     }
 
     public Time getTime() {
