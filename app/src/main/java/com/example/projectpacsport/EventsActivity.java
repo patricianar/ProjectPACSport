@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class EventsActivity extends AppCompatActivity {
     private ArrayList<Event> events = new ArrayList<>();
-
+    DatabaseHelper myDatabaseHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,15 +24,8 @@ public class EventsActivity extends AppCompatActivity {
         // Initialize BottomNavigationView
         initBottomNavigationView();
 
-        Event a = new Event();
-        a.setCapacity(5);
-        a.setLocation("hoise");
-        a.setTeam1Id(1);
-        a.setTeam2Id(2);
-        events.add(a);
-        events.add(a);
-        events.add(a);
-        events.add(a);
+        myDatabaseHelper = new DatabaseHelper(EventsActivity.this);
+        events = myDatabaseHelper.browseEventRecs();
 
         MyListEventsAdapter myAdapter = new MyListEventsAdapter(events);
         RecyclerView recyclerView = findViewById(R.id.recyclerViewEvents);

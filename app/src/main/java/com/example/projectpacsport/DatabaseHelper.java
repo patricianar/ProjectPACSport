@@ -207,5 +207,39 @@ public class DatabaseHelper {
         }
         return result;
     }
+
+    public ArrayList<Event> browseEventRecs() {
+        ArrayList<Event> allEvents = new ArrayList<>();
+        if (conn == null) {
+            conn = DatabaseConnection.connectionclass();
+        }
+        String query = "SELECT * FROM dbo.[Event];";
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet result = statement.executeQuery(query);
+
+            while (result.next()) {
+                Event event = new Event();
+                event.setId(result.getInt("Event_id"));
+                event.setName(result.getString("Event_name"));
+                event.setPlannerId(result.getInt("Event_planner_id"));
+                event.setLocation(result.getString("Event_location"));
+                event.setAddress(result.getString("Event_address"));
+                event.setPostalCode(result.getString("Event_city"));
+                event.setProvince(result.getString("Event_province"));
+                event.setCountry(result.getString("Event_country"));
+                event.setDate(result.getString("Event_date"));
+                event.setTime(result.getTime("Event_time"));
+                event.setCapacity(result.getInt("Event_capacity"));
+                event.setTeam1Id(result.getInt("Event_team1_id"));
+                event.setTeam2Id(result.getInt("Event_team2_id"));
+                allEvents.add(event);
+            }
+            conn.close();
+        } catch (Exception ex) {
+            Log.e("DB BROWSE", ex.getMessage());
+        }
+        return allEvents;
+    }
 }
 
