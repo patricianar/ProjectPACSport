@@ -35,11 +35,16 @@ public class DatabaseHelper {
             String DBUserEmail;
             String DBPassword;
             if (result.next()) {
-                user.setId(result.getInt("User_id"));
                 DBUserEmail = result.getString("User_email");
                 DBPassword = result.getString("User_password");
                 if (DBPassword.equals(password) && DBUserEmail.equals(uEmail))
+                {
                     validated = true;
+                    user.setId(result.getInt("User_id"));
+                    user.setName(result.getString("User_name"));
+                    user.setLastname(result.getString("User_lastname"));
+                    user.setEmail(result.getString("User_email"));
+                }
                 conn.close();
             } else {
                 validated = false;

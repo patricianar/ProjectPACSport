@@ -5,6 +5,7 @@ import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -62,6 +63,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             boolean login = myDatabaseHelper.validation(uname, pword, currentUser);
 
             if (login == true) {
+                SharedPreferences pref = getApplicationContext().getSharedPreferences("SessionUser", MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putInt("UserId", currentUser.getId());
+                editor.putString("UserName", currentUser.getName());
+                editor.putString("UserLastName", currentUser.getLastname());
+                editor.putString("UserEmail", currentUser.getEmail());
+                editor.commit();
                 Intent mainActivity = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(mainActivity);
                 finish();

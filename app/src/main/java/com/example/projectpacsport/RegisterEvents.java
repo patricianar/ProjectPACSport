@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -161,6 +162,9 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
                         Log.d(TAG, "-------------SAFE INTO DB: --------------");
                         //Create the event object
                         //LocalTime T = LocalTime.parse(timeF);
+                        SharedPreferences pref = getApplicationContext().getSharedPreferences("SessionUser", MODE_PRIVATE);
+                        newEvent.setPlannerId(pref.getInt("UserId", 0));
+
                         newEvent = new Event();
                         newEvent.setName(nameF);
                         newEvent.setCapacity(Integer.parseInt(capacityF));
