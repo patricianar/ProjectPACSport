@@ -168,7 +168,7 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
                         newEvent.setName(nameF);
                         newEvent.setCapacity(Integer.parseInt(capacityF));
                         newEvent.setLocation(longitude + "," + latitude);
-                        newEvent.setAddress(addressMap);
+                        newEvent.setAddress(locationName.trim() + " , " + addressMap);
                         newEvent.setCity(city);
                         newEvent.setProvince(province);
                         newEvent.setCountry(country);

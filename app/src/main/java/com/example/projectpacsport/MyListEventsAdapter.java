@@ -1,9 +1,6 @@
 package com.example.projectpacsport;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +11,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou;
-
 import java.util.ArrayList;
 
 public class MyListEventsAdapter extends RecyclerView.Adapter<MyListEventsAdapter.ViewHolder> {
     private ArrayList<Event> listEvents;
+    DatabaseHelper myDatabaseHelper;
 
     public MyListEventsAdapter(ArrayList<Event> listEvents) {
         this.listEvents = listEvents;
@@ -39,11 +35,19 @@ public class MyListEventsAdapter extends RecyclerView.Adapter<MyListEventsAdapte
         try {
             final Context context = holder.tvEventName.getContext();
             final Event event = listEvents.get(position);
-
+            myDatabaseHelper = new DatabaseHelper(context);
+            Team team1 = myDatabaseHelper.getTeamsInfo(event.getTeam1Id());
+            Team team2 = myDatabaseHelper.getTeamsInfo(event.getTeam2Id());
+            String[] months = {"Jan.", "Feb.", "Mar.", "Apr.", "May", "Jun", "Jul.", "Aug.", "Sept.", "Oct", "Nov", "Dec"};
             //GlideToVectorYou.justLoadImage(mActivity, Uri.parse(result.getAwayTeam().getLogo()), holder.imgAwayTLogo);
-            holder.tvEventName.setText(event.getTeam1Id() + " - " + event.getTeam2Id());
-            holder.tvEventLocation.setText(event.getLocation());
-            holder.tvEventCapacity.setText(event.getCapacity());
+            holder.tvEventName.setText(event.getName() + " (" + team1.getAbbreviation() + " - " + team2.getAbbreviation() + " )");
+            String[] address = event.getAddress().split(",");
+            holder.tvEventAddress.setText(address[0].trim());
+            holder.tvEventCapacity.setText("Capacity: " + String.valueOf(event.getCapacity()));
+            String[] date = event.getDate().split("-");
+            int monthNumb = Integer.parseInt(date[1]) - 1;
+            holder.tvEventDate.setText(months[monthNumb] + " " + date[2]);
+            holder.tvEventLeague.setText(team1.getLeague());
 
             holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -66,16 +70,17 @@ public class MyListEventsAdapter extends RecyclerView.Adapter<MyListEventsAdapte
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvEventName, tvEventLocation, tvEventCapacity;
+        TextView tvEventName, tvEventAddress, tvEventCapacity, tvEventDate, tvEventLeague;
         LinearLayout relativeLayout;
 
         ViewHolder(View itemView) {
             super(itemView);
             this.tvEventName = itemView.findViewById(R.id.tvEventName);
-            this.tvEventLocation = itemView.findViewById(R.id.tvEventLocation);
+            this.tvEventAddress = itemView.findViewById(R.id.tvEventAddress);
             this.tvEventCapacity = itemView.findViewById(R.id.tvEventCapacity);
+            this.tvEventDate = itemView.findViewById(R.id.tvEventDate);
+            this.tvEventLeague = itemView.findViewById(R.id.tvEventLeague);
             relativeLayout =  itemView.findViewById(R.id.linearLayout);
         }
     }
-
 }

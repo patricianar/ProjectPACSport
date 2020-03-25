@@ -25,7 +25,7 @@ public class EventsActivity extends AppCompatActivity {
         initBottomNavigationView();
 
         myDatabaseHelper = new DatabaseHelper(EventsActivity.this);
-        events = myDatabaseHelper.browseEventRecs();
+        events = myDatabaseHelper.getEventRecs();
 
         MyListEventsAdapter myAdapter = new MyListEventsAdapter(events);
         RecyclerView recyclerView = findViewById(R.id.recyclerViewEvents);

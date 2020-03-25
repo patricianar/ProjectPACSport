@@ -8,6 +8,7 @@ class Team implements Serializable {
     private String logo;
     private String abbreviation;
     private int score;
+    private String league;
 
     int getId() {
         return id;
@@ -47,5 +48,13 @@ class Team implements Serializable {
 
     void setScore(int score) {
         this.score = score;
+    }
+
+    public String getLeague() {
+        return league;
+    }
+
+    public void setLeague(String league) {
+        this.league = league;
     }
 }

@@ -37,8 +37,7 @@ public class DatabaseHelper {
             if (result.next()) {
                 DBUserEmail = result.getString("User_email");
                 DBPassword = result.getString("User_password");
-                if (DBPassword.equals(password) && DBUserEmail.equals(uEmail))
-                {
+                if (DBPassword.equals(password) && DBUserEmail.equals(uEmail)) {
                     validated = true;
                     user.setId(result.getInt("User_id"));
                     user.setName(result.getString("User_name"));
@@ -148,7 +147,7 @@ public class DatabaseHelper {
 
     public ArrayList<String> getDataForSpinner(String teamLeague) {
         ArrayList<String> allTeams = new ArrayList<>();
-            conn = DatabaseConnection.connectionclass();
+        conn = DatabaseConnection.connectionclass();
 
         String query = "SELECT * from [dbo].[Team] WHERE Team_league  = '" + teamLeague + "';";
         try {
@@ -165,7 +164,7 @@ public class DatabaseHelper {
         return allTeams;
     }
 
-    public int getTeamId(String teamName){
+    public int getTeamId(String teamName) {
         int teamId = 0;
         conn = DatabaseConnection.connectionclass();
 
@@ -173,7 +172,7 @@ public class DatabaseHelper {
         try {
             Statement statement = conn.createStatement();
             ResultSet result = statement.executeQuery(query);
-            if(result.next()){
+            if (result.next()) {
                 teamId = result.getInt(1);
             }
             conn.close();
@@ -188,10 +187,10 @@ public class DatabaseHelper {
         conn = DatabaseConnection.connectionclass();
 
         String query = "INSERT INTO dbo.[Event](Event_name, Event_planner_id, Event_location, Event_address, Event_postal_code, Event_city, " +
-                        "Event_province, Event_country, Event_date, Event_time, Event_capacity, Event_team1_id, Event_team2_id) " +
-                        "VALUES ('" + event.getName() + "'," + event.getPlannerId() + ",GEOGRAPHY::Point(" + event.getLatitude() + "," + event.getLongitude() + ",4326),'" +
-                        event.getAddress() + "','" + event.getPostalCode() + "','" + event.getCity() + "','" + event.getProvince() + "','" + event.getCountry() + "','" +
-                        event.getDate() + "','" + event.getTime() + "'," + event.getCapacity() + "," + event.getTeam1Id() + "," + event.getTeam2Id() + ");";
+                "Event_province, Event_country, Event_date, Event_time, Event_capacity, Event_team1_id, Event_team2_id) " +
+                "VALUES ('" + event.getName() + "'," + event.getPlannerId() + ",GEOGRAPHY::Point(" + event.getLatitude() + "," + event.getLongitude() + ",4326),'" +
+                event.getAddress() + "','" + event.getPostalCode() + "','" + event.getCity() + "','" + event.getProvince() + "','" + event.getCountry() + "','" +
+                event.getDate() + "','" + event.getTime() + "'," + event.getCapacity() + "," + event.getTeam1Id() + "," + event.getTeam2Id() + ");";
         try {
             Statement statement = conn.createStatement();
             result = statement.executeUpdate(query);
@@ -208,7 +207,7 @@ public class DatabaseHelper {
         return result;
     }
 
-    public ArrayList<Event> browseEventRecs() {
+    public ArrayList<Event> getEventRecs() {
         ArrayList<Event> allEvents = new ArrayList<>();
         if (conn == null) {
             conn = DatabaseConnection.connectionclass();
@@ -237,9 +236,30 @@ public class DatabaseHelper {
             }
             conn.close();
         } catch (Exception ex) {
-            Log.e("DB BROWSE", ex.getMessage());
+            Log.e("DB Events", ex.getMessage());
         }
         return allEvents;
+    }
+
+    public Team getTeamsInfo(int teamId) {
+        Team team = new Team();
+
+        conn = DatabaseConnection.connectionclass();
+        String query = "SELECT * FROM dbo.[Team] WHERE Team_id = " + teamId;
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet result = statement.executeQuery(query);
+
+            if (result.next()) {
+                team.setAbbreviation(result.getString("Team_abrev"));
+                team.setName(result.getString("Team_name"));
+                team.setLeague(result.getString("Team_league"));
+            }
+            conn.close();
+        } catch (Exception ex) {
+            Log.e("DB Team", ex.getMessage());
+        }
+        return team;
     }
 }
 
