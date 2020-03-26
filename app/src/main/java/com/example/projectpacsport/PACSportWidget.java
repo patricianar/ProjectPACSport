@@ -32,13 +32,13 @@ import static android.content.Context.MODE_PRIVATE;
  */
 public class PACSportWidget extends AppWidgetProvider {
     private static final String TAG = "PACSportWidget";
-    private static final String sharedPrefFile = "com.example.projectpacsport";
+    private static final String SHARED_PREF_FILE = "com.example.projectpacsport";
 
     private void updateAppWidget(final Context context, final AppWidgetManager appWidgetManager,
                                  final int appWidgetId) {
 
         // Extract favorite from SharedPreferences
-        SharedPreferences mPreferences = context.getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
+        SharedPreferences mPreferences = context.getSharedPreferences(SHARED_PREF_FILE, MODE_PRIVATE);
         String favTeam = mPreferences.getString("favoriteTeam", "bos");
         String favLeague = mPreferences.getString("favoriteLeague", "nba");
 

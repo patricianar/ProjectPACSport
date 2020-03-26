@@ -11,7 +11,7 @@ android {
         multiDexEnabled true
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        android.defaultConfig.vectorDrawables.useSupportLibrary = true
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -64,7 +64,7 @@ dependencies {
 
     // Google maps
     implementation 'com.google.android.gms:play-services-maps:16.0.0'
-    implementation "com.google.android.gms:play-services-location:17.0.0"
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
 
     // Google Data API
     implementation 'androidx.multidex:multidex:2.0.1'
@@ -74,4 +74,7 @@ dependencies {
     implementation('com.google.apis:google-api-services-youtube:v3-rev222-1.25.0') {
         exclude group: 'org.apache.httpcomponents'
     }
+
+    // Scalling Layout
+    implementation 'com.github.iammert:ScalingLayout:1.2.1'
 }

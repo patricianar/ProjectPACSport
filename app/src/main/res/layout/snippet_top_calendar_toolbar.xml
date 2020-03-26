@@ -3,7 +3,8 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="50dp"
+        android:background="@color/primaryDarkColor">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/profileToolBar"
@@ -24,13 +25,13 @@
                     app:srcCompat="@drawable/ic_backarrow" />
 
                 <TextView
-                    android:id="@+id/profileName"
+                    android:id="@+id/txtView_calendar_toolbar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="5dp"
                     android:layout_toEndOf="@id/back_arrow"
-                    android:text="Player"
+                    android:text="@string/txtView_event_calendar"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="20sp" />
 

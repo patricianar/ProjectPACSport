@@ -3,7 +3,8 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="50dp"
+        android:background="@color/primaryDarkColor">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/profileToolBar"
@@ -16,24 +17,32 @@
 
                 <ImageView
                     android:id="@+id/back_arrow"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="20dp"
                     app:srcCompat="@drawable/ic_backarrow" />
 
                 <TextView
-                    android:id="@+id/profileName"
+                    android:id="@+id/txtView_calendar_toolbar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="5dp"
                     android:layout_toEndOf="@id/back_arrow"
-                    android:text="Player"
+                    android:text="@string/txtView_favorite_team_toolbar"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="20sp" />
 
+                <ImageView
+                    android:id="@+id/edit_fav_team"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    app:srcCompat="@drawable/ic_edit" />
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>

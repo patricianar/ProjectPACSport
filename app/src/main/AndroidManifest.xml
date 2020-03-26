@@ -19,6 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".FavoriteTeamActivity" />
+        <activity android:name=".HistoryEventsActivity" />
+        <activity android:name=".CalendarActivity" />
         <activity android:name=".IntroActivity1">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -62,9 +65,7 @@
         <activity android:name=".login.RegisterActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".RegisterEvent" />
-        <activity android:name=".login.LoginActivity">
-
-        </activity>
+        <activity android:name=".login.LoginActivity" />
         <activity android:name=".EventsActivity" />
     </application>
 

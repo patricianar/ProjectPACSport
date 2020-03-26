@@ -28,6 +28,10 @@
     <string name="mlb_league">MLB</string>
     <string name="lastUpdatedOn">Last update on:</string>
     <string name="txtTitleEvents">Events</string>
+    <string name="txtView_hello_user_name">Hello User Name</string>
+    <string name="txtView_event_calendar">Event Calendar</string>
+    <string name="txtView_calendar_event_information">Event Information</string>
+    <string name="txtView_favorite_team_toolbar">Favorite Team</string>
 
     <string-array name="leagues_array">
         <item>NBA</item>
