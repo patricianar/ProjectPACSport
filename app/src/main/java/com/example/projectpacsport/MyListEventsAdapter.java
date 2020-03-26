@@ -74,12 +74,12 @@ public class MyListEventsAdapter extends RecyclerView.Adapter<MyListEventsAdapte
                         holder.imageViewCheck.setImageResource(R.drawable.ic_action_check);
                         event.setSelected(true);
                         myDatabaseHelper.addEventAttendance(currentUser, event.getId());
-                        Toast.makeText(view.getContext(),  event.getName() + " added to workout", Toast.LENGTH_LONG).show();
+                        Toast.makeText(view.getContext(),  event.getName() + " added to events", Toast.LENGTH_LONG).show();
                     }else{
                         holder.imageViewCheck.setImageResource(R.drawable.ic_action_check_outline);
                         event.setSelected(false);
                         myDatabaseHelper.removeEventAttendance(currentUser, event.getId());
-                        Toast.makeText(view.getContext(),  event.getName() + " removed from workout", Toast.LENGTH_LONG).show();
+                        Toast.makeText(view.getContext(),  event.getName() + " removed from events", Toast.LENGTH_LONG).show();
                     }
                 }
             });
