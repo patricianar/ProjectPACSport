@@ -23,6 +23,7 @@ public class Event implements Serializable {
     private String name;
     private double longitude;
     private double latitude;
+    private boolean selected;
 
     public double getLongitude()
     {
@@ -156,5 +157,13 @@ public class Event implements Serializable {
 
     public void setTeam2Id(int team2Id) {
         this.team2Id = team2Id;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 }
