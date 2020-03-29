@@ -29,7 +29,7 @@ public class ProfileActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         //Set Result Selector
-        bottomNavigationView.setSelectedItemId(R.id.results);
+        bottomNavigationView.setSelectedItemId(R.id.profile_menu);
 
         //Perform ItemSelectedListener
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
