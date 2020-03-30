@@ -477,7 +477,7 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         //Set Result Selector
-        bottomNavigationView.setSelectedItemId(R.id.results);
+        bottomNavigationView.setSelectedItemId(R.id.create_event);
 
         //Perform ItemSelectedListener
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

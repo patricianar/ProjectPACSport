@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,11 +26,9 @@ public class DatabaseHelper {
 
     public Boolean validation(String uEmail, String password, User user) {
         Boolean validated = false;
-
         conn = DatabaseConnection.connectionclass();
 
         String query = "SELECT * from dbo.[User] WHERE User_email like '" + uEmail + "'";
-        Log.e("query", query);
         try {
             Statement statement = conn.createStatement();
             ResultSet result = statement.executeQuery(query);
@@ -196,9 +196,9 @@ public class DatabaseHelper {
             result = statement.executeUpdate(query);
 
             if (result != -1) {
-                Log.e("DB: ", "Added event " + event.getId() + ": " + event.getName());
+                Log.d("DB: ", "Added event " + event.getId() + ": " + event.getName());
             } else {
-                Log.e("DB: ", "Error adding user " + event.getId() + ": " + event.getName());
+                Log.d("DB: ", "Error adding user " + event.getId() + ": " + event.getName());
             }
             conn.close();
         } catch (Exception ex) {
@@ -207,8 +207,8 @@ public class DatabaseHelper {
         return result;
     }
 
-    public ArrayList<Event> getEventRecs() {
-        ArrayList<Event> allEvents = new ArrayList<>();
+    public HashMap<Integer, Event> getEventRecs() {
+        HashMap<Integer, Event> allEvents = new HashMap<>();
         if (conn == null) {
             conn = DatabaseConnection.connectionclass();
         }
@@ -232,7 +232,7 @@ public class DatabaseHelper {
                 event.setCapacity(result.getInt("Event_capacity"));
                 event.setTeam1Id(result.getInt("Event_team1_id"));
                 event.setTeam2Id(result.getInt("Event_team2_id"));
-                allEvents.add(event);
+                allEvents.put(event.getId(),event);
             }
             conn.close();
         } catch (Exception ex) {
@@ -241,10 +241,28 @@ public class DatabaseHelper {
         return allEvents;
     }
 
+    public ArrayList<Integer> getMyEventsIds(int userId) {
+        ArrayList<Integer> allMyEventsIds = new ArrayList<>();
+        conn = DatabaseConnection.connectionclass();
+        String query = "SELECT * FROM dbo.[UserEvent] WHERE User_id = " + userId + ";";
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet result = statement.executeQuery(query);
+
+            while (result.next()) {
+                allMyEventsIds.add(result.getInt("Event_id"));
+            }
+            conn.close();
+        } catch (Exception ex) {
+            Log.e("DB Events Ids ", ex.getMessage());
+        }
+        return allMyEventsIds;
+    }
+
     public Team getTeamsInfo(int teamId) {
         Team team = new Team();
-
         conn = DatabaseConnection.connectionclass();
+
         String query = "SELECT * FROM dbo.[Team] WHERE Team_id = " + teamId;
         try {
             Statement statement = conn.createStatement();
@@ -260,6 +278,44 @@ public class DatabaseHelper {
             Log.e("DB Team", ex.getMessage());
         }
         return team;
+    }
+
+    public void addEventAttendance(int userId, int eventId) {
+        conn = DatabaseConnection.connectionclass();
+
+        String query = "INSERT INTO dbo.[UserEvent] (User_id, Event_id) VALUES ( " + userId + "," + eventId + ");";
+        try {
+            Statement statement = conn.createStatement();
+            long result = statement.executeUpdate(query);
+
+            if (result != -1) {
+                Log.d("DB: ", "Added Event " + eventId);
+            } else {
+                Log.d("DB : ", "Error adding Event" + eventId);
+            }
+            conn.close();
+        } catch (Exception ex) {
+            Log.e("DB INSERT", ex.getMessage());
+        }
+    }
+
+    public void removeEventAttendance(int userId, int eventId) {
+        conn = DatabaseConnection.connectionclass();
+
+        String query = "DELETE FROM dbo.[UserEvent] WHERE User_id = " + userId + "AND " + "Event_id = " + eventId + ";";
+        try {
+            Statement statement = conn.createStatement();
+            long result = statement.executeUpdate(query);
+
+            if (result != -1) {
+                Log.d("DB: ", "Removed Event " + eventId);
+            } else {
+                Log.d("DB : ", "Error removing Event" + eventId);
+            }
+            conn.close();
+        } catch (Exception ex) {
+            Log.e("DB DELETE", ex.getMessage());
+        }
     }
 }
 
