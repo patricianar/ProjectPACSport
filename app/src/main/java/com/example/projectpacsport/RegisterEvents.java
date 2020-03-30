@@ -136,7 +136,6 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
             }
         });
 
-        getLocationPermission();
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -181,16 +180,33 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
                         //Add spinner's info
                         String team1Name = spinnerTeam1.getSelectedItem().toString();
                         String team2Name = spinnerTeam2.getSelectedItem().toString();
+                        String league = spinnerLeague.getSelectedItem().toString();
                         newEvent.setTeam1Id(myDatabaseHelper.getTeamId(team1Name));
                         newEvent.setTeam2Id(myDatabaseHelper.getTeamId(team2Name));
 
                         newEvent.setLatitude(latitude);
                         newEvent.setLongitude(longitude);
-                        //GEOGRAPHY::Point(latitude, longitude, 4326);
                         Log.e("Date:", "%%%%%%%%%%%%%%%%%% DATE VALUE:" + dateSelected);
 
                         myDatabaseHelper.addEvent(newEvent);
                         Log.e("team1", date1 + " " + Time.valueOf(timeF + ":00") + " " + longitude + "," + latitude + "" + spinnerTeam1.getSelectedItem().toString());
+
+                        Intent intent = new Intent(RegisterEvents.this, confirmationEvent.class);
+                        Bundle budleEvent = new Bundle();
+                        budleEvent.putString("name", nameF);
+                        budleEvent.putString("capacity", capacityF);
+                        budleEvent.putString("address", locationName + ", " + addressMap);
+                        budleEvent.putString("City", city);
+                        budleEvent.putString("province", province);
+                        budleEvent.putString("country", country);
+                        budleEvent.putString("postalCode", zipCode);
+                        budleEvent.putString("date", dateSelected);
+                        budleEvent.putString("time", timeF + ":00");
+                        budleEvent.putString("team1Name", team1Name);
+                        budleEvent.putString("team2Name", team2Name);
+                        budleEvent.putString("league", league);
+                        intent.putExtras(budleEvent);
+                        startActivity(intent);
                     }
                 } catch (Exception e) {
                     Log.e("team1", date1 + " " + Time.valueOf(timeF + ":00") + " " + longitude + "," + latitude + "" + spinnerTeam1.getSelectedItem().toString() + e.getMessage());
@@ -250,6 +266,7 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
                 picker.show();
             }
         });
+        getLocationPermission();
     }
 
     @Override
@@ -258,21 +275,22 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
         Log.d(TAG, "onMapReady: map is ready");
         map = googleMap;
 
-        if (mLocationPermissionsGranted) {
-            getDeviceLocation();
+        Log.d(TAG, "%%%%INSIDE onMapReady: PERMISSION IS: " + mLocationPermissionsGranted);
 
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+        if (mLocationPermissionsGranted == true) {
+            //map.setMyLocationEnabled(true);
+            Log.d(TAG, "%%%%AFTER SET LOCATION ENABLE: " + mLocationPermissionsGranted);
+            map.getUiSettings().setMyLocationButtonEnabled(false);
+            getDeviceLocation();
+            Log.d(TAG, "%%%%INSIDE AFTER GET DEVICE LOCATION: PERMISSION IS: " + mLocationPermissionsGranted);
+           if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                     != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
                     Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 return;
             }
-            map.setMyLocationEnabled(true);
-            map.getUiSettings().setMyLocationButtonEnabled(false);
-
-            init();
-
 
         }
+        init();
     }
 
     //private FusedLocationProviderClient mFusedLocationProviderClient; // Object or the library
@@ -358,23 +376,23 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
     }
 
 
-    private void getLocationPermission() {
+    private void getLocationPermission(){
         Log.d(TAG, "getLocationPermission: getting location permissions");
         String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION};
 
-        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
-                FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
-                    COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if(ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+            if(ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                    COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
                 mLocationPermissionsGranted = true;
                 initMap();
-            } else {
+            }else{
                 ActivityCompat.requestPermissions(this,
                         permissions,
                         LOCATION_PERMISSION_REQUEST_CODE);
             }
-        } else {
+        }else{
             ActivityCompat.requestPermissions(this,
                     permissions,
                     LOCATION_PERMISSION_REQUEST_CODE);
@@ -442,6 +460,7 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
                     }
                     Log.d(TAG, "onRequestPermissionsResult: permission granted");
                     mLocationPermissionsGranted = true;
+
                     //initialize our map
                     initMap();
                 }
