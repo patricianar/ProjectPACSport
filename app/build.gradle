@@ -11,6 +11,7 @@ android {
         multiDexEnabled true
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        android.defaultConfig.vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -63,7 +64,7 @@ dependencies {
 
     // Google maps
     implementation 'com.google.android.gms:play-services-maps:16.0.0'
-    implementation 'com.google.android.gms:play-services-location:17.0.0'
+    implementation "com.google.android.gms:play-services-location:17.0.0"
 
     // Google Data API
     implementation 'androidx.multidex:multidex:2.0.1'

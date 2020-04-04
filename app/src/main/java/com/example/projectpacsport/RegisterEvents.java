@@ -208,8 +208,8 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
                         String team1Name = spinnerTeam1.getSelectedItem().toString();
                         String team2Name = spinnerTeam2.getSelectedItem().toString();
                         String league = spinnerLeague.getSelectedItem().toString();
-                        newEvent.setTeam1Id(myDatabaseHelper.getTeamId(team1Name));
-                        newEvent.setTeam2Id(myDatabaseHelper.getTeamId(team2Name));
+                        newEvent.setTeam1(myDatabaseHelper.getTeam(team1Name));
+                        newEvent.setTeam2(myDatabaseHelper.getTeam(team2Name));
 
                         newEvent.setLatitude(latitude);
                         newEvent.setLongitude(longitude);

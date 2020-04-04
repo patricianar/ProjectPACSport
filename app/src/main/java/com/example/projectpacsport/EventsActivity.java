@@ -5,10 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.MenuItem;
 
@@ -22,9 +25,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class EventsActivity extends AppCompatActivity {
-    private HashMap<Integer, Event> events = new HashMap<>();
+    private ArrayList<Event> events = new ArrayList<>();
     private ArrayList<Integer> myEvents = new ArrayList<>();
     DatabaseHelper myDatabaseHelper;
+    int currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,26 +39,29 @@ public class EventsActivity extends AppCompatActivity {
         initBottomNavigationView();
 
         SharedPreferences pref = getSharedPreferences("SessionUser", MODE_PRIVATE);
-        final int currentUser = pref.getInt("UserId", 0);
+        currentUser = pref.getInt("UserId", 0);
 
         myDatabaseHelper = new DatabaseHelper(EventsActivity.this);
-        events = myDatabaseHelper.getEventRecs();
         myEvents = myDatabaseHelper.getMyEventsIds(currentUser);
+        events = myDatabaseHelper.getEventRecs(myEvents);
+//        events = mService.getEventRecs(myEvents);
 
-        for(int eventId: myEvents){
-            events.get(eventId).setSelected(true);
-        }
+//        for(int eventId: myEvents){
+//            events.get(eventId).setSelected(true);
+//        }
+//
+//        Collection<Event> values = events.values();
+//        ArrayList<Event> eventsList = new ArrayList<>(values);
 
-        Collection<Event> values = events.values();
-        ArrayList<Event> eventsList = new ArrayList<>(values);
-
-        MyListEventsAdapter myAdapter = new MyListEventsAdapter(eventsList);
+        MyListEventsAdapter myAdapter = new MyListEventsAdapter(events);
         RecyclerView recyclerView = findViewById(R.id.recyclerViewEvents);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(myAdapter);
     }
+
+
 
     /**
      * Init BottomNavigationView with 4 items:

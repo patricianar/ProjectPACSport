@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primaryColor">#201F1F</color>
-    <color name="primaryLightColor">#4e35a5</color>
-    <color name="primaryDarkColor">#000049</color>
+    <color name="primaryColor">#333333</color>
+    <color name="primaryLightColor">#434343</color>
+    <color name="primaryDarkColor">#202020</color>
     <color name="secondaryColor">#C5D4DF</color>
     <color name="secondaryLightColor">#FFC94D</color>
     <color name="secondaryDarkColor">#c36900</color>
-    <color name="primaryTextColor">#FFFFFF</color>
-    <color name="secondaryTextColor">#000000</color>
+    <color name="primaryTextColor">#6ACCCB</color>
+    <color name="secondaryTextColor">#EEEBEB</color>
 
     <!--For Intro Pages-->
     <color name="introColor">#FFFFFF</color>

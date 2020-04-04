@@ -1,7 +1,7 @@
 package com.example.projectpacsport;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,7 +39,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
         String league = sharedPref.getString("League", "nba");
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.clear();
-        editor.apply();
+        editor.commit();
 
         // The string url for connecting to the api
         String url = "https://api.mysportsfeeds.com/v2.1/pull/" + league + "/players.json?player=" + playerName;
@@ -113,7 +113,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
         tvPlayerWeight = findViewById(R.id.txtViewDisplayWeight);
         tvPlayerTeam = findViewById(R.id.txtViewDisplayTeam);
         imgPlayer = findViewById(R.id.imgPlayer);
-        btnBack = findViewById(R.id.back_arrow);
+        btnBack = findViewById(R.id.backArrow);
         btnBack.setOnClickListener(this);
     }
 

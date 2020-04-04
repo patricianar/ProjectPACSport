@@ -18,17 +18,15 @@ public class Event implements Serializable {
     private String date;
     private Time time;
     private int capacity;
-    private int team1Id;
-    private int team2Id;
+    private Team team1;
+    private Team team2;
     private String name;
     private double longitude;
     private double latitude;
     private boolean selected;
+    private int attendants;
+    private String league;
     private String image;
-
-    public void setImage(String img){image = img;}
-
-    public String getImage(){return image;}
 
     public double getLongitude()
     {
@@ -148,27 +146,51 @@ public class Event implements Serializable {
         this.capacity = capacity;
     }
 
-    public int getTeam1Id() {
-        return team1Id;
-    }
-
-    public void setTeam1Id(int team1Id) {
-        this.team1Id = team1Id;
-    }
-
-    public int getTeam2Id() {
-        return team2Id;
-    }
-
-    public void setTeam2Id(int team2Id) {
-        this.team2Id = team2Id;
-    }
-
     public boolean isSelected() {
         return selected;
     }
 
     public void setSelected(boolean selected) {
         this.selected = selected;
+    }
+
+    public Team getTeam1() {
+        return team1;
+    }
+
+    public void setTeam1(Team team1) {
+        this.team1 = team1;
+    }
+
+    public Team getTeam2() {
+        return team2;
+    }
+
+    public void setTeam2(Team team2) {
+        this.team2 = team2;
+    }
+
+    public int getAttendants() {
+        return attendants;
+    }
+
+    public void setAttendants(int attendants) {
+        this.attendants = attendants;
+    }
+
+    public String getLeague() {
+        return league;
+    }
+
+    public void setLeague(String league) {
+        this.league = league;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

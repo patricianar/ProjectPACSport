@@ -18,7 +18,6 @@ import com.example.projectpacsport.R;
 import com.example.projectpacsport.User;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
-
     private static final String TAG = "LoginActivity";
 
     // For the layout
@@ -78,5 +77,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         }
     }
+
 }
 

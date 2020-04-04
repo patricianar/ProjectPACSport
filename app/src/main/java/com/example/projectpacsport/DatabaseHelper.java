@@ -164,8 +164,8 @@ public class DatabaseHelper {
         return allTeams;
     }
 
-    public int getTeamId(String teamName) {
-        int teamId = 0;
+    public Team getTeam(String teamName) {
+        Team team = new Team();
         conn = DatabaseConnection.connectionclass();
 
         String query = "SELECT Team_id from [dbo].[Team] WHERE Team_name  LIKE '%" + teamName + "%';";
@@ -173,13 +173,13 @@ public class DatabaseHelper {
             Statement statement = conn.createStatement();
             ResultSet result = statement.executeQuery(query);
             if (result.next()) {
-                teamId = result.getInt(1);
+                team.setId(result.getInt(1));
             }
             conn.close();
         } catch (Exception ex) {
             Log.e("DB", ex.getMessage());
         }
-        return teamId;
+        return team;
     }
 
     public long addEvent(Event event) {
@@ -187,18 +187,16 @@ public class DatabaseHelper {
         conn = DatabaseConnection.connectionclass();
 
         String query = "INSERT INTO dbo.[Event](Event_name, Event_planner_id, Event_location, Event_address, Event_postal_code, Event_city, " +
-                "Event_province, Event_country, Event_date, Event_time, Event_capacity, Event_team1_id, Event_team2_id, Event_image) " +
+                "Event_province, Event_country, Event_date, Event_time, Event_capacity, Event_team1_id, Event_team2_id) " +
                 "VALUES ('" + event.getName() + "'," + event.getPlannerId() + ",GEOGRAPHY::Point(" + event.getLatitude() + "," + event.getLongitude() + ",4326),'" +
                 event.getAddress() + "','" + event.getPostalCode() + "','" + event.getCity() + "','" + event.getProvince() + "','" + event.getCountry() + "','" +
-                event.getDate() + "','" + event.getTime() + "'," + event.getCapacity() + "," + event.getTeam1Id() + "," + event.getTeam2Id() + ",'" + event.getImage() + "');";
-        Log.d("DB QUERY: ", "Query " + query);
+                event.getDate() + "','" + event.getTime() + "'," + event.getCapacity() + "," + event.getTeam1().getId() + "," + event.getTeam2().getId() + ");";
         try {
             Statement statement = conn.createStatement();
             result = statement.executeUpdate(query);
 
             if (result != -1) {
                 Log.d("DB: ", "Added event " + event.getId() + ": " + event.getName());
-                Log.d("DB: ", "PHOTO STRING: " + event.getImage());
             } else {
                 Log.d("DB: ", "Error adding user " + event.getId() + ": " + event.getName());
             }
@@ -209,12 +207,12 @@ public class DatabaseHelper {
         return result;
     }
 
-    public HashMap<Integer, Event> getEventRecs() {
-        HashMap<Integer, Event> allEvents = new HashMap<>();
-        if (conn == null) {
-            conn = DatabaseConnection.connectionclass();
-        }
-        String query = "SELECT * FROM dbo.[Event];";
+    public ArrayList<Event> getEventRecs(ArrayList<Integer> myEvents) {
+        ArrayList<Event> allEvents = new ArrayList<>();
+        conn = DatabaseConnection.connectionclass();
+        String query = "SELECT dbo.[Event].Event_id, dbo.[Event].Event_name, dbo.[Event].Event_address, dbo.[Event].Event_date, dbo.[Event].Event_city, dbo.[Team].Team_league\n" +
+                " FROM dbo.[Event] LEFT JOIN dbo.[UserEvent] ON dbo.[Event].Event_id = dbo.[UserEvent].Event_id \n" +
+                "LEFT JOIN dbo.[Team] ON dbo.[Event].Event_team1_id = dbo.[Team].Team_id GROUP BY dbo.[Event].Event_id, dbo.[Event].Event_name, dbo.[Event].Event_address, dbo.[Event].Event_date, dbo.[Event].Event_city, dbo.[Team].Team_league;";
         try {
             Statement statement = conn.createStatement();
             ResultSet result = statement.executeQuery(query);
@@ -223,18 +221,22 @@ public class DatabaseHelper {
                 Event event = new Event();
                 event.setId(result.getInt("Event_id"));
                 event.setName(result.getString("Event_name"));
-                event.setPlannerId(result.getInt("Event_planner_id"));
-                event.setLocation(result.getString("Event_location"));
                 event.setAddress(result.getString("Event_address"));
-                event.setPostalCode(result.getString("Event_city"));
-                event.setProvince(result.getString("Event_province"));
-                event.setCountry(result.getString("Event_country"));
                 event.setDate(result.getString("Event_date"));
-                event.setTime(result.getTime("Event_time"));
-                event.setCapacity(result.getInt("Event_capacity"));
-                event.setTeam1Id(result.getInt("Event_team1_id"));
-                event.setTeam2Id(result.getInt("Event_team2_id"));
-                allEvents.put(event.getId(),event);
+                event.setCity(result.getString("Event_city"));
+                event.setLeague(result.getString("Team_league"));
+                //team = getTeamsInfo(result.getInt("Event_team1_id"));
+                //event.setTeam1(team);
+                //team = getTeamsInfo(result.getInt("Event_team2_id"));
+                //event.setTeam2(team);
+                //event.setAttendants(getNumOfAttendants(event.getId()));
+                //Log.e("atte", event.getAttendants() + "");
+
+                for (int eventId : myEvents) {
+                    if (event.getId() == eventId)
+                        event.setSelected(true);
+                }
+                allEvents.add(event);
             }
             conn.close();
         } catch (Exception ex) {
@@ -318,6 +320,25 @@ public class DatabaseHelper {
         } catch (Exception ex) {
             Log.e("DB DELETE", ex.getMessage());
         }
+    }
+
+    public int getNumOfAttendants(int eventId) {
+        int attendants = 0;
+        conn = DatabaseConnection.connectionclass();
+
+        String query = "SELECT COUNT(*) AS Event_attendants FROM dbo.[UserEvent] WHERE Event_id = " + eventId;
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet result = statement.executeQuery(query);
+
+            if (result.next()) {
+                attendants = result.getInt("Event_attendants");
+            }
+            conn.close();
+        } catch (Exception ex) {
+            Log.e("DB Attendants", ex.getMessage());
+        }
+        return attendants;
     }
 }
 
