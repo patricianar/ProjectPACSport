@@ -24,6 +24,11 @@ public class Event implements Serializable {
     private double longitude;
     private double latitude;
     private boolean selected;
+    private String image;
+
+    public void setImage(String img){image = img;}
+
+    public String getImage(){return image;}
 
     public double getLongitude()
     {
