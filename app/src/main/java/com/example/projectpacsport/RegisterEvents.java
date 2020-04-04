@@ -6,11 +6,15 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.InputType;
+import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -28,6 +32,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
@@ -39,6 +44,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.sql.Time;
 import java.text.DateFormat;
@@ -55,6 +61,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import org.w3c.dom.Text;
 
 import static okhttp3.internal.http.HttpDate.parse;
 
@@ -88,6 +96,15 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
     private ArrayList<String> spinnerData;
     private Date date1 = new Date();
     final SimpleDateFormat formatter1=new SimpleDateFormat("yyyy-MM-dd");
+    private Button btnChoosen;
+    private final int PICK_IMAGE_REQUEST = 71;
+    private Uri filePath;
+    private  Bitmap bitmap;
+    private byte[] byteArray;
+    private String  encodedImage;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +123,7 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
         final Calendar chosenDate = Calendar.getInstance();
         //final DateFormat dateFormat = DateFormat.getDateInstance();
         final int numOfDays;
+        btnChoosen = findViewById(R.id.btn_uploadPhoto);
 
 
         mSearchText = findViewById(R.id.input_search);
@@ -136,6 +154,12 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
             }
         });
 
+        btnChoosen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chooseImage();
+            }
+        });
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,6 +177,9 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
                     Toast.makeText(RegisterEvents.this, "Please insert the capacity", Toast.LENGTH_SHORT).show();
                 } else if (locationName.isEmpty()) {
                     Toast.makeText(RegisterEvents.this, "Please select a location using the map search bar", Toast.LENGTH_SHORT).show();
+                } else if(filePath == null)
+                {
+                    Toast.makeText(RegisterEvents.this, "Please choose a picture", Toast.LENGTH_SHORT).show();
                 }
                 try {
                     //Log.e("Date:", "%%%%%%%%%%%%%%%%%% AENTROOOOOOOOOOOOOOO 2: ");
@@ -186,6 +213,19 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
 
                         newEvent.setLatitude(latitude);
                         newEvent.setLongitude(longitude);
+
+                       /* ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 20, stream);
+                        byteArray = stream.toByteArray();
+                        encodedImage = Base64.encodeToString(byteArray, Base64.DEFAULT); */
+
+
+                      //  Log.e("ENCODE VALUE:", "%%%%%%%%%%%%%%%%%% ENCODE VALUE:" + encodedImage);
+
+
+                        newEvent.setImage(filePath.toString());
+                       // newEvent.setImage(encodedImage);
+
                         Log.e("Date:", "%%%%%%%%%%%%%%%%%% DATE VALUE:" + dateSelected);
 
                         myDatabaseHelper.addEvent(newEvent);
@@ -205,8 +245,11 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
                         budleEvent.putString("team1Name", team1Name);
                         budleEvent.putString("team2Name", team2Name);
                         budleEvent.putString("league", league);
+                        budleEvent.putString("image",filePath.toString());
                         intent.putExtras(budleEvent);
                         startActivity(intent);
+                        Log.e("PHOTO LINK", "PHOTO LINK: " + filePath);
+
                     }
                 } catch (Exception e) {
                     Log.e("team1", date1 + " " + Time.valueOf(timeF + ":00") + " " + longitude + "," + latitude + "" + spinnerTeam1.getSelectedItem().toString() + e.getMessage());
@@ -267,6 +310,35 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
             }
         });
         getLocationPermission();
+    }
+
+    public void chooseImage()
+    {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("image/*");
+        intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent,"Select Picture"),PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null)
+        {
+            filePath = data.getData();
+            Log.d(TAG, "**************** filePath *****************" + filePath.toString());
+            try
+            {
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),filePath);
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
