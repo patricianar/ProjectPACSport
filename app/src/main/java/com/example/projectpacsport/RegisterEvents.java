@@ -247,17 +247,7 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
                         ConstraintLayout eventRegLayout = findViewById(R.id.eventRegLayout);
                         DetailsMeetupFragment detailsMeetupFragment = DetailsMeetupFragment.newInstance(eventId);
                         getSupportFragmentManager().beginTransaction().add(R.id.frameDetailsMeetupReg, detailsMeetupFragment).commit();
-                        Snackbar snackbar = Snackbar.make(eventRegLayout, "Meetup has been placed!", Snackbar.LENGTH_LONG);
-//                        snackbar.setAction("UNDO", new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View view) {
-//                                myAdapter.restoreItem(item, position);
-//                                recyclerView.scrollToPosition(position);
-//                                myDatabaseAdaptor.addFavWorkout(currentUser, item.getId());
-//                            }
-//                        });
-
-                        snackbar.setActionTextColor(Color.YELLOW);
+                        Snackbar snackbar = Snackbar.make(eventRegLayout, "Your Meetup Has Been Published!", Snackbar.LENGTH_LONG);
                         snackbar.show();
                     }
                 } catch (Exception e) {

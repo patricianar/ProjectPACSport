@@ -63,7 +63,6 @@
         <activity android:name=".PlayerActivity" />
         <activity android:name=".login.RegisterActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".RegisterEvent" />
         <activity android:name=".login.LoginActivity" />
         <activity android:name=".EventsActivity" />
     </application>

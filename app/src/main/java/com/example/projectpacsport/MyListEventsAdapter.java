@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -22,17 +23,18 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class MyListEventsAdapter extends RecyclerView.Adapter<MyListEventsAdapter.ViewHolder> {
+    Activity activity;
+    String[] months = {"Jan.", "Feb.", "Mar.", "Apr.", "May", "Jun", "Jul.", "Aug.", "Sept.", "Oct", "Nov", "Dec"};
     private DatabaseHelper myDatabaseHelper;
     private int currentUser;
     private ArrayList<Event> listEvents;
-    Activity activity;
-    String[] months = {"Jan.", "Feb.", "Mar.", "Apr.", "May", "Jun", "Jul.", "Aug.", "Sept.", "Oct", "Nov", "Dec"};
 
 
     public MyListEventsAdapter(ArrayList<Event> listEvents) {
@@ -139,20 +141,22 @@ public class MyListEventsAdapter extends RecyclerView.Adapter<MyListEventsAdapte
                             imageViewCheck.setImageResource(R.drawable.ic_action_check);
                             event.setSelected(true);
                             myDatabaseHelper.addEventAttendance(currentUser, event.getId());
-                            Toast.makeText(view.getContext(), event.getName() + " added to events", Toast.LENGTH_LONG).show();
 //                            int capacity = event.getCapacity() - event.getAttendants();
 //                            tvEventCapacity.setText("Capacity: " + capacity);
                             event.setAttendants(event.getAttendants() + 1);
-                            notifyDataSetChanged();
+                            Snackbar snackbar = Snackbar.make(constrainLayout, event.getName() + " added to my events", Snackbar.LENGTH_LONG);
+                            snackbar.show();
+
                         } else {
                             imageViewCheck.setImageResource(R.drawable.ic_action_check_outline);
                             event.setSelected(false);
                             myDatabaseHelper.removeEventAttendance(currentUser, event.getId());
-                            Toast.makeText(view.getContext(), event.getName() + " removed from events", Toast.LENGTH_LONG).show();
+                            Snackbar snackbar = Snackbar.make(constrainLayout, event.getName() + " removed from from my events", Snackbar.LENGTH_LONG);
+                            snackbar.show();
 //                            int capacity = event.getCapacity() - event.getAttendants();
 //                            tvEventCapacity.setText("Capacity: " + capacity);
                             event.setAttendants(event.getAttendants() - 1);
-                            notifyDataSetChanged();
+
                         }
                     }
                 });

@@ -4,33 +4,34 @@
         android:layout_height="50dp">
 
         <androidx.appcompat.widget.Toolbar
+            android:id="@+id/profileToolBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/profileToolBar">
+            android:background="@color/primaryDarkColor">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <ImageView
+                    android:id="@+id/backArrow"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
+                    android:layout_centerVertical="true"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="20dp"
-                    android:layout_centerVertical="true"
-                    android:id="@+id/backArrow"
-                    android:src="@drawable/ic_backarrow"/>
+                    android:src="@drawable/ic_backarrow" />
 
                 <TextView
-                    android:layout_toRightOf="@id/backArrow"
+                    android:id="@+id/profileName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="Player"
-                    android:textSize="20sp"
-                    android:textColor="@color/primaryTextColor"
                     android:layout_marginStart="5dp"
-                    android:id="@+id/profileName"/>
+                    android:layout_toRightOf="@id/backArrow"
+                    android:text="Player"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="20sp" />
 
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
