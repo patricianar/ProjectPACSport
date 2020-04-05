@@ -45,7 +45,7 @@ public class confirmationEvent extends AppCompatActivity {
         String image = bundle.getString("image");
         ImageView imageViewPicture = findViewById(R.id.imageView3);
 
-        Uri imageEvent = Uri.parse(image);
+        //Uri imageEvent = Uri.parse(image);
 
         TextView txtName = findViewById(R.id.txtEventName);
         txtName.setText(eventName);
@@ -80,14 +80,14 @@ public class confirmationEvent extends AppCompatActivity {
         TextView txtLeague = findViewById(R.id.league);
         txtLeague.setText(league);
 
-        try
+       /* try
         {
             Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),imageEvent);
             imageViewPicture.setImageBitmap(bitmap);
         }catch(IOException e)
         {
             e.printStackTrace();
-        }
+        } */
     }
 
     private void initBottomNavigationView() {

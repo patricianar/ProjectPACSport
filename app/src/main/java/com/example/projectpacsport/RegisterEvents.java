@@ -96,12 +96,8 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
     private ArrayList<String> spinnerData;
     private Date date1 = new Date();
     final SimpleDateFormat formatter1=new SimpleDateFormat("yyyy-MM-dd");
-    private Button btnChoosen;
-    private final int PICK_IMAGE_REQUEST = 71;
-    private Uri filePath;
-    private  Bitmap bitmap;
-    private byte[] byteArray;
-    private String  encodedImage;
+    private String filePath;
+
 
 
 
@@ -121,9 +117,10 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
         final Button submit = findViewById(R.id.btnSubmit);
         final Calendar today = Calendar.getInstance();
         final Calendar chosenDate = Calendar.getInstance();
+        final EditText image = findViewById(R.id.txtImage);
         //final DateFormat dateFormat = DateFormat.getDateInstance();
         final int numOfDays;
-        btnChoosen = findViewById(R.id.btn_uploadPhoto);
+
 
 
         mSearchText = findViewById(R.id.input_search);
@@ -154,12 +151,6 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
             }
         });
 
-        btnChoosen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                chooseImage();
-            }
-        });
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,6 +159,7 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
                 String timeF = time.getText().toString();
                 String capacityF = capacity.getText().toString();
                 String locationName = mSearchText.getText().toString();
+                filePath = image.getText().toString();
                // Log.e("Date:", "%%%%%%%%%%%%%%%%%% AENTROOOOOOOOOOOOOOO 1: ");
                 if (nameF.isEmpty()) {
                     Toast.makeText(RegisterEvents.this, "Please insert the name", Toast.LENGTH_SHORT).show();
@@ -175,12 +167,12 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
                     Toast.makeText(RegisterEvents.this, "Please insert the time", Toast.LENGTH_SHORT).show();
                 } else if (capacityF.isEmpty()) {
                     Toast.makeText(RegisterEvents.this, "Please insert the capacity", Toast.LENGTH_SHORT).show();
-                } else if (locationName.isEmpty()) {
+                } else if(locationName.isEmpty()) {
                     Toast.makeText(RegisterEvents.this, "Please select a location using the map search bar", Toast.LENGTH_SHORT).show();
-                } else if(filePath == null)
+                }/* else if(filePath == null)
                 {
-                    Toast.makeText(RegisterEvents.this, "Please choose a picture", Toast.LENGTH_SHORT).show();
-                }
+                    Toast.makeText(RegisterEvents.this, "Please insert the image's link", Toast.LENGTH_SHORT).show();
+                }*/
                 try {
                     //Log.e("Date:", "%%%%%%%%%%%%%%%%%% AENTROOOOOOOOOOOOOOO 2: ");
                     if (!nameF.isEmpty() && !timeF.isEmpty() && !capacityF.isEmpty() && !locationName.isEmpty()
@@ -220,10 +212,10 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
                         encodedImage = Base64.encodeToString(byteArray, Base64.DEFAULT); */
 
 
-                      //  Log.e("ENCODE VALUE:", "%%%%%%%%%%%%%%%%%% ENCODE VALUE:" + encodedImage);
+                       Log.e("ENCODE VALUE:", "%%%%%%%%%%%%%%%%%% IMAGE VALUE:" + filePath);
 
 
-                        newEvent.setImage(filePath.toString());
+                        newEvent.setImage(filePath);
                        // newEvent.setImage(encodedImage);
 
                         Log.e("Date:", "%%%%%%%%%%%%%%%%%% DATE VALUE:" + dateSelected);
@@ -245,7 +237,7 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
                         budleEvent.putString("team1Name", team1Name);
                         budleEvent.putString("team2Name", team2Name);
                         budleEvent.putString("league", league);
-                        budleEvent.putString("image",filePath.toString());
+                        budleEvent.putString("image",filePath);
                         intent.putExtras(budleEvent);
                         startActivity(intent);
                         Log.e("PHOTO LINK", "PHOTO LINK: " + filePath);
@@ -312,7 +304,7 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
         getLocationPermission();
     }
 
-    public void chooseImage()
+   /* public void chooseImage()
     {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -321,10 +313,10 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent,"Select Picture"),PICK_IMAGE_REQUEST);
-    }
+    } */
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    //@Override
+  /*  protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null)
         {
@@ -339,7 +331,7 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
                 e.printStackTrace();
             }
         }
-    }
+    } */
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
