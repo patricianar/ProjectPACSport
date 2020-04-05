@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -33,6 +34,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
@@ -61,6 +64,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.w3c.dom.Text;
 
@@ -199,10 +203,8 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
                         //Add spinner's info
                         String team1Name = spinnerTeam1.getSelectedItem().toString();
                         String team2Name = spinnerTeam2.getSelectedItem().toString();
-                        String league = spinnerLeague.getSelectedItem().toString();
                         newEvent.setTeam1(myDatabaseHelper.getTeam(team1Name));
                         newEvent.setTeam2(myDatabaseHelper.getTeam(team2Name));
-
                         newEvent.setLatitude(latitude);
                         newEvent.setLongitude(longitude);
 
@@ -220,28 +222,43 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
 
                         Log.e("Date:", "%%%%%%%%%%%%%%%%%% DATE VALUE:" + dateSelected);
 
-                        myDatabaseHelper.addEvent(newEvent);
+                        int eventId = myDatabaseHelper.addEvent(newEvent);
                         Log.e("team1", date1 + " " + Time.valueOf(timeF + ":00") + " " + longitude + "," + latitude + "" + spinnerTeam1.getSelectedItem().toString());
 
-                        Intent intent = new Intent(RegisterEvents.this, confirmationEvent.class);
-                        Bundle budleEvent = new Bundle();
-                        budleEvent.putString("name", nameF);
-                        budleEvent.putString("capacity", capacityF);
-                        budleEvent.putString("address", locationName + ", " + addressMap);
-                        budleEvent.putString("City", city);
-                        budleEvent.putString("province", province);
-                        budleEvent.putString("country", country);
-                        budleEvent.putString("postalCode", zipCode);
-                        budleEvent.putString("date", dateSelected);
-                        budleEvent.putString("time", timeF + ":00");
-                        budleEvent.putString("team1Name", team1Name);
-                        budleEvent.putString("team2Name", team2Name);
-                        budleEvent.putString("league", league);
-                        budleEvent.putString("image",filePath);
-                        intent.putExtras(budleEvent);
-                        startActivity(intent);
-                        Log.e("PHOTO LINK", "PHOTO LINK: " + filePath);
+//                        Intent intent = new Intent(RegisterEvents.this, confirmationEvent.class);
+//                        Bundle budleEvent = new Bundle();
+//                        budleEvent.putString("name", nameF);
+//                        budleEvent.putString("capacity", capacityF);
+//                        budleEvent.putString("address", locationName + ", " + addressMap);
+//                        budleEvent.putString("City", city);
+//                        budleEvent.putString("province", province);
+//                        budleEvent.putString("country", country);
+//                        budleEvent.putString("postalCode", zipCode);
+//                        budleEvent.putString("date", dateSelected);
+//                        budleEvent.putString("time", timeF + ":00");
+//                        budleEvent.putString("team1Name", team1Name);
+//                        budleEvent.putString("team2Name", team2Name);
+//                        budleEvent.putString("league", league);
+//                        budleEvent.putString("image",filePath);
+//                        intent.putExtras(budleEvent);
+//                        startActivity(intent);
+                       // Thread.sleep(5000);
 
+                        ConstraintLayout eventRegLayout = findViewById(R.id.eventRegLayout);
+                        DetailsMeetupFragment detailsMeetupFragment = DetailsMeetupFragment.newInstance(eventId);
+                        getSupportFragmentManager().beginTransaction().add(R.id.frameDetailsMeetupReg, detailsMeetupFragment).commit();
+                        Snackbar snackbar = Snackbar.make(eventRegLayout, "Meetup has been placed!", Snackbar.LENGTH_LONG);
+//                        snackbar.setAction("UNDO", new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View view) {
+//                                myAdapter.restoreItem(item, position);
+//                                recyclerView.scrollToPosition(position);
+//                                myDatabaseAdaptor.addFavWorkout(currentUser, item.getId());
+//                            }
+//                        });
+
+                        snackbar.setActionTextColor(Color.YELLOW);
+                        snackbar.show();
                     }
                 } catch (Exception e) {
                     Log.e("team1", date1 + " " + Time.valueOf(timeF + ":00") + " " + longitude + "," + latitude + "" + spinnerTeam1.getSelectedItem().toString() + e.getMessage());

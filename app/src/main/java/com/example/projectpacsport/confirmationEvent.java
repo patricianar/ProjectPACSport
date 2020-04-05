@@ -6,17 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.io.IOException;
 
 public class confirmationEvent extends AppCompatActivity {
     private static final String sharedPrefFile = "com.example.projectpacsport";
@@ -43,11 +38,11 @@ public class confirmationEvent extends AppCompatActivity {
         String country = bundle.getString("country");
         String league = bundle.getString("league");
         String image = bundle.getString("image");
-        ImageView imageViewPicture = findViewById(R.id.imageView3);
+        ImageView imageViewPicture = findViewById(R.id.imageViewMeetup);
 
         //Uri imageEvent = Uri.parse(image);
 
-        TextView txtName = findViewById(R.id.txtEventName);
+        TextView txtName = findViewById(R.id.txtMeetupName);
         txtName.setText(eventName);
 
         TextView txtDate = findViewById(R.id.txtDateOrder);

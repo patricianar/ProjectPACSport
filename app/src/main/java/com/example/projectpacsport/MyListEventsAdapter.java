@@ -22,6 +22,8 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -72,7 +74,8 @@ public class MyListEventsAdapter extends RecyclerView.Adapter<MyListEventsAdapte
 //                e.printStackTrace();
 //            }
 
-            //GlideToVectorYou.justLoadImage(mActivity, Uri.parse(result.getAwayTeam().getLogo()), holder.imgAwayTLogo);
+
+            Picasso.get().load(event.getImage()).into(holder.imageViewEvent);
             holder.tvEventName.setText(event.getName());
             String[] address = event.getAddress().split(",");
             holder.tvEventAddress.setText(address[0].trim());
@@ -157,8 +160,7 @@ public class MyListEventsAdapter extends RecyclerView.Adapter<MyListEventsAdapte
                     @Override
                     public void onClick(View view) {
                         Event event = listEvents.get(getAdapterPosition());
-                        String title = "You have registered for the Meetup!";
-                        DetailsMeetupFragment detailsMeetupFragment = DetailsMeetupFragment.newInstance(title, event.getId());
+                        DetailsMeetupFragment detailsMeetupFragment = DetailsMeetupFragment.newInstance(event.getId());
                         AppCompatActivity activity = (AppCompatActivity) view.getContext();
                         activity.getSupportFragmentManager().beginTransaction().add(R.id.frameDetailsMeetup, detailsMeetupFragment).commit();
                     }
