@@ -55,14 +55,13 @@ public class ProfileActivity extends AppCompatActivity {
         editor.putString("UserEmail", currentUser.getEmail());
         editor.commit(); */
 
-        if (image == null) {
+
             imageView = findViewById(R.id.imageView);
-        }
-        else
-        {
+
             //llamar image from sharedpreference
             image = pref.getString("image", image);
             Uri myUri = Uri.parse(image);
+            myUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
             try
             {
                 Bitmap bitmap2 = MediaStore.Images.Media.getBitmap(getContentResolver(), myUri);
@@ -71,7 +70,8 @@ public class ProfileActivity extends AppCompatActivity {
             {
                 e.printStackTrace();
             }
-        }
+
+
 
         name = pref.getString("UserName", name);
         lastName = pref.getString("UserLastName", lastName);

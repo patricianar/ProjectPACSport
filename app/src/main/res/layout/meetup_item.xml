@@ -89,26 +89,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imgViewCheck"
-            app:layout_constraintTop_toBottomOf="@+id/textView2"
-            app:srcCompat="@drawable/ic_action_share" />
-
-        <ImageView
-            android:id="@+id/imgViewCheck"
-            android:layout_width="24dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2"
-            app:srcCompat="@drawable/ic_action_check_outline" />
-
         <TextView
             android:id="@+id/textView2"
             android:layout_width="0dp"
@@ -120,6 +100,29 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageViewEvent" />
+
+        <TextView
+            android:id="@+id/tvMeetupSeats"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="80dp"
+            android:text="Remainig Seats"
+            android:textColor="@color/secondaryTextColor"
+            app:layout_constraintStart_toEndOf="@+id/tvEventDate"
+            app:layout_constraintTop_toBottomOf="@+id/tvMeetupName" />
+
+        <TextView
+            android:id="@+id/tvMeetupNumSeats"
+            android:layout_width="50dp"
+            android:layout_height="20dp"
+            android:textColor="@color/secondaryTextColor"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvMeetupSeats"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            app:layout_constraintVertical_bias="0.444" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

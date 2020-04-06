@@ -1,16 +1,15 @@
 package com.example.projectpacsport;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class DatabaseHelper {
 
@@ -247,6 +246,53 @@ public class DatabaseHelper {
         return allEvents;
     }
 
+    public ArrayList<Event> getMyMeetups(int userId, int going){
+        ArrayList<Event> allEvents = new ArrayList<>();
+        conn = DatabaseConnection.connectionclass();
+        String query = "";
+        if(going == 0){
+            query = "SELECT dbo.[Event].Event_id, dbo.[Event].Event_name, dbo.[Event].Event_address, dbo.[Event].Event_date, dbo.[Event].Event_city, dbo.[Team].Team_league, dbo.[Event].Event_image, dbo.[Event].Event_capacity \n" +
+                    " FROM dbo.[Event] LEFT JOIN dbo.[UserEvent] ON dbo.[Event].Event_id = dbo.[UserEvent].Event_id \n" +
+                    "LEFT JOIN dbo.[Team] ON dbo.[Event].Event_team1_id = dbo.[Team].Team_id WHERE dbo.[Event].Event_planner_id = " + userId +
+                    " GROUP BY dbo.[Event].Event_id, dbo.[Event].Event_name, dbo.[Event].Event_address, dbo.[Event].Event_date, dbo.[Event].Event_city, dbo.[Team].Team_league, dbo.[Event].Event_image, dbo.[Event].Event_capacity;";
+        }
+        else{
+            query = "SELECT dbo.[Event].Event_id, dbo.[Event].Event_name, dbo.[Event].Event_address, dbo.[Event].Event_date, dbo.[Event].Event_city, dbo.[Team].Team_league, dbo.[Event].Event_image, dbo.[Event].Event_capacity\n" +
+                    " FROM dbo.[Event] LEFT JOIN dbo.[UserEvent] ON dbo.[Event].Event_id = dbo.[UserEvent].Event_id \n" +
+                    "LEFT JOIN dbo.[Team] ON dbo.[Event].Event_team1_id = dbo.[Team].Team_id WHERE dbo.[UserEvent].User_id = " + userId +
+                    "GROUP BY dbo.[Event].Event_id, dbo.[Event].Event_name, dbo.[Event].Event_address, dbo.[Event].Event_date, dbo.[Event].Event_city, dbo.[Team].Team_league, dbo.[Event].Event_image, dbo.[Event].Event_capacity;";
+        }
+
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet result = statement.executeQuery(query);
+
+            while (result.next()) {
+                Event event = new Event();
+                event.setId(result.getInt("Event_id"));
+                event.setName(result.getString("Event_name"));
+                event.setAddress(result.getString("Event_address"));
+                event.setDate(result.getString("Event_date"));
+                event.setCity(result.getString("Event_city"));
+                event.setImage(result.getString("Event_image"));
+                event.setLeague(result.getString("Team_league"));
+                event.setCapacity(result.getInt("Event_capacity"));
+                //team = getTeamsInfo(result.getInt("Event_team1_id"));
+                //event.setTeam1(team);
+                //team = getTeamsInfo(result.getInt("Event_team2_id"));
+                //event.setTeam2(team);
+                event.setAttendants(getNumOfAttendants(event.getId()));
+                Log.e("atte", event.getAttendants() + "");
+
+                allEvents.add(event);
+            }
+            conn.close();
+        } catch (Exception ex) {
+            Log.e("DB MyMeetups", ex.getMessage());
+        }
+        return allEvents;
+    }
+
     public ArrayList<Integer> getMyEventsIds(int userId) {
         ArrayList<Integer> allMyEventsIds = new ArrayList<>();
         conn = DatabaseConnection.connectionclass();
@@ -377,5 +423,6 @@ public class DatabaseHelper {
         }
         return event;
     }
+
 }
 

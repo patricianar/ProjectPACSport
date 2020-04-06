@@ -2,31 +2,22 @@ package com.example.projectpacsport;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.net.Uri;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class MyListEventsAdapter extends RecyclerView.Adapter<MyListEventsAdapter.ViewHolder> {
@@ -112,11 +103,11 @@ public class MyListEventsAdapter extends RecyclerView.Adapter<MyListEventsAdapte
 
         ViewHolder(View itemView) {
             super(itemView);
-            this.tvEventName = itemView.findViewById(R.id.tvEventName);
-            this.tvEventAddress = itemView.findViewById(R.id.tvEventAddress);
-            this.tvEventCity = itemView.findViewById(R.id.tvEventCity);
+            this.tvEventName = itemView.findViewById(R.id.tvMeetupName);
+            this.tvEventAddress = itemView.findViewById(R.id.tvMeetupAddress);
+            this.tvEventCity = itemView.findViewById(R.id.tvMeetupCity);
             this.tvEventDate = itemView.findViewById(R.id.tvEventDate);
-            this.tvEventLeague = itemView.findViewById(R.id.tvEventLeague);
+            this.tvEventLeague = itemView.findViewById(R.id.tvMeetupLeague);
             this.imageViewCheck = itemView.findViewById(R.id.imgViewCheck);
             this.imageViewEvent = itemView.findViewById(R.id.imageViewEvent);
             constrainLayout = itemView.findViewById(R.id.constrainLayout);

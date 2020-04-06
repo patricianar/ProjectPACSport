@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements LeaguesFragment.O
                         finish();
                         return true;
                     case R.id.profile_menu:
-                        startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                        startActivity(new Intent(getApplicationContext(), MyMeetupsActivity.class));
                         finish();
                         return true;
                 }

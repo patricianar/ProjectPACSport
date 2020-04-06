@@ -21,7 +21,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".confirmationEvent"></activity>
+        <activity android:name=".DatabaseHelper$MyMeetupsActivity"></activity>
+        <activity android:name=".confirmationEvent" />
         <activity android:name=".IntroActivity1">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -66,6 +67,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".login.LoginActivity" />
         <activity android:name=".EventsActivity" />
+        <activity android:name=".MyMeetupsActivity" />
     </application>
 
 </manifest>

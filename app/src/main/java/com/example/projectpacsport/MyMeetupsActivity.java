@@ -1,67 +1,71 @@
 package com.example.projectpacsport;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.CompoundButton;
+import android.widget.Switch;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.os.IBinder;
-import android.util.Log;
-import android.view.MenuItem;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
 
-public class EventsActivity extends AppCompatActivity {
-    private ArrayList<Event> events = new ArrayList<>();
-    private ArrayList<Integer> myEvents = new ArrayList<>();
+public class MyMeetupsActivity extends AppCompatActivity {
     DatabaseHelper myDatabaseHelper;
-    int currentUser;
+    private ArrayList<Event> myMeetups = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_events);
+        setContentView(R.layout.activity_my_meetups);
 
         // Initialize BottomNavigationView
         initBottomNavigationView();
 
+        final TextView textViewTitle = findViewById(R.id.textViewTitle);
+        textViewTitle.setText("My Meetups");
+        final Switch switchMeetup = findViewById(R.id.switchMeetup);
+        switchMeetup.setText("Change to Meetups I'm Hosting");
+
         SharedPreferences pref = getSharedPreferences("SessionUser", MODE_PRIVATE);
-        currentUser = pref.getInt("UserId", 0);
+        final int currentUser = pref.getInt("UserId", 0);
 
-        myDatabaseHelper = new DatabaseHelper(EventsActivity.this);
-        myEvents = myDatabaseHelper.getMyEventsIds(currentUser);
-        events = myDatabaseHelper.getEventRecs(myEvents);
-//        events = mService.getEventRecs(myEvents);
+        myDatabaseHelper = new DatabaseHelper(MyMeetupsActivity.this);
+        myMeetups = myDatabaseHelper.getMyMeetups(currentUser, 1);
 
-//        for(int eventId: myEvents){
-//            events.get(eventId).setSelected(true);
-//        }
-//
-//        Collection<Event> values = events.values();
-//        ArrayList<Event> eventsList = new ArrayList<>(values);
-
-        MyListEventsAdapter myAdapter = new MyListEventsAdapter(events);
-        RecyclerView recyclerView = findViewById(R.id.recyclerViewEvents);
-
+        final MyListMeetupsAdapter myAdapter = new MyListMeetupsAdapter(myMeetups);
+        final RecyclerView recyclerView = findViewById(R.id.recyclerViewMeetups);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(myAdapter);
+
+        switchMeetup.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    textViewTitle.setText("My Hosting Meetups");
+                    switchMeetup.setText("Change to Meetups I'm Going");
+                    myMeetups.clear();
+                    myMeetups = myDatabaseHelper.getMyMeetups(currentUser, 0);
+                    MyListMeetupsAdapter mAdapter = new MyListMeetupsAdapter(myMeetups);
+                    recyclerView.setAdapter(mAdapter);
+                } else {
+                    textViewTitle.setText("My Meetups");
+                    switchMeetup.setText("Change to Meetups I'm Hosting");
+                    myMeetups.clear();
+                    myMeetups = myDatabaseHelper.getMyMeetups(currentUser, 1);
+                    MyListMeetupsAdapter mAdapter = new MyListMeetupsAdapter(myMeetups);
+                    recyclerView.setAdapter(mAdapter);
+                }
+            }
+        });
     }
-
-
 
     /**
      * Init BottomNavigationView with 4 items:
@@ -72,7 +76,7 @@ public class EventsActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         //Set Result Selector
-        bottomNavigationView.setSelectedItemId(R.id.search_event);
+        bottomNavigationView.setSelectedItemId(R.id.create_event);
 
         //Perform ItemSelectedListener
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
