@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,7 +21,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class TeamActivity extends AppCompatActivity {
+public class TeamActivity extends AppCompatActivity{
     private static final String TAG = "TeamActivity";
 
     // SharedPreferences for the app widget
@@ -28,6 +29,7 @@ public class TeamActivity extends AppCompatActivity {
     private SharedPreferences mPreferences;
     private SharedPreferences.Editor preferencesEditor;
     private Context mContext = TeamActivity.this;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public class TeamActivity extends AppCompatActivity {
         // UI Components
         ImageView imageTeam = findViewById(R.id.imgTeam);
         ToggleButton favoriteButton = findViewById(R.id.btn_favorite);
+
 
         // Data from bundle
         Bundle bundle = getIntent().getExtras();
@@ -105,17 +108,27 @@ public class TeamActivity extends AppCompatActivity {
                     String win = standing.getString("wins");
                     String losses = standing.getString("losses");
                     //String winPorcentage = standing.getString("winPct");
+                    float winn;
+                    float loss;
+                    float winPorcentage;
+                    float totalGames;
 
+                    winn = Float.parseFloat(win);
+                    loss = Float.parseFloat(losses);
+                    totalGames = winn + loss;
+
+                    winPorcentage = (winn / totalGames) * 100;
+                    String winP = String.format("%.2f", winPorcentage);
                     // Log.e("winPorcentage: ", winPorcentage);
                     // Toast.makeText(TeamActivity.this, "Wins: " + win + " losses: " + losses + " W%: " + winPorcentage, Toast.LENGTH_SHORT).show();
 
                     TextView txtWins = findViewById(R.id.txtWinNumber);
                     TextView txtLosses = findViewById(R.id.txtLossesNumber);
-                    //TextView txtWinPorcentage = findViewById(R.id.txtWinPorcentageNumber);
+                    TextView txtWinPorcentage = findViewById(R.id.txtWinPorcentageNumber);
 
                     txtWins.setText(win);
                     txtLosses.setText(losses);
-
+                    txtWinPorcentage.setText(winP);
 
                     // txtWinPorcentage.setText(winPorcentage);
 
@@ -146,4 +159,5 @@ public class TeamActivity extends AppCompatActivity {
             }
         });
     }
+
 }

@@ -12,10 +12,10 @@
         android:id="@+id/txtViewRegisterEventTitle2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/secondaryColor"
+        android:background="@color/primaryDarkColor"
         android:text="Event Registration"
         android:textAlignment="center"
-        android:textColor="@android:color/white"
+        android:textColor="@color/primaryTextColor"
         android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,8 +28,8 @@
         android:ems="10"
         android:hint="Name"
         android:inputType="textPersonName"
-        android:textColor="@android:color/white"
-        android:textColorHint="@android:color/white"
+        android:textColor="@color/secondaryTextColor"
+        android:textColorHint="@color/secondaryTextColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.535"
@@ -101,15 +101,6 @@
         app:layout_constraintStart_toEndOf="@+id/spinnerTeam1"
         app:layout_constraintTop_toBottomOf="@+id/editTextName" />
 
-    <Button
-        android:id="@+id/btnDate"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Select Date"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/map" />
-
     <EditText
         android:id="@+id/editTextTime"
         android:layout_width="0dp"
@@ -117,8 +108,8 @@
         android:ems="10"
         android:hint="Time of the event"
         android:inputType="textPersonName"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#FFFFFFFF"
+        android:textColor="@color/secondaryTextColor"
+        android:textColorHint="@color/secondaryTextColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextCapacity" />
@@ -127,14 +118,16 @@
         android:id="@+id/editTextCapacity"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
         android:ems="10"
         android:hint="Capacity"
         android:inputType="textPersonName"
-        android:textColor="#ffffff"
-        android:textColorHint="#ffffff"
+        android:textColor="@color/secondaryTextColor"
+        android:textColorHint="@color/secondaryTextColor"
+        app:layout_constraintBottom_toTopOf="@+id/editTextTime"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnDate" />
+        app:layout_constraintTop_toBottomOf="@+id/editDate" />
 
 
     <EditText
@@ -144,7 +137,8 @@
         android:ems="10"
         android:hint="Insert your image's link"
         android:inputType="textPersonName"
-        android:textColorHint="@android:color/white"
+        android:textColor="@color/secondaryTextColor"
+        android:textColorHint="@color/secondaryTextColor"
         app:layout_constraintBottom_toTopOf="@+id/btnSubmit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -156,6 +150,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="Submit"
+        android:textColor="@color/primaryLightColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -173,6 +168,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/menu_navigation" />
+
+    <EditText
+        android:id="@+id/editDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Select a date"
+        android:inputType="textPersonName"
+        android:textColor="@color/secondaryTextColor"
+        android:textColorHint="@color/secondaryTextColor"
+        app:layout_constraintBottom_toTopOf="@+id/editTextCapacity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/map" />
 
     <FrameLayout
         android:id="@+id/frameDetailsMeetupReg"

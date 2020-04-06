@@ -117,7 +117,7 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
         final EditText name = findViewById(R.id.editTextName);
         final EditText time = findViewById(R.id.editTextTime);
         final EditText capacity = findViewById(R.id.editTextCapacity);
-        final Button date = findViewById(R.id.btnDate);
+        final EditText date = findViewById(R.id.editDate);
         final Button submit = findViewById(R.id.btnSubmit);
         final Calendar today = Calendar.getInstance();
         final Calendar chosenDate = Calendar.getInstance();
@@ -272,7 +272,7 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
                             try {
                                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
                                 dateSelected = dateFormat.format(chosenDate.getTime());
-
+                                date.setText(dateSelected);
                                 //date1 = formatter1.parse(formatter1.format(chosenDate.getTime()));
                                 //Log.e("Date:", "%%%%%%%%%%%%%%%%%% DATE VALUE: " + date1);
                                // Log.e("Date:", "%%%%%%%%%%%%%%%%%% TYPE DATE VALUE: " + datee);
