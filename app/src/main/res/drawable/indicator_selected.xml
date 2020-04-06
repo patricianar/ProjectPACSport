@@ -7,7 +7,7 @@
             android:thickness="2dp"
             android:useLevel="false">
 
-            <solid android:color="@color/gradient_start_color"/>
+            <solid android:color="@color/primaryTextColor"/>
 
         </shape>
 

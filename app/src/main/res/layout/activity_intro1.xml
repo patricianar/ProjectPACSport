@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".IntroActivity1"
-    android:background="#ffffff">
+    android:background="@color/primaryColor">
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/screen_viewpager"
@@ -15,7 +15,9 @@
         app:layout_constraintBottom_toTopOf="@+id/tab_indicator"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/primaryColor"
+        />
 
     <Button
         android:id="@+id/btn_intro_next"
@@ -23,11 +25,11 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
-        android:background="#fff"
+        android:background="@color/primaryLightColor"
         android:drawableRight="@drawable/ic_arrow_forward_black_24dp"
-        android:drawableTint="@color/gradient_start_color"
+        android:drawableTint="@color/primaryTextColor"
         android:text="Next"
-        android:textColor="@color/gradient_start_color"
+        android:textColor="@color/primaryTextColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -57,7 +59,7 @@
         android:layout_marginBottom="64dp"
         android:background="@drawable/btn_gradient_style"
         android:text="Get Started"
-        android:textColor="#fff"
+        android:textColor="@color/primaryTextColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
