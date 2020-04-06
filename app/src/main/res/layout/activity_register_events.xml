@@ -45,6 +45,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relLayout6" />
 
+    <Spinner
+        android:id="@+id/spinnerLeague"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:entries="@array/leagues_array"
+        android:spinnerMode="dropdown"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextName" />
+
     <RelativeLayout
         android:id="@+id/relLayout6"
         android:layout_width="match_parent"
@@ -67,7 +76,7 @@
             android:id="@+id/input_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_centerVertical="true"
+            android:layout_marginLeft="0dp"
             android:layout_toRightOf="@+id/ic_magnify"
             android:background="@null"
             android:hint="Enter address, city or zip code"
@@ -77,15 +86,6 @@
 
 
     </RelativeLayout>
-
-    <Spinner
-        android:id="@+id/spinnerLeague"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:entries="@array/leagues_array"
-        android:spinnerMode="dropdown"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextName" />
 
     <Spinner
         android:id="@+id/spinnerTeam1"
@@ -98,6 +98,7 @@
         android:id="@+id/spinnerTeam2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/relLayout6"
         app:layout_constraintStart_toEndOf="@+id/spinnerTeam1"
         app:layout_constraintTop_toBottomOf="@+id/editTextName" />
 
@@ -189,8 +190,10 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/txtViewRegisterEventTitle2">
+        app:layout_constraintTop_toTopOf="@+id/txtViewRegisterEventTitle2"
+        app:layout_constraintVertical_bias="0.0">
 
     </FrameLayout>
 

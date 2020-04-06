@@ -50,11 +50,29 @@ public class GameActivity extends AppCompatActivity {
         SharedPreferences sharedPref = getSharedPreferences("User", Context.MODE_PRIVATE);
         final String league = sharedPref.getString("League", "nba");
 
+        if(league == "mlb")
+        {
+            String url = "http://api.mysportsfeeds.com/v2.1/pull/" + league + "/2019-regular/games/" + "20190506" + "-"
+                    + result.getAwayTeam().getAbbreviation() + "-" + result.getHomeTeam().getAbbreviation() + "/lineup.json";
+            Log.e("url", url);
+            getPlayers(url);
+        }
+        else if(league == "nhl")
+        {
+            String url = "http://api.mysportsfeeds.com/v2.1/pull/" + league + "/2019-2020/games/" + "20200308" + "-"
+                    + result.getAwayTeam().getAbbreviation() + "-" + result.getHomeTeam().getAbbreviation() + "/lineup.json";
+            Log.e("url", url);
+            getPlayers(url);
+        }
+        else
+        {
+            String url = "http://api.mysportsfeeds.com/v2.1/pull/" + league + "/current/games/" + "20200308" + "-"
+                    + result.getAwayTeam().getAbbreviation() + "-" + result.getHomeTeam().getAbbreviation() + "/lineup.json";
+            Log.e("url", url);
+            getPlayers(url);
+        }
 
-        String url = "http://api.mysportsfeeds.com/v2.1/pull/" + league + "/current/games/" + "20200308" + "-"
-                + result.getAwayTeam().getAbbreviation() + "-" + result.getHomeTeam().getAbbreviation() + "/lineup.json";
-        Log.e("url", url);
-        getPlayers(url);
+
 
         ImageView imgAwayTLogo = findViewById(R.id.imgAwayTeamLogo);
         ImageView imgHomeTLogo = findViewById(R.id.imgHomeTeamLogo);

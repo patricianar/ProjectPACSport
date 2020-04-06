@@ -83,7 +83,7 @@ public class LeaguesFragment extends Fragment {
                 editor.putString("League", "nhl");
                 editor.commit();
                 listResults.clear();
-                getResults("http://api.mysportsfeeds.com/v2.1/pull/nhl/current/date/"+ "20200308" + "/games.json");
+                getResults("http://api.mysportsfeeds.com/v2.1/pull/nhl/2019-2020/date/"+ "20200308" + "/games.json");
                 Log.e("test", "http://api.mysportsfeeds.com/v2.1/pull/nhl/current/date/"+ "20200308" + "/games.json");
                 imgNBA.setAlpha(0.5f);
                 imgNHL.setAlpha(1f);
@@ -96,7 +96,7 @@ public class LeaguesFragment extends Fragment {
                 editor.putString("League", "mlb");
                 editor.commit();
                 listResults.clear();
-                //getResults("https://api.mysportsfeeds.com/v2.1/pull/mlb/2019-2020-regular/date/20190506/games.json"); //have not started season
+                getResults("https://api.mysportsfeeds.com/v2.1/pull/mlb/2019-regular/date/20190506/games.json"); //have not started season
                 imgNBA.setAlpha(0.5f);
                 imgNHL.setAlpha(0.5f);
                 imgMLB.setAlpha(1f);
