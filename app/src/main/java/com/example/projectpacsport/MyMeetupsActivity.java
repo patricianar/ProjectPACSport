@@ -76,7 +76,7 @@ public class MyMeetupsActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         //Set Result Selector
-        bottomNavigationView.setSelectedItemId(R.id.create_event);
+        bottomNavigationView.setSelectedItemId(R.id.profile_menu);
 
         //Perform ItemSelectedListener
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
