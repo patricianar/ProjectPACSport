@@ -60,6 +60,7 @@ public class IntroActivity1 extends AppCompatActivity {
         final List<ScreenItem> mList=new ArrayList<>();
         mList.add(new ScreenItem("Game Results", "Here you will find the latest game result of NBA, NHL, MLB", R.drawable.game_results));
         mList.add(new ScreenItem("Create Event", "Do you want to create an event? In this app, you can create an event in few clicks!", R.drawable.create_event));
+        mList.add(new ScreenItem("My Events", "Review your created and added events, add and remove events with few clicks!", R.drawable.my_events));
         mList.add(new ScreenItem("Search for an Event", "Find an opportunity to demonstrate you skills!", R.drawable.search_event));
 
 

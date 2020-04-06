@@ -19,7 +19,7 @@
 
     <item
         android:id="@+id/profile_menu"
-        android:title="Profile"
-        android:icon="@drawable/ic_account_circle_black_24dp"/>
+        android:title="My Events"
+        android:icon="@drawable/ic_group_black_24dp"/>
 
 </menu>
