@@ -2,7 +2,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/primaryLightColor">
 
         <RelativeLayout
             android:id="@+id/relLayout1"
@@ -18,7 +19,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:text="@string/txtview_birthday"
-                android:textSize="20sp" />
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/txtViewDisplayBirthday"
@@ -27,8 +29,9 @@
                 android:layout_toRightOf="@+id/txtViewBirthday"
                 android:gravity="start"
                 android:paddingLeft="20dp"
-                android:text="2020 Feb 15"
-                android:textSize="20sp" />
+                android:text=""
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="16sp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -45,7 +48,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:text="@string/txtview_birth_place"
-                android:textSize="20sp" />
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/txtViewDisplayBirthPlace"
@@ -54,8 +58,9 @@
                 android:layout_toRightOf="@+id/txtViewBirthPlace"
                 android:gravity="start"
                 android:paddingLeft="20dp"
-                android:text="Vancouver, BC"
-                android:textSize="20sp" />
+                android:text=""
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="16sp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -72,7 +77,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:text="@string/txtview_player_height"
-                android:textSize="20sp" />
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/txtViewDisplayHeight"
@@ -81,8 +87,9 @@
                 android:layout_toRightOf="@+id/txtViewHeight"
                 android:gravity="start"
                 android:paddingLeft="20dp"
-                android:text="6'8''"
-                android:textSize="20sp" />
+                android:text=""
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="16sp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -99,7 +106,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:text="@string/txtview_player_weight"
-                android:textSize="20sp" />
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/txtViewDisplayWeight"
@@ -108,8 +116,9 @@
                 android:layout_toRightOf="@+id/txtViewWeight"
                 android:gravity="start"
                 android:paddingLeft="20dp"
-                android:text="251 lbs"
-                android:textSize="20sp" />
+                android:text=""
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="16sp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -126,7 +135,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:text="@string/txtview_player_team"
-                android:textSize="20sp" />
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/txtViewDisplayTeam"
@@ -135,8 +145,9 @@
                 android:layout_toRightOf="@+id/txtViewTeam"
                 android:gravity="start"
                 android:paddingLeft="20dp"
-                android:text="Cleverland Cavaliers"
-                android:textSize="20sp" />
+                android:text=""
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="16sp" />
         </RelativeLayout>
 
     </RelativeLayout>
