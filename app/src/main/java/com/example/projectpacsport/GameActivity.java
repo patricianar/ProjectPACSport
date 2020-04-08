@@ -194,7 +194,7 @@ public class GameActivity extends AppCompatActivity {
                         }
                     }
 
-                    // Create newInstance of Fragment
+                    // Create newInstance of Fragment  dummy
                     Fragment lineupFragment = GameLineupFragment.newInstance();
                     Fragment highlightsFragment = GameHighLightsFragment.newInstance();
 
