@@ -98,7 +98,7 @@ public class TeamActivity extends AppCompatActivity{
                     String cityName = teamInformation.getString("city");
                     String teamName = teamInformation.getString("name");
 
-                    TextView textView = findViewById(R.id.TxtTeamName);
+                    TextView textView = findViewById(R.id.txtTeamName);
                     textView.setText(cityName + " " + teamName);
 
                     JSONObject stats = teamMoreInfo.getJSONObject("stats"); //called stats objet
@@ -122,9 +122,9 @@ public class TeamActivity extends AppCompatActivity{
                     // Log.e("winPorcentage: ", winPorcentage);
                     // Toast.makeText(TeamActivity.this, "Wins: " + win + " losses: " + losses + " W%: " + winPorcentage, Toast.LENGTH_SHORT).show();
 
-                    TextView txtWins = findViewById(R.id.txtWinNumber);
+                    TextView txtWins = findViewById(R.id.txtWinsNumber);
                     TextView txtLosses = findViewById(R.id.txtLossesNumber);
-                    TextView txtWinPorcentage = findViewById(R.id.txtWinPorcentageNumber);
+                    TextView txtWinPorcentage = findViewById(R.id.txtWinPercentageNumber);
 
                     txtWins.setText(win);
                     txtLosses.setText(losses);
@@ -145,7 +145,7 @@ public class TeamActivity extends AppCompatActivity{
 
                     TextView txtCity = findViewById(R.id.txtCityValue);
                     TextView txtStadium = findViewById(R.id.txtStadiumValue);
-                    TextView txtSocialMedia = findViewById(R.id.textView27txtMediaTypeValue);
+                    TextView txtSocialMedia = findViewById(R.id.txtMediaTypeValue);
                     TextView txtSocialMediaAccount = findViewById(R.id.txtSocialMediaValue);
 
                     txtCity.setText(cityName);

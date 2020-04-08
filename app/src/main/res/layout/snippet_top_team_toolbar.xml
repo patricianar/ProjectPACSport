@@ -1,5 +1,6 @@
-<merge xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="50dp">
@@ -16,21 +17,24 @@
 
                 <ImageView
                     android:id="@+id/backArrow2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="?attr/actionModeCloseDrawable" />
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="20dp"
+                    app:srcCompat="@drawable/ic_backarrow" />
 
                 <TextView
                     android:id="@+id/profileName"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="5dp"
-                    android:layout_marginEnd="289dp"
-                    android:layout_toRightOf="@id/backArrow2"
+                    android:layout_marginEnd="70dp"
+                    android:layout_toEndOf="@id/backArrow2"
                     android:gravity="center"
                     android:text="Team"
+                    android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="30sp"
                     android:textStyle="bold" />

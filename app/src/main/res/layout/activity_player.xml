@@ -9,7 +9,7 @@
     <RelativeLayout
         android:id="@+id/relLayout1"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="wrap_content">
 
         <include layout="@layout/snippet_top_player_toolbar" />
     </RelativeLayout>
@@ -18,17 +18,16 @@
         android:id="@+id/relLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/relLayout1"
         android:background="@android:color/black"
-        android:gravity="center"
-        android:layout_below="@id/relLayout1">
+        android:gravity="center">
 
         <ImageView
             android:id="@+id/imgPlayer"
             android:layout_width="400dp"
             android:layout_height="300dp"
             android:layout_centerHorizontal="true"
-            android:contentDescription="@string/img_player_description"
-            android:src="@drawable/img_kevinlove" />
+            android:contentDescription="@string/img_player_description" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -36,14 +35,14 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@+id/relLayout2"
-        android:background="@color/primaryColor">
+        android:background="@color/primaryDarkColor">
 
         <TextView
             android:id="@+id/txtViewDisplayPlayerName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="@string/txtview_player_name"
+            android:text=""
             android:textColor="@color/primaryTextColor"
             android:textSize="30sp"
             android:textStyle="bold" />
@@ -52,30 +51,14 @@
     <RelativeLayout
         android:id="@+id/relLayout4"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@+id/relLayout3"
-        android:layout_centerInParent="true"
-        android:gravity="center">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/txtview_player_info"
-            android:textColor="@color/primaryColor"
-            android:textSize="20sp" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/relLayout5"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/relLayout4">
+        android:layout_below="@+id/relLayout3"
+        android:background="@color/primaryColor">
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/primaryColor">
+            android:layout_margin="20dp">
 
             <include layout="@layout/layout_player_information" />
 
