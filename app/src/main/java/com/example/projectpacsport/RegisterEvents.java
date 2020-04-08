@@ -173,10 +173,12 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
                     Toast.makeText(RegisterEvents.this, "Please insert the capacity", Toast.LENGTH_SHORT).show();
                 } else if(locationName.isEmpty()) {
                     Toast.makeText(RegisterEvents.this, "Please select a location using the map search bar", Toast.LENGTH_SHORT).show();
-                }else if(filePath == null)
+                }else if(filePath.isEmpty())
                 {
-                    Toast.makeText(RegisterEvents.this, "Please insert the image's link", Toast.LENGTH_SHORT).show();
+                   filePath = "https://www.aimgroupinternational.com/upload/_1600x900/NEW-aim_cover-interna1100x416_sport.jpg";
+                //Toast.makeText(RegisterEvents.this, "Please insert the image's link", Toast.LENGTH_SHORT).show();
                 }
+                Log.e("LINK PHOTO:", "%%%%%%%%%%%%%%%%%% FILE PATH VALUE:" + filePath);
                 try {
                     //Log.e("Date:", "%%%%%%%%%%%%%%%%%% AENTROOOOOOOOOOOOOOO 2: ");
                     if (!nameF.isEmpty() && !timeF.isEmpty() && !capacityF.isEmpty() && !locationName.isEmpty()
