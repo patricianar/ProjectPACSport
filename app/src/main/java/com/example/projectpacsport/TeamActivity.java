@@ -39,7 +39,7 @@ public class TeamActivity extends AppCompatActivity{
         // UI Components
         ImageView imageTeam = findViewById(R.id.imgTeam);
         ToggleButton favoriteButton = findViewById(R.id.btn_favorite);
-
+        ImageView backImageButton = findViewById(R.id.backArrow2);
 
         // Data from bundle
         Bundle bundle = getIntent().getExtras();
@@ -80,6 +80,14 @@ public class TeamActivity extends AppCompatActivity{
 
                     Toast.makeText(mContext, "Your favorite team is removed!", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        // Set onClickListener for back image button
+        backImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
