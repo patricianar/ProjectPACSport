@@ -13,23 +13,18 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Formatter;
-
-public class DetailsMeetupFragment extends Fragment {
+public class DetailsEventFragment extends Fragment {
     private DatabaseHelper myDatabaseHelper;
     private static final String ARG_PARAM1 = "eventId";
-
 
     private String mTitle;
     private int mMeetupId;
 
-    public DetailsMeetupFragment() {
+    public DetailsEventFragment() {
     }
 
-    public static DetailsMeetupFragment newInstance(int mEventId) {
-        DetailsMeetupFragment fragment = new DetailsMeetupFragment();
+    public static DetailsEventFragment newInstance(int mEventId) {
+        DetailsEventFragment fragment = new DetailsEventFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_PARAM1, mEventId);
         fragment.setArguments(args);
@@ -58,27 +53,26 @@ public class DetailsMeetupFragment extends Fragment {
         TextView textViewAddress = view.findViewById(R.id.textViewAddress);
         TextView textViewDate = view.findViewById(R.id.textViewDate);
         TextView textViewSeatsRemaining = view.findViewById(R.id.textViewSeatNumber);
-try {
-    Event meetup = myDatabaseHelper.getEvent(mMeetupId);
-    textViewMeetupTitle.setText(meetup.getName());
-    Log.e("s1", meetup.getName());
-    Picasso.get().load(meetup.getImage()).into(imageViewMeetup);
-    textViewLeague.setText("Playing \n League " + meetup.getTeam1().getLeague());
-    textViewTeam.setText(meetup.getTeam1().getName().trim() + "\nVs\n" + meetup.getTeam2().getName());
-    textViewAddress.setText(meetup.getAddress() + "\n" + meetup.getCity() + " , " + meetup.getProvince() + "\n" + meetup.getPostalCode());
-    textViewDate.setText(String.format(meetup.getDate(), "dd-MM-yyy") + "\n" + meetup.getTime());
-    int remaining = meetup.getCapacity() - myDatabaseHelper.getNumOfAttendants(meetup.getId());
-    textViewSeatsRemaining.setText(String.valueOf(remaining));
-    imageViewClose.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            getActivity().getSupportFragmentManager().beginTransaction().remove(DetailsMeetupFragment.this).commit();
+
+        try {
+            Event meetup = myDatabaseHelper.getEvent(mMeetupId);
+            textViewMeetupTitle.setText(meetup.getName());
+            Picasso.get().load(meetup.getImage()).into(imageViewMeetup);
+            textViewLeague.setText("Playing \n League " + meetup.getTeam1().getLeague());
+            textViewTeam.setText(meetup.getTeam1().getName().trim() + "\nVs\n" + meetup.getTeam2().getName());
+            textViewAddress.setText(meetup.getAddress() + "\n" + meetup.getCity() + " , " + meetup.getProvince() + "\n" + meetup.getPostalCode());
+            textViewDate.setText(String.format(meetup.getDate(), "dd-MM-yyy") + "\n" + meetup.getTime());
+            int remaining = meetup.getCapacity() - myDatabaseHelper.getNumOfAttendants(meetup.getId());
+            textViewSeatsRemaining.setText(String.valueOf(remaining));
+            imageViewClose.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    getActivity().getSupportFragmentManager().beginTransaction().remove(DetailsEventFragment.this).commit();
+                }
+            });
+        } catch (Exception ex) {
+            Log.e("DetailsEvent", ex.getMessage());
         }
-    });
-}catch (Exception ex)
-{
-    Log.e("Sssss", ex.getMessage());
-}
         return view;
     }
 

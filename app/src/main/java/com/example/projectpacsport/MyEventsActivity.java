@@ -2,24 +2,34 @@ package com.example.projectpacsport;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
-public class MyMeetupsActivity extends AppCompatActivity {
-    DatabaseHelper myDatabaseHelper;
-    private ArrayList<Event> myMeetups = new ArrayList<>();
+public class MyEventsActivity extends AppCompatActivity implements MyEventsFragment.OnFragInteractionListener {
+    FragmentManager manager;
+    MyEventsFragment myEventsFragment, myHostingEventsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,42 +39,25 @@ public class MyMeetupsActivity extends AppCompatActivity {
         // Initialize BottomNavigationView
         initBottomNavigationView();
 
-        final TextView textViewTitle = findViewById(R.id.textViewTitle);
-        textViewTitle.setText("My Meetups");
-        final Switch switchMeetup = findViewById(R.id.switchMeetup);
-        switchMeetup.setText("Change to Meetups I'm Hosting");
+        manager = getSupportFragmentManager();
+        myEventsFragment = MyEventsFragment.newInstance(1);
+        myHostingEventsFragment = MyEventsFragment.newInstance(0);
+        manager.beginTransaction().add(R.id.frameMyEvents, myEventsFragment).addToBackStack(null).commit();
 
-        SharedPreferences pref = getSharedPreferences("SessionUser", MODE_PRIVATE);
-        final int currentUser = pref.getInt("UserId", 0);
+        manager.beginTransaction().add(R.id.frameMyEvents, myHostingEventsFragment).addToBackStack(null).commit();
+        showHideFragment(myHostingEventsFragment);
+    }
 
-        myDatabaseHelper = new DatabaseHelper(MyMeetupsActivity.this);
-        myMeetups = myDatabaseHelper.getMyMeetups(currentUser, 1);
+    public void showHideFragment(final Fragment fragment) {
+        FragmentTransaction fragTrans = getSupportFragmentManager().beginTransaction();
+        fragTrans.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
 
-        final MyListMeetupsAdapter myAdapter = new MyListMeetupsAdapter(myMeetups);
-        final RecyclerView recyclerView = findViewById(R.id.recyclerViewMeetups);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(myAdapter);
-
-        switchMeetup.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    textViewTitle.setText("My Hosting Meetups");
-                    switchMeetup.setText("Change to Meetups I'm Going");
-                    myMeetups.clear();
-                    myMeetups = myDatabaseHelper.getMyMeetups(currentUser, 0);
-                    MyListMeetupsAdapter mAdapter = new MyListMeetupsAdapter(myMeetups);
-                    recyclerView.setAdapter(mAdapter);
-                } else {
-                    textViewTitle.setText("My Meetups");
-                    switchMeetup.setText("Change to Meetups I'm Hosting");
-                    myMeetups.clear();
-                    myMeetups = myDatabaseHelper.getMyMeetups(currentUser, 1);
-                    MyListMeetupsAdapter mAdapter = new MyListMeetupsAdapter(myMeetups);
-                    recyclerView.setAdapter(mAdapter);
-                }
-            }
-        });
+        if (fragment.isHidden()) {
+            fragTrans.show(fragment);
+        } else {
+            fragTrans.hide(fragment);
+        }
+        fragTrans.commit();
     }
 
     /**
@@ -97,12 +90,28 @@ public class MyMeetupsActivity extends AppCompatActivity {
                         finish();
                         return true;
                     case R.id.profile_menu:
-                        startActivity(new Intent(getApplicationContext(), MyMeetupsActivity.class));
+                        startActivity(new Intent(getApplicationContext(), MyEventsActivity.class));
                         finish();
                         return true;
                 }
                 return false;
             }
         });
+    }
+
+    @Override
+    public void OnSwitchListener(int choiceSwitch) {
+        FragmentTransaction fragTrans = getSupportFragmentManager().beginTransaction();
+        fragTrans.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
+        if (choiceSwitch == 0) {
+            fragTrans.show(myHostingEventsFragment);
+            fragTrans.hide(myEventsFragment);
+        } else {
+            fragTrans.show(myEventsFragment);
+            fragTrans.hide(myHostingEventsFragment);
+        }
+        myEventsFragment.SwitchValue(false);
+        myHostingEventsFragment.SwitchValue(true);
+        fragTrans.commit();
     }
 }

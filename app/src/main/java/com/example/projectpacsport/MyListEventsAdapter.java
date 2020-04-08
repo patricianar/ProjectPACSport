@@ -155,9 +155,9 @@ public class MyListEventsAdapter extends RecyclerView.Adapter<MyListEventsAdapte
                     @Override
                     public void onClick(View view) {
                         Event event = listEvents.get(getAdapterPosition());
-                        DetailsMeetupFragment detailsMeetupFragment = DetailsMeetupFragment.newInstance(event.getId());
+                        DetailsEventFragment detailsEventFragment = DetailsEventFragment.newInstance(event.getId());
                         AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                        activity.getSupportFragmentManager().beginTransaction().add(R.id.frameDetailsMeetup, detailsMeetupFragment).commit();
+                        activity.getSupportFragmentManager().beginTransaction().add(R.id.frameDetailsMeetup, detailsEventFragment).commit();
                     }
                 });
             } catch (Exception e) {

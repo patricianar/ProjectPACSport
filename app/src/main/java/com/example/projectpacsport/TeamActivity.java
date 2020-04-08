@@ -39,7 +39,7 @@ public class TeamActivity extends AppCompatActivity{
         // UI Components
         ImageView imageTeam = findViewById(R.id.imgTeam);
         ToggleButton favoriteButton = findViewById(R.id.btn_favorite);
-        ImageView backImageButton = findViewById(R.id.backArrow2);
+
 
         // Data from bundle
         Bundle bundle = getIntent().getExtras();
@@ -82,14 +82,6 @@ public class TeamActivity extends AppCompatActivity{
                 }
             }
         });
-
-        // Set onClickListener for back image button
-        backImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
     }
 
     public void getTeamMoreInfo(String url) {
@@ -106,7 +98,7 @@ public class TeamActivity extends AppCompatActivity{
                     String cityName = teamInformation.getString("city");
                     String teamName = teamInformation.getString("name");
 
-                    TextView textView = findViewById(R.id.txtTeamName);
+                    TextView textView = findViewById(R.id.TxtTeamName);
                     textView.setText(cityName + " " + teamName);
 
                     JSONObject stats = teamMoreInfo.getJSONObject("stats"); //called stats objet
@@ -130,9 +122,9 @@ public class TeamActivity extends AppCompatActivity{
                     // Log.e("winPorcentage: ", winPorcentage);
                     // Toast.makeText(TeamActivity.this, "Wins: " + win + " losses: " + losses + " W%: " + winPorcentage, Toast.LENGTH_SHORT).show();
 
-                    TextView txtWins = findViewById(R.id.txtWinsNumber);
+                    TextView txtWins = findViewById(R.id.txtWinNumber);
                     TextView txtLosses = findViewById(R.id.txtLossesNumber);
-                    TextView txtWinPorcentage = findViewById(R.id.txtWinPercentageNumber);
+                    TextView txtWinPorcentage = findViewById(R.id.txtWinPorcentageNumber);
 
                     txtWins.setText(win);
                     txtLosses.setText(losses);
@@ -153,7 +145,7 @@ public class TeamActivity extends AppCompatActivity{
 
                     TextView txtCity = findViewById(R.id.txtCityValue);
                     TextView txtStadium = findViewById(R.id.txtStadiumValue);
-                    TextView txtSocialMedia = findViewById(R.id.txtMediaTypeValue);
+                    TextView txtSocialMedia = findViewById(R.id.textView27txtMediaTypeValue);
                     TextView txtSocialMediaAccount = findViewById(R.id.txtSocialMediaValue);
 
                     txtCity.setText(cityName);

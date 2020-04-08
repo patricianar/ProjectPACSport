@@ -6,16 +6,11 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.text.InputType;
-import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -26,16 +21,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -48,12 +39,9 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.sql.Time;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -66,10 +54,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
-
-import org.w3c.dom.Text;
-
-import static okhttp3.internal.http.HttpDate.parse;
 
 public class RegisterEvents extends FragmentActivity implements OnMapReadyCallback {
 
@@ -174,12 +158,10 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
                     Toast.makeText(RegisterEvents.this, "Please insert the capacity", Toast.LENGTH_SHORT).show();
                 } else if(locationName.isEmpty()) {
                     Toast.makeText(RegisterEvents.this, "Please select a location using the map search bar", Toast.LENGTH_SHORT).show();
-                }else if(filePath.isEmpty())
+                }else if(filePath == null)
                 {
-                   filePath = "https://www.aimgroupinternational.com/upload/_1600x900/NEW-aim_cover-interna1100x416_sport.jpg";
-                //Toast.makeText(RegisterEvents.this, "Please insert the image's link", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterEvents.this, "Please insert the image's link", Toast.LENGTH_SHORT).show();
                 }
-                Log.e("LINK PHOTO:", "%%%%%%%%%%%%%%%%%% FILE PATH VALUE:" + filePath);
                 try {
                     //Log.e("Date:", "%%%%%%%%%%%%%%%%%% AENTROOOOOOOOOOOOOOO 2: ");
                     if (!nameF.isEmpty() && !timeF.isEmpty() && !capacityF.isEmpty() && !locationName.isEmpty()
@@ -247,9 +229,9 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
 //                        startActivity(intent);
                        // Thread.sleep(5000);
 
-                        RelativeLayout eventRegLayout = findViewById(R.id.eventRegLayout);
-                        DetailsMeetupFragment detailsMeetupFragment = DetailsMeetupFragment.newInstance(eventId);
-                        getSupportFragmentManager().beginTransaction().add(R.id.frameDetailsMeetupReg, detailsMeetupFragment).commit();
+                        ConstraintLayout eventRegLayout = findViewById(R.id.eventRegLayout);
+                        DetailsEventFragment detailsEventFragment = DetailsEventFragment.newInstance(eventId);
+                        getSupportFragmentManager().beginTransaction().add(R.id.frameDetailsMeetupReg, detailsEventFragment).commit();
                         Snackbar snackbar = Snackbar.make(eventRegLayout, "Your Meetup Has Been Published!", Snackbar.LENGTH_LONG);
                         snackbar.show();
                     }
@@ -572,7 +554,7 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
                         finish();
                         return true;
                     case R.id.profile_menu:
-                        startActivity(new Intent(getApplicationContext(), MyMeetupsActivity.class));
+                        startActivity(new Intent(getApplicationContext(), MyEventsActivity.class));
                         finish();
                         return true;
                 }

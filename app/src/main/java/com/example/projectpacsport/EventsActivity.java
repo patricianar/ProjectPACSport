@@ -5,24 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.IBinder;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class EventsActivity extends AppCompatActivity {
     private ArrayList<Event> events = new ArrayList<>();
@@ -93,7 +83,7 @@ public class EventsActivity extends AppCompatActivity {
                         finish();
                         return true;
                     case R.id.profile_menu:
-                        startActivity(new Intent(getApplicationContext(), MyMeetupsActivity.class));
+                        startActivity(new Intent(getApplicationContext(), MyEventsActivity.class));
                         finish();
                         return true;
                 }

@@ -28,6 +28,7 @@ import java.io.IOException;
 public class GameHighLightsFragment extends Fragment {
     private static final String DEFAULT_VIDEO_ID = "wlxDVJVk2qc"; // This one can be changed
     private static final long NUMBER_OF_VIDEOS_RETURNED = 1; // Take only 1 video
+    YouTubePlayerView youTubePlayerView;
     private String youtubeAPIKey;
     private String videoId;
 
@@ -84,8 +85,9 @@ public class GameHighLightsFragment extends Fragment {
 
             // Initialize YouTubePlayerView from
             // https://github.com/PierfrancescoSoffritti/android-youtube-player
-            YouTubePlayerView youTubePlayerView = view.findViewById(R.id.youtube_player_view);
+            youTubePlayerView = view.findViewById(R.id.youtube_player_view);
             getLifecycle().addObserver(youTubePlayerView);
+
             youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
                 @Override
                 public void onReady(@NonNull YouTubePlayer youTubePlayer) {
@@ -109,7 +111,20 @@ public class GameHighLightsFragment extends Fragment {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
+        youTubePlayerView.release();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        youTubePlayerView.release();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        youTubePlayerView.release();
     }
 }

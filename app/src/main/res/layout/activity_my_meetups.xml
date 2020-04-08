@@ -2,35 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutMyMeetups"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primaryColor"
-    tools:context=".MyMeetupsActivity">
-
-    <TextView
-        android:id="@+id/textViewTitle"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:background="@color/primaryDarkColor"
-        android:gravity="center"
-        android:textColor="@color/primaryTextColor"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewMeetups"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@color/primaryColor"
-        app:layout_constraintBottom_toTopOf="@id/switchMeetup"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
+    tools:context=".MyEventsActivity">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -48,27 +24,14 @@
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
     <FrameLayout
-        android:id="@+id/frameDetailsMyMeetups"
-        android:layout_width="0dp"
+        android:id="@+id/frameMyEvents"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
-        app:layout_constraintEnd_toEndOf="@+id/recyclerViewMeetups"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textViewTitle"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent">
 
     </FrameLayout>
-
-    <Switch
-        android:id="@+id/switchMeetup"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:textColor="@color/secondaryTextColor"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerViewMeetups" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

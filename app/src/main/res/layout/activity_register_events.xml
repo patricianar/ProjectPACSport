@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/eventRegLayout"
@@ -8,47 +8,12 @@
     android:background="@color/primaryColor"
     tools:context=".RegisterEvents">
 
-    <RelativeLayout
-        android:id="@+id/relLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/txtViewRegisterEventTitle2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/primaryDarkColor"
-            android:text="Event Registration"
-            android:textAlignment="center"
-            android:textColor="@color/primaryTextColor"
-            android:textSize="30dp"
-            android:textStyle="bold" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/relLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/relLayout1">
-
-        <EditText
-            android:id="@+id/editTextName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Name"
-            android:inputType="textPersonName"
-            android:textColor="@color/secondaryTextColor"
-            android:textColorHint="@color/secondaryTextColor" />
-
-    </RelativeLayout>
-
-    <!--
     <TextView
         android:id="@+id/txtViewRegisterEventTitle2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:background="@color/primaryDarkColor"
+        android:gravity="center"
         android:text="Event Registration"
         android:textAlignment="center"
         android:textColor="@color/primaryTextColor"
@@ -57,52 +22,50 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-        -->
 
-    <LinearLayout
-        android:id="@+id/linLayout3"
+    <EditText
+        android:id="@+id/editTextName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="textPersonName"
+        android:textColor="@color/secondaryTextColor"
+        android:textColorHint="@color/secondaryTextColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.535"
+        app:layout_constraintStart_toStartOf="parent"
+        android:maxLength="20"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewRegisterEventTitle2"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@+id/relLayout2"
-        android:background="@color/secondaryColor"
-        android:orientation="horizontal"
-        android:weightSum="3">
+        android:layout_height="200dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relLayout6" />
 
-        <Spinner
-            android:id="@+id/spinnerLeague"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.7"
-            android:entries="@array/leagues_array"
-            android:spinnerMode="dropdown" />
-
-        <Spinner
-            android:id="@+id/spinnerTeam1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.3"
-            android:gravity="center"
-            android:text="vs" />
-
-        <Spinner
-            android:id="@+id/spinnerTeam2"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-    </LinearLayout>
+    <Spinner
+        android:id="@+id/spinnerLeague"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:entries="@array/leagues_array"
+        android:spinnerMode="dropdown"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextName" />
 
     <RelativeLayout
-        android:id="@+id/relLayout4"
+        android:id="@+id/relLayout6"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@+id/linLayout3"
+        android:layout_height="50dp"
         android:background="#fff"
-        android:elevation="10dp">
+        android:elevation="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerLeague">
 
         <ImageView
             android:id="@+id/ic_magnify"
@@ -116,99 +79,127 @@
             android:id="@+id/input_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="0dp"
             android:layout_toRightOf="@+id/ic_magnify"
             android:background="@null"
             android:hint="Enter address, city or zip code"
             android:imeOptions="actionSearch"
             android:textColor="#000"
             android:textSize="15sp" />
-    </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@id/relLayout5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/relLayout4">
-
-        <fragment
-            android:id="@+id/map"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="180dp" />
 
     </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/linLayout6"
-        android:layout_width="match_parent"
+    <Spinner
+        android:id="@+id/spinnerTeam1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/relLayout5"
-        android:layout_margin="10dp"
-        android:background="@color/primaryColor"
-        android:gravity="center"
-        android:orientation="vertical">
+        app:layout_constraintStart_toEndOf="@+id/spinnerLeague"
+        app:layout_constraintTop_toBottomOf="@+id/editTextName" />
 
-        <EditText
-            android:id="@+id/editDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Select a date"
-            android:inputType="textPersonName"
-            android:textColor="@color/secondaryTextColor"
-            android:textColorHint="@color/secondaryTextColor" />
+    <Spinner
+        android:id="@+id/spinnerTeam2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/relLayout6"
+        app:layout_constraintStart_toEndOf="@+id/spinnerTeam1"
+        app:layout_constraintTop_toBottomOf="@+id/editTextName" />
 
-        <EditText
-            android:id="@+id/editTextTime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Time of the event"
-            android:inputType="textPersonName"
-            android:textColor="@color/secondaryTextColor"
-            android:textColorHint="@color/secondaryTextColor" />
+    <EditText
+        android:id="@+id/editTextTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Time of the event"
+        android:inputType="textPersonName"
+        android:textColor="@color/secondaryTextColor"
+        android:textColorHint="@color/secondaryTextColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextCapacity" />
 
-        <EditText
-            android:id="@+id/editTextCapacity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Capacity"
-            android:inputType="textPersonName"
-            android:textColor="@color/secondaryTextColor"
-            android:textColorHint="@color/secondaryTextColor" />
+    <EditText
+        android:id="@+id/editTextCapacity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:ems="10"
+        android:hint="Capacity"
+        android:inputType="textPersonName"
+        android:textColor="@color/secondaryTextColor"
+        android:textColorHint="@color/secondaryTextColor"
+        app:layout_constraintBottom_toTopOf="@+id/editTextTime"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editDate" />
 
-        <EditText
-            android:id="@+id/txtImage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Insert your image's link"
-            android:inputType="textPersonName"
-            android:textColor="@color/secondaryTextColor"
-            android:textColorHint="@color/secondaryTextColor" />
 
-        <Button
-            android:id="@+id/btnSubmit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Submit"
-            android:textColor="@color/primaryLightColor" />
+    <EditText
+        android:id="@+id/txtImage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Insert your image's link"
+        android:inputType="textPersonName"
+        android:textColor="@color/secondaryTextColor"
+        android:textColorHint="@color/secondaryTextColor"
+        app:layout_constraintBottom_toTopOf="@+id/btnSubmit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTime" />
 
-    </LinearLayout>
-
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@color/primaryLightColor"
+        android:text="Submit"
+        android:textColor="@color/primaryTextColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtImage" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
         android:background="@color/primaryDarkColor"
         app:itemBackground="@color/primaryDarkColor"
         app:itemIconTint="@drawable/selector"
         app:itemTextColor="@drawable/selector"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/menu_navigation" />
+
+    <EditText
+        android:id="@+id/editDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Select a date"
+        android:inputType="textPersonName"
+        android:textColor="@color/secondaryTextColor"
+        android:textColorHint="@color/secondaryTextColor"
+        app:layout_constraintBottom_toTopOf="@+id/editTextCapacity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/map" />
 
     <FrameLayout
         android:id="@+id/frameDetailsMeetupReg"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_above="@+id/bottom_navigation" />
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txtViewRegisterEventTitle2"
+        app:layout_constraintVertical_bias="0.0">
 
-</RelativeLayout>
+    </FrameLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

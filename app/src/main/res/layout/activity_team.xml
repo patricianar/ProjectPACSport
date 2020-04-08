@@ -1,547 +1,260 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primaryDarkColor"
     tools:context=".TeamActivity">
-
-    <RelativeLayout
-        android:id="@+id/relLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <include layout="@layout/snippet_top_team_toolbar" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/relLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/relLayout1"
-        android:background="@color/primaryColor">
-
-        <ImageView
-            android:id="@+id/imgTeam"
-            android:layout_width="match_parent"
-            android:layout_height="240dp"
-            app:srcCompat="@mipmap/ic_launcher" />
-
-        <ToggleButton
-            android:id="@+id/btn_favorite"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentEnd="true"
-            android:layout_gravity="center"
-            android:background="@drawable/button_favorite"
-            android:checked="false"
-            android:text=""
-            android:textOff=""
-            android:textOn="" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@id/relLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/relLayout2"
-        android:background="@color/primaryColor">
-
-        <TextView
-            android:id="@+id/txtTeamName"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:fontFamily="sans-serif-medium"
-            android:textAlignment="center"
-            android:textColor="@android:color/white"
-            android:textSize="24sp" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/relLayout4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/relLayout3"
-        android:background="@color/primaryColor">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:background="@color/primaryLightColor">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:paddingStart="8dp"
-                        app:srcCompat="@drawable/ic_city" />
-
-                    <TextView
-                        android:id="@+id/txtCityTeam"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.4"
-                        android:paddingStart="8dp"
-                        android:text="City:"
-                        android:textColor="@color/secondaryTextColor"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/txtCityValue"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.6"
-                        android:textColor="@color/secondaryTextColor"
-                        android:textSize="16sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:paddingStart="8dp"
-                        app:srcCompat="@drawable/ic_stadium" />
-
-                    <TextView
-                        android:id="@+id/txtStadium"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.4"
-                        android:paddingStart="8dp"
-                        android:text="Stadium:"
-                        android:textColor="@color/secondaryTextColor"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/txtStadiumValue"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.6"
-                        android:textColor="@color/secondaryTextColor"
-                        android:textSize="16sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:paddingStart="8dp"
-                        app:srcCompat="@drawable/ic_people" />
-
-                    <TextView
-                        android:id="@+id/txtMediaType"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.4"
-                        android:paddingStart="8dp"
-                        android:text="Social Media: "
-                        android:textColor="@color/secondaryTextColor"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/txtMediaTypeValue"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.6"
-                        android:textColor="@color/secondaryTextColor"
-                        android:textSize="16sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:paddingStart="8dp"
-                        app:srcCompat="@drawable/ic_social" />
-
-                    <TextView
-                        android:id="@+id/txtSocialMediaAccount"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.4"
-                        android:paddingStart="8dp"
-                        android:text="Account:"
-                        android:textColor="@color/secondaryTextColor"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/txtSocialMediaValue"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.6"
-                        android:textColor="@color/secondaryTextColor"
-                        android:textSize="16sp" />
-                </LinearLayout>
-
-            </LinearLayout>
-        </LinearLayout>
-    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/relLayout4"
         android:background="@color/primaryColor"
         android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/relLayout5"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/primaryDarkColor">
+
+            <include layout="@layout/snippet_top_team_toolbar" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relLayout4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/relLayout5"
+            android:background="@color/primaryColor">
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/imgTeam"
+                android:layout_width="350dp"
+                android:layout_height="257dp"
+                android:layout_marginLeft="30dp"
+                android:background="@drawable/border"
+                android:backgroundTint="@color/primaryLightColor"
+                app:srcCompat="@mipmap/ic_launcher"></ImageView>
+
+            <ToggleButton
+                android:id="@+id/btn_favorite"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center"
+                android:background="@drawable/button_favorite"
+                android:checked="false"
+                android:text=""
+                android:textOff=""
+                android:textOn="" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/TxtTeamName"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/primaryDarkColor"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="28dp" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/primaryLightColor"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtCityTeam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="City:"
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txtCityValue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/primaryLightColor"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtStadium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="Stadium:"
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txtStadiumValue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/primaryLightColor"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtMediaType"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="Social Media"
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textView27txtMediaTypeValue"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/primaryLightColor"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtSocialMediaAccount"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="Account "
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txtSocialMediaValue"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="18sp" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/txtStatsTitle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:fontFamily="sans-serif"
+            android:layout_height="50dp"
+            android:layout_marginTop="25dp"
+            android:background="@color/primaryDarkColor"
             android:text="Standing"
             android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
-            android:textColor="@color/primaryTextColor"
-            android:textSize="24sp" />
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="30dp" />
 
         <LinearLayout
+            android:id="@+id/linearLayoutStanding"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="3">
+            android:background="@color/primaryLightColor"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/txtWinPercentageTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Win Percentage"
-                android:textAlignment="center"
-                android:textColor="@android:color/white"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/txtWinsTitle"
-                android:layout_width="0dp"
+                android:id="@+id/txtWinTitle"
+                android:layout_width="30dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Wins"
                 android:textAlignment="center"
-                android:textColor="@android:color/white"
-                android:textSize="16sp" />
+
+                android:textColor="@color/secondaryTextColor" />
 
             <TextView
                 android:id="@+id/txtLossesTitle"
-                android:layout_width="0dp"
+                android:layout_width="30dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Losses"
                 android:textAlignment="center"
-                android:textColor="@android:color/white"
-                android:textSize="16sp" />
+                android:textColor="@color/secondaryTextColor" />
 
+            <TextView
+                android:id="@+id/txtWinPorcentageTitle"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Win Porcentage"
+                android:textAlignment="center"
+                android:textColor="@color/secondaryTextColor" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="3">
+            android:layout_height="40dp"
+            android:background="@color/primaryLightColor"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/txtWinPercentageNumber"
-                android:layout_width="0dp"
+                android:id="@+id/txtWinNumber"
+                android:layout_width="30dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:fontFamily="sans-serif-medium"
                 android:textAlignment="center"
-                android:textColor="@color/primaryTextColor"
-                android:textSize="32sp" />
-
-            <TextView
-                android:id="@+id/txtWinsNumber"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-medium"
-                android:textAlignment="center"
-                android:textColor="@color/primaryTextColor"
-                android:textSize="32sp" />
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/txtLossesNumber"
-                android:layout_width="0dp"
+                android:layout_width="30dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:fontFamily="sans-serif-medium"
                 android:textAlignment="center"
-                android:textColor="@color/primaryTextColor"
-                android:textSize="32sp" />
-
-        </LinearLayout>
-    </LinearLayout>
-
-
-    <!-- DONE
-    <RelativeLayout
-        android:id="@+id/relLayout5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/black">
-    <include layout="@layout/snippet_top_team_toolbar" />
-    </RelativeLayout>
-    -->
-    <!-- DONE
-            <RelativeLayout
-                android:id="@+id/relLayout4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/relLayout5"
-                android:background="@android:color/black">
-                android:gravity="center">
-
-
-                <ImageView
-                    android:id="@+id/imgTeam"
-                    android:layout_width="350dp"
-                    android:layout_height="257dp"
-                    android:layout_marginLeft="30dp"
-                    android:background="@drawable/border"
-                    android:backgroundTint="@color/primaryLightColor"
-                    app:srcCompat="@mipmap/ic_launcher"></ImageView>
-
-                <ToggleButton
-                    android:id="@+id/btn_favorite"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_gravity="center"
-                    android:background="@drawable/button_favorite"
-                    android:checked="false"
-                    android:text=""
-                    android:textOff=""
-                    android:textOn="" />
-            </RelativeLayout>
-
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/txtTeamName"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@color/primaryDarkColor"
+                android:id="@+id/txtWinPorcentageNumber"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:textAlignment="center"
-                android:textColor="@android:color/white"
-                android:textSize="28dp" />
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="18sp" />
+        </LinearLayout>
 
-    -->
-
-    <!--
-    <TextView
-        android:id="@+id/txt"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="25dp"
-        android:background="@color/primaryDarkColor"
-        android:text="Team Information"
-        android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:textSize="30dp" />
-       -->
-    <!--
-            <LinearLayout
-                android:id="@+id/linearLayout1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/primaryLightColor"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/txtCityTeam"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="City:"
-                    android:textColor="@color/secondaryTextColor" />
-
-                <TextView
-                    android:id="@+id/txtCityValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@color/secondaryTextColor" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/primaryLightColor"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/txtStadium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Stadium:"
-                    android:textColor="@color/secondaryTextColor" />
-
-                <TextView
-                    android:id="@+id/txtStadiumValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@color/secondaryTextColor" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/primaryLightColor"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/txtMediaType"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Social Media"
-                    android:textColor="@color/secondaryTextColor" />
-
-                <TextView
-                    android:id="@+id/textView27txtMediaTypeValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@color/secondaryTextColor" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/primaryLightColor"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/txtSocialMediaAccount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Account "
-                    android:textColor="@color/secondaryTextColor" />
-
-                <TextView
-                    android:id="@+id/txtSocialMediaValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@color/secondaryTextColor" />
-            </LinearLayout>
-    -->
-    <!--
-    <TextView
-        android:id="@+id/txtStatsTitle"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="25dp"
-        android:background="@color/primaryDarkColor"
-        android:text="Standing"
-        android:textAlignment="center"
-        android:textColor="@color/secondaryTextColor"
-        android:textSize="30dp" />
-
-    <LinearLayout
-        android:id="@+id/linearLayoutStanding"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/primaryLightColor"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/txtWinTitle"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Wins"
-            android:textAlignment="center"
-
-            android:textColor="@color/secondaryTextColor" />
-
-        <TextView
-            android:id="@+id/txtLossesTitle"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Losses"
-            android:textAlignment="center"
-            android:textColor="@color/secondaryTextColor" />
-
-        <TextView
-            android:id="@+id/txtWinPercentageTitle"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Win Porcentage"
-            android:textAlignment="center"
-            android:textColor="@color/secondaryTextColor" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/primaryLightColor"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/txtWinNumber"
-            android:layout_width="30dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:textAlignment="center"
-            android:textColor="@color/secondaryTextColor" />
-
-        <TextView
-            android:id="@+id/txtLossesNumber"
-            android:layout_width="30dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:textAlignment="center"
-            android:textColor="@color/secondaryTextColor" />
-
-        <TextView
-            android:id="@+id/txtWinPercentageNumber"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:textAlignment="center"
-            android:textColor="@color/secondaryTextColor" />
-    </LinearLayout>
-
-</LinearLayout>
--->
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,7 +2,6 @@ package com.example.projectpacsport;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -31,6 +29,19 @@ public class MyListMeetupsAdapter extends RecyclerView.Adapter<MyListMeetupsAdap
         this.listEvents = listEvents;
     }
 
+    public ArrayList<Event> getData() {
+        return listEvents;
+    }
+
+    public void removeItem(int position) {
+        listEvents.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    public void restoreItem(Event event, int position) {
+        listEvents.add(position, event);
+        notifyItemInserted(position);
+    }
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -47,7 +58,6 @@ public class MyListMeetupsAdapter extends RecyclerView.Adapter<MyListMeetupsAdap
             final Context context = holder.tvEventName.getContext();
             final Event event = listEvents.get(position);
 
-           // Log.e("aaaaa", event.getCapacity() + event.getAttendants() + " ");
             Picasso.get().load(event.getImage()).into(holder.imageViewEvent);
             holder.tvEventName.setText(event.getName());
             String[] address = event.getAddress().split(",");
@@ -62,7 +72,7 @@ public class MyListMeetupsAdapter extends RecyclerView.Adapter<MyListMeetupsAdap
             holder.tvEventRemaining.setText(String.valueOf(capacity));
 
         } catch (Exception e) {
-            Log.e("Adapter aaa:", e.getMessage() );
+            Log.e("Adapter :", e.getMessage() );
         }
     }
 
@@ -92,9 +102,9 @@ public class MyListMeetupsAdapter extends RecyclerView.Adapter<MyListMeetupsAdap
                     @Override
                     public void onClick(View view) {
                         Event event = listEvents.get(getAdapterPosition());
-                        DetailsMeetupFragment detailsMeetupFragment = DetailsMeetupFragment.newInstance(event.getId());
+                        DetailsEventFragment detailsEventFragment = DetailsEventFragment.newInstance(event.getId());
                         AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                        activity.getSupportFragmentManager().beginTransaction().add(R.id.frameDetailsMyMeetups, detailsMeetupFragment).commit();
+                        activity.getSupportFragmentManager().beginTransaction().add(R.id.frameMyEvents, detailsEventFragment).commit();
                     }
                 });
             } catch (Exception e) {

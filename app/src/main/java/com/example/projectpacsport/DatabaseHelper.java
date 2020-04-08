@@ -281,8 +281,8 @@ public class DatabaseHelper {
                 //event.setTeam1(team);
                 //team = getTeamsInfo(result.getInt("Event_team2_id"));
                 //event.setTeam2(team);
-                event.setAttendants(getNumOfAttendants(event.getId()));
-                Log.e("atte", event.getAttendants() + "");
+                //event.setAttendants(getNumOfAttendants(event.getId()));
+                //Log.e("atte", event.getAttendants() + "");
 
                 allEvents.add(event);
             }
