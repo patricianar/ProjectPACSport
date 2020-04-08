@@ -7,13 +7,11 @@
     <string name="txt_title_register">BECOME OUR MEMBER TODAY!</string>
     <string name="btn_register">Sign up</string>
     <string name="img_player_description">Player Image</string>
-    <string name="txtview_player_info">INFORMATION</string>
     <string name="txtview_birthday">Birthday:</string>
     <string name="txtview_birth_place">Birth Place:</string>
     <string name="txtview_player_height">Height:</string>
     <string name="txtview_player_weight">Weight:</string>
     <string name="txtview_player_team">Team:</string>
-    <string name="txtview_player_name">Kevin Love</string>
     <string name="title_activity_game">GameActivity</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>

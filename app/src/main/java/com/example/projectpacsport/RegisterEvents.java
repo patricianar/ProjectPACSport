@@ -27,6 +27,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -246,7 +247,7 @@ public class RegisterEvents extends FragmentActivity implements OnMapReadyCallba
 //                        startActivity(intent);
                        // Thread.sleep(5000);
 
-                        ConstraintLayout eventRegLayout = findViewById(R.id.eventRegLayout);
+                        RelativeLayout eventRegLayout = findViewById(R.id.eventRegLayout);
                         DetailsMeetupFragment detailsMeetupFragment = DetailsMeetupFragment.newInstance(eventId);
                         getSupportFragmentManager().beginTransaction().add(R.id.frameDetailsMeetupReg, detailsMeetupFragment).commit();
                         Snackbar snackbar = Snackbar.make(eventRegLayout, "Your Meetup Has Been Published!", Snackbar.LENGTH_LONG);
